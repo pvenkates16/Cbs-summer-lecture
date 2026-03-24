@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Classical vs Quantum — Interactive Demos</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #06060a;
+  --panel: #0c0c14;
+  --classical: #ff4d6a;
+  --classical-dim: #3a1520;
+  --quantum: #00e5cc;
+  --quantum-dim: #0a2e2a;
+  --found: #4dff91;
+  --text: #e8e6df;
+  --muted: #4e4c62;
+  --gold: #ffd644;
+  --orange: #ff8822;
+  --dim: #1a1a28;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;min-height:100vh;overflow-x:hidden}
+.site-header{text-align:center;padding:20px 16px 8px}
+.site-header h1{font-size:clamp(20px,4vw,34px);font-weight:800;letter-spacing:-0.02em;background:linear-gradient(135deg,var(--text) 0%,var(--gold) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.site-header p{font-size:12px;color:var(--muted);margin-top:3px;font-family:'JetBrains Mono',monospace}
+
+/* Tab nav */
+.tab-nav{display:flex;gap:4px;justify-content:center;padding:4px;background:rgba(255,255,255,0.04);border-radius:10px;margin:8px auto 14px;max-width:500px;border:1px solid rgba(255,255,255,0.06)}
+.tab-btn{flex:1;padding:9px 14px;border:none;border-radius:7px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s;background:transparent;color:var(--muted);display:flex;align-items:center;justify-content:center;gap:6px}
+.tab-btn:hover{color:rgba(255,255,255,0.7)}
+.tab-btn.active{background:rgba(255,255,255,0.1);color:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.3)}
+.demo-page{display:none}
+.demo-page.active{display:block}
+
+/* Shared panel styles */
+.panels{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:8px 12px;max-width:1300px;margin:0 auto}
+@media(max-width:750px){.panels{grid-template-columns:1fr}}
+.panel{background:var(--panel);border-radius:12px;border:1px solid rgba(255,255,255,0.05);overflow:hidden}
+.panel-header{padding:10px 14px 6px;display:flex;justify-content:space-between;align-items:center}
+.panel-title{font-size:14px;font-weight:700}
+.panel-title.classical{color:var(--classical)}
+.panel-title.quantum{color:var(--quantum)}
+.badge{font-family:'JetBrains Mono',monospace;font-size:10px;padding:2px 7px;border-radius:4px;font-weight:600}
+.badge.classical{background:rgba(255,77,106,0.15);color:var(--classical)}
+.badge.quantum{background:rgba(0,229,204,0.15);color:var(--quantum)}
+.status-bar{padding:8px 14px 10px;font-family:'JetBrains Mono',monospace;font-size:11px;display:flex;justify-content:space-between;align-items:center}
+.status-text{color:var(--muted)}
+.status-text.found{color:var(--found);font-weight:600}
+.step-count{font-weight:700;font-size:12px}
+.step-count.classical{color:var(--classical)}
+.step-count.quantum{color:var(--quantum)}
+.controls{text-align:center;padding:8px 16px 14px;display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap}
+.btn{font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;padding:9px 28px;border:none;border-radius:7px;cursor:pointer;transition:all 0.2s}
+.btn-start{background:linear-gradient(135deg,var(--classical),var(--quantum));color:#000}
+.btn-start:hover{transform:scale(1.04);filter:brightness(1.1)}
+.btn-start:disabled{opacity:0.4;cursor:default;transform:none}
+.btn-reset{background:rgba(255,255,255,0.06);color:var(--muted);border:1px solid rgba(255,255,255,0.1)}
+.btn-reset:hover{background:rgba(255,255,255,0.1);color:var(--text)}
+.speed-ctrl{display:flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted)}
+.speed-ctrl input{width:80px;accent-color:var(--quantum)}
+.result-banner{text-align:center;padding:4px 16px 10px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--gold);min-height:20px}
+.demo-subtitle{text-align:center;padding:6px 16px 10px;font-size:13px;color:var(--muted);font-family:'JetBrains Mono',monospace}
+
+/* ═══ SEARCH-specific ═══ */
+.canvas-wrap{width:100%;height:340px;position:relative}
+.canvas-wrap canvas{width:100%!important;height:100%!important;display:block}
+
+/* ═══ PASSWORD-specific ═══ */
+.target-display{text-align:center;padding:8px 16px 10px}
+.target-display .label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;font-family:'JetBrains Mono',monospace}
+.target-display .password{font-family:'JetBrains Mono',monospace;font-size:32px;font-weight:700;letter-spacing:0.15em;color:var(--gold);margin-top:2px}
+.target-display .password .hidden{color:var(--muted)}
+.target-display .hash{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);margin-top:3px}
+.attempt-display{padding:6px 14px;font-family:'JetBrains Mono',monospace;text-align:center}
+.attempt-display .current-guess{font-size:28px;font-weight:700;letter-spacing:0.12em;min-height:38px;transition:color 0.1s}
+.current-guess.checking{color:var(--classical)}
+.current-guess.quantum-state{color:var(--quantum)}
+.current-guess.amplified{color:var(--gold)}
+.current-guess.found{color:var(--found)}
+.grid-wrap{padding:4px 10px;height:210px;overflow:hidden;position:relative}
+.char-grid{display:grid;gap:1px;width:100%;height:100%}
+.char-grid .cell{border-radius:2px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:600;transition:background 0.12s,color 0.12s,transform 0.15s,opacity 0.12s;background:var(--dim);color:var(--muted);opacity:0.8}
+.cell.checked{background:#1a0a10;color:#3a2030;opacity:0.4;transform:scale(0.85)}
+.cell.checking{background:var(--classical);color:#fff;transform:scale(1.1);opacity:1}
+.cell.superposition{background:rgba(0,229,204,0.12);color:var(--quantum);opacity:0.9}
+.cell.amplified{background:rgba(255,214,68,0.25);color:var(--gold);transform:scale(1.15);opacity:1}
+.cell.oracle-hit{background:var(--orange);color:#fff;transform:scale(1.15);opacity:1}
+.cell.found{background:var(--found);color:#000;transform:scale(1.2);opacity:1;font-weight:700}
+.cell.dimmed{background:rgba(10,10,20,0.6);color:#1a1a28;opacity:0.25;transform:scale(0.7)}
+.explainer{max-width:1300px;margin:0 auto;padding:6px 12px 16px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:750px){.explainer{grid-template-columns:1fr}}
+.explainer .box{background:var(--panel);border-radius:10px;border:1px solid rgba(255,255,255,0.05);padding:10px 12px;font-size:11px;color:var(--muted);line-height:1.6}
+.explainer .box strong{font-weight:600}
+.explainer .box strong.c{color:var(--classical)}
+.explainer .box strong.q{color:var(--quantum)}
+</style>
+</head>
+<body>
+
+<div class="site-header">
+  <h1>Classical vs Quantum Algorithms</h1>
+  <p>interactive side-by-side comparisons</p>
+</div>
+
+<div class="tab-nav">
+  <button class="tab-btn active" onclick="switchDemo('search')">🔍 Database Search</button>
+  <button class="tab-btn" onclick="switchDemo('password')">🔐 Password Cracking</button>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════ -->
+<!--  DEMO 1: DATABASE SEARCH (Three.js)                           -->
+<!-- ════════════════════════════════════════════════════════════════ -->
+<div class="demo-page active" id="demo-search">
+  <div class="demo-subtitle">N = 100 items · O(N) vs O(√N) · target at index 85</div>
+  <div class="panels">
+    <div class="panel">
+      <div class="panel-header"><div class="panel-title classical">Classical Linear Search</div><div class="badge classical">O(N) = 100 worst</div></div>
+      <div class="canvas-wrap" id="s-classical-canvas"></div>
+      <div class="status-bar"><div class="status-text" id="s-c-status">Ready</div><div class="step-count classical" id="s-c-steps">0 / 100</div></div>
+    </div>
+    <div class="panel">
+      <div class="panel-header"><div class="panel-title quantum">Grover's Algorithm</div><div class="badge quantum">O(√N) ≈ 8 iter</div></div>
+      <div class="canvas-wrap" id="s-quantum-canvas"></div>
+      <div class="status-bar"><div class="status-text" id="s-q-status">Ready</div><div class="step-count quantum" id="s-q-steps">0 / 8</div></div>
+    </div>
+  </div>
+  <div class="result-banner" id="s-result"></div>
+  <div class="controls">
+    <button class="btn btn-start" id="s-start" onclick="searchStart()">Run Both</button>
+    <button class="btn btn-reset" onclick="searchReset()">Reset</button>
+    <div class="speed-ctrl"><label>Quantum speed</label><input type="range" min="5" max="100" value="100" step="5" id="s-speed"><span id="s-speed-label">1.00×</span></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════ -->
+<!--  DEMO 2: PASSWORD CRACKING                                     -->
+<!-- ════════════════════════════════════════════════════════════════ -->
+<div class="demo-page" id="demo-password">
+  <div class="target-display">
+    <div class="label">Target password (hidden from algorithms)</div>
+    <div class="password" id="p-password"><span class="hidden">??</span></div>
+    <div class="hash">algorithms only see the hash — checking guesses against it</div>
+  </div>
+  <div class="panels">
+    <div class="panel">
+      <div class="panel-header"><div class="panel-title classical">Classical Brute Force</div><div class="badge classical">O(N) = 1,296 worst</div></div>
+      <div class="attempt-display"><div class="current-guess" id="p-c-guess">--</div></div>
+      <div class="grid-wrap"><div class="char-grid" id="p-c-grid" style="grid-template-columns:repeat(36,1fr);grid-template-rows:repeat(36,1fr)"></div></div>
+      <div class="status-bar"><div class="status-text" id="p-c-status">Ready</div><div class="step-count classical" id="p-c-steps">0 / 1,296</div></div>
+    </div>
+    <div class="panel">
+      <div class="panel-header"><div class="panel-title quantum">Grover's Algorithm</div><div class="badge quantum">O(√N) ≈ 28 iter</div></div>
+      <div class="attempt-display"><div class="current-guess quantum-state" id="p-q-guess">--</div></div>
+      <div class="grid-wrap"><div class="char-grid" id="p-q-grid" style="grid-template-columns:repeat(36,1fr);grid-template-rows:repeat(36,1fr)"></div></div>
+      <div class="status-bar"><div class="status-text" id="p-q-status">Ready</div><div class="step-count quantum" id="p-q-steps">0 / 28</div></div>
+    </div>
+  </div>
+  <div class="result-banner" id="p-result"></div>
+  <div class="controls">
+    <button class="btn btn-start" id="p-start" onclick="pwStart()">Crack It</button>
+    <button class="btn btn-reset" onclick="pwReset()">Reset</button>
+    <div class="speed-ctrl"><label>Quantum speed</label><input type="range" min="5" max="100" value="100" step="5" id="p-speed"><span id="p-speed-label">1.00×</span></div>
+  </div>
+  <div class="explainer">
+    <div class="box"><strong class="c">Classical brute force</strong> tries every combination: aa, ab, ac... With 36 chars (a-z, 0-9) and 2 positions → 1,296 possibilities. Average: N/2 = 648 guesses.</div>
+    <div class="box"><strong class="q">Grover's algorithm</strong> puts all 1,296 guesses into superposition. The oracle checks hash(guess) = target hash. After √1296 ≈ 28 iterations, measurement collapses to the password.</div>
+  </div>
+</div>
+
+<!-- ═══ SCRIPTS ═══ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+// ════════════════════════════════════════
+//  TAB SWITCHING
+// ════════════════════════════════════════
+let currentDemo = 'search';
+function switchDemo(name) {
+  currentDemo = name;
+  document.querySelectorAll('.demo-page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('demo-' + name).classList.add('active');
+  event.target.classList.add('active');
+  if (name === 'search' && !searchInitialized) initSearch();
+  if (name === 'search' && sPanel.c) {
+    sPanel.c.renderer.setSize(sPanel.c.container.clientWidth, sPanel.c.container.clientHeight);
+    sPanel.q.renderer.setSize(sPanel.q.container.clientWidth, sPanel.q.container.clientHeight);
+  }
+}
+
+// Slider helpers
+document.getElementById('s-speed').addEventListener('input', e => {
+  document.getElementById('s-speed-label').textContent = (parseFloat(e.target.value)/100).toFixed(2)+'×';
+});
+document.getElementById('p-speed').addEventListener('input', e => {
+  document.getElementById('p-speed-label').textContent = (parseFloat(e.target.value)/100).toFixed(2)+'×';
+});
+function sQSpeed(){ return parseFloat(document.getElementById('s-speed').value)/100; }
+function pQSpeed(){ return parseFloat(document.getElementById('p-speed').value)/100; }
+
+// ════════════════════════════════════════
+//  DEMO 1: DATABASE SEARCH (Three.js)
+// ════════════════════════════════════════
+const S_N=100, S_COLS=10, S_ROWS=10, S_TARGET=85;
+const S_GITERS=Math.round(Math.PI/4*Math.sqrt(S_N));
+const S_SPACING=0.72, S_CUBE=0.52;
+const SC={
+  unch:new THREE.Color(0x2a2a3e), cChk:new THREE.Color(0xff4d6a), cGrey:new THREE.Color(0x111118),
+  qSup:new THREE.Color(0x00e5cc), qAmp:new THREE.Color(0xffd644), qDim:new THREE.Color(0x0a1612),
+  found:new THREE.Color(0x4dff91), orange:new THREE.Color(0xff8800),
+};
+
+let sPanel={c:null,q:null}, searchInitialized=false;
+let sC={running:false,step:-1,found:false,timer:0};
+let sQ={running:false,iter:0,phase:'idle',found:false,timer:0,amps:null,subphase:'oracle',diffApplied:false};
+let sBothDone=false;
+
+function makeSearchPanel(id){
+  const container=document.getElementById(id);
+  const w=container.clientWidth||500, h=container.clientHeight||340;
+  const scene=new THREE.Scene(); scene.background=new THREE.Color(0x0c0c14);
+  const camera=new THREE.PerspectiveCamera(40,w/h,0.1,200);
+  camera.position.set(0,7,10); camera.lookAt(0,-0.5,0);
+  const renderer=new THREE.WebGLRenderer({antialias:true});
+  renderer.setSize(w,h); renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  container.appendChild(renderer.domElement);
+  scene.add(new THREE.AmbientLight(0xffffff,0.4));
+  const d=new THREE.DirectionalLight(0xffffff,0.65);d.position.set(4,8,5);scene.add(d);
+  const p=new THREE.PointLight(0xffffff,0.25);p.position.set(-3,5,4);scene.add(p);
+  const group=new THREE.Group(), cubes=[], bars=[];
+  const ox=-(S_COLS-1)*S_SPACING/2, oz=-(S_ROWS-1)*S_SPACING/2;
+  for(let i=0;i<S_N;i++){
+    const col=i%S_COLS, row=Math.floor(i/S_COLS);
+    const geo=new THREE.BoxGeometry(S_CUBE,S_CUBE,S_CUBE);
+    const mat=new THREE.MeshPhongMaterial({color:SC.unch,emissive:0,shininess:50,transparent:true,opacity:0.9});
+    const cube=new THREE.Mesh(geo,mat);
+    cube.position.set(ox+col*S_SPACING,0,oz+row*S_SPACING);
+    cube.userData={baseY:0}; group.add(cube); cubes.push(cube);
+    const bG=new THREE.BoxGeometry(S_CUBE*0.55,0.01,S_CUBE*0.55);
+    const bM=new THREE.MeshPhongMaterial({color:0x00e5cc,emissive:0,transparent:true,opacity:0});
+    const bar=new THREE.Mesh(bG,bM);
+    bar.position.set(ox+col*S_SPACING,-0.45,oz+row*S_SPACING);
+    group.add(bar); bars.push(bar);
+  }
+  scene.add(group); group.position.y=-1.5;
+  return {scene,camera,renderer,cubes,bars,group,container};
+}
+
+function initSearch(){
+  sPanel.c=makeSearchPanel('s-classical-canvas');
+  sPanel.q=makeSearchPanel('s-quantum-canvas');
+  searchInitialized=true;
+}
+initSearch();
+
+function searchResetCubes(p){
+  p.cubes.forEach(c=>{c.material.color.copy(SC.unch);c.material.emissive.set(0);c.material.opacity=0.9;c.position.y=c.userData.baseY;c.scale.set(1,1,1);});
+  p.bars.forEach(b=>{b.scale.y=0.01;b.material.opacity=0;b.material.color.set(0x00e5cc);});
+}
+function searchReset(){
+  sC={running:false,step:-1,found:false,timer:0};
+  sQ={running:false,iter:0,phase:'idle',found:false,timer:0,amps:null,subphase:'oracle',diffApplied:false};
+  sBothDone=false;
+  if(sPanel.c)searchResetCubes(sPanel.c);
+  if(sPanel.q)searchResetCubes(sPanel.q);
+  document.getElementById('s-c-status').textContent='Ready';
+  document.getElementById('s-c-status').className='status-text';
+  document.getElementById('s-c-steps').textContent='0 / 100';
+  document.getElementById('s-q-status').textContent='Ready';
+  document.getElementById('s-q-status').className='status-text';
+  document.getElementById('s-q-steps').textContent=`0 / ${S_GITERS}`;
+  document.getElementById('s-result').textContent='';
+  document.getElementById('s-start').disabled=false;
+}
+function searchStart(){
+  searchReset();
+  document.getElementById('s-start').disabled=true;
+  sC={running:true,step:-1,found:false,timer:0};
+  sQ={running:true,iter:0,phase:'superposition',found:false,timer:0,amps:new Float32Array(S_N).fill(1/Math.sqrt(S_N)),subphase:'oracle',diffApplied:false};
+}
+function sCheckDone(){
+  if(sC.found&&sQ.found&&!sBothDone){
+    sBothDone=true;
+    document.getElementById('s-result').textContent=`Classical: ${sC.step+1} steps · Grover: ${S_GITERS} iterations · ${Math.round((sC.step+1)/S_GITERS)}× speedup`;
+  }
+}
+
+const S_TICK=0.35;
+function lerp(a,b,t){return a+(b-a)*t;}
+
+function updateSearchClassical(dt){
+  if(!sC.running||sC.found)return;
+  sC.timer+=dt;
+  if(sC.timer>=S_TICK){
+    sC.timer-=S_TICK; sC.step++;
+    const i=sC.step; if(i>=S_N){sC.running=false;return;}
+    const cube=sPanel.c.cubes[i];
+    if(i>0&&i-1!==S_TARGET){const prev=sPanel.c.cubes[i-1];prev.material.color.copy(SC.cGrey);prev.material.emissive.set(0);prev.material.opacity=0.25;prev.scale.set(0.7,0.7,0.7);}
+    if(i===S_TARGET){
+      sC.found=true;sC.running=false;
+      if(i>0){const prev=sPanel.c.cubes[i-1];prev.material.color.copy(SC.cGrey);prev.material.emissive.set(0);prev.material.opacity=0.25;prev.scale.set(0.7,0.7,0.7);}
+      cube.material.color.copy(SC.found);cube.material.emissive.set(0x1a4d2a);cube.scale.set(1.3,1.3,1.3);cube.position.y=cube.userData.baseY+0.5;
+      document.getElementById('s-c-status').textContent=`Found at index ${S_TARGET}!`;
+      document.getElementById('s-c-status').className='status-text found'; sCheckDone();
+    } else {
+      cube.material.color.copy(SC.cChk);cube.material.emissive.set(0x3a0a14);cube.material.opacity=0.95;cube.scale.set(1.05,1.05,1.05);
+      document.getElementById('s-c-status').textContent=`Checking index ${i}...`;
+    }
+    document.getElementById('s-c-steps').textContent=`${sC.step+1} / 100`;
+  }
+}
+
+function updateSearchQuantum(dt){
+  if(!sQ.running||sQ.found)return;
+  sQ.timer+=dt*sQSpeed();
+  const amps=sQ.amps, lr=0.12;
+  if(sQ.phase==='superposition'){
+    document.getElementById('s-q-status').textContent='Hadamard → superposition';
+    sPanel.q.cubes.forEach(c=>{c.material.color.lerp(SC.qSup,0.08);c.material.emissive.lerp(new THREE.Color(0x00524a),0.08);c.material.opacity=lerp(c.material.opacity,0.95,0.08);});
+    sPanel.q.bars.forEach(b=>{b.scale.y=lerp(b.scale.y,6,0.08);b.material.opacity=lerp(b.material.opacity,0.35,0.08);});
+    if(sQ.timer>0.8){sQ.timer=0;sQ.phase='iterate';sQ.iter=0;sQ.subphase='oracle';sQ.diffApplied=false;}
+    return;
+  }
+  if(sQ.phase==='iterate'){
+    let maxP=0;const probs=new Float32Array(S_N);
+    for(let i=0;i<S_N;i++){probs[i]=amps[i]*amps[i];if(probs[i]>maxP)maxP=probs[i];}
+    sPanel.q.cubes.forEach((c,i)=>{const ratio=maxP>0?probs[i]/maxP:1/S_N;
+      if(i===S_TARGET){const t=new THREE.Color().lerpColors(SC.qSup,SC.qAmp,Math.min(ratio,1));c.material.color.lerp(t,lr);c.material.emissive.lerp(new THREE.Color(0x4a3800),lr);const sc=1+ratio*0.35;c.scale.set(lerp(c.scale.x,sc,lr),lerp(c.scale.y,sc,lr),lerp(c.scale.z,sc,lr));c.position.y=lerp(c.position.y,c.userData.baseY+ratio*0.5,lr);c.material.opacity=lerp(c.material.opacity,1,lr);}
+      else{const t=new THREE.Color().lerpColors(SC.qDim,SC.qSup,Math.min(ratio*4,1));c.material.color.lerp(t,lr);c.material.emissive.lerp(new THREE.Color(0x001510),lr*0.5);c.material.opacity=lerp(c.material.opacity,0.5+ratio*1.5,lr);const sc=0.8+ratio*0.6;c.scale.set(lerp(c.scale.x,sc,lr*0.5),lerp(c.scale.y,sc,lr*0.5),lerp(c.scale.z,sc,lr*0.5));}
+    });
+    sPanel.q.bars.forEach((b,i)=>{const th=Math.max((maxP>0?probs[i]/maxP:1)*35,0.3);b.scale.y=lerp(b.scale.y,th,lr);
+      if(i===S_TARGET){b.material.color.lerp(new THREE.Color(0xffd644),lr);b.material.opacity=lerp(b.material.opacity,0.75,lr);}
+      else{b.material.color.lerp(new THREE.Color(0x00e5cc),lr*0.5);b.material.opacity=lerp(b.material.opacity,0.12,lr);}
+    });
+    if(sQ.subphase==='oracle'){
+      sPanel.q.cubes[S_TARGET].material.color.lerp(SC.orange,0.15);
+      document.getElementById('s-q-status').textContent=`Iter ${sQ.iter+1}/${S_GITERS}: Oracle`;
+      if(sQ.timer>S_TICK*0.4){amps[S_TARGET]*=-1;sQ.subphase='diffuse';sQ.diffApplied=false;}
+    }
+    if(sQ.subphase==='diffuse'){
+      document.getElementById('s-q-status').textContent=`Iter ${sQ.iter+1}/${S_GITERS}: Amplify`;
+      if(!sQ.diffApplied){let mean=0;for(let i=0;i<S_N;i++)mean+=amps[i];mean/=S_N;for(let i=0;i<S_N;i++)amps[i]=2*mean-amps[i];sQ.diffApplied=true;}
+    }
+    if(sQ.timer>=S_TICK){sQ.timer-=S_TICK;sQ.iter++;document.getElementById('s-q-steps').textContent=`${sQ.iter} / ${S_GITERS}`;
+      if(sQ.iter>=S_GITERS){sQ.phase='measure';sQ.timer=0;}else{sQ.subphase='oracle';sQ.diffApplied=false;}}
+    return;
+  }
+  if(sQ.phase==='measure'){
+    document.getElementById('s-q-status').textContent='Measuring...';
+    if(sQ.timer>0.3&&!sQ.found){
+      sQ.found=true;sQ.running=false;
+      sPanel.q.cubes.forEach((c,i)=>{if(i===S_TARGET){c.material.color.copy(SC.found);c.material.emissive.set(0x1a6d3a);c.scale.set(1.3,1.3,1.3);c.position.y=c.userData.baseY+0.6;c.material.opacity=1;}else{c.material.color.set(0x151520);c.material.emissive.set(0);c.material.opacity=0.35;c.scale.set(0.75,0.75,0.75);}});
+      sPanel.q.bars.forEach((b,i)=>{if(i===S_TARGET){b.material.color.set(0x4dff91);b.material.opacity=0.9;b.scale.y=50;}else{b.material.opacity=0;b.scale.y=0.01;}});
+      document.getElementById('s-q-status').textContent=`Found at index ${S_TARGET}!`;
+      document.getElementById('s-q-status').className='status-text found'; sCheckDone();
+    }
+  }
+}
+
+// ════════════════════════════════════════
+//  DEMO 2: PASSWORD CRACKING
+// ════════════════════════════════════════
+const CHARS='abcdefghijklmnopqrstuvwxyz0123456789';
+const NC=CHARS.length, PN=NC*NC;
+const PW_GITERS=Math.round(Math.PI/4*Math.sqrt(PN));
+let PW_SECRET, PW_IDX;
+function pw_idx2pw(i){return CHARS[Math.floor(i/NC)]+CHARS[i%NC];}
+function pickPW(){PW_IDX=Math.floor(Math.random()*PN);PW_SECRET=pw_idx2pw(PW_IDX);}
+pickPW();
+
+const pCG=document.getElementById('p-c-grid'), pQG=document.getElementById('p-q-grid');
+const pCC=[], pQC=[];
+for(let i=0;i<PN;i++){
+  const a=document.createElement('div');a.className='cell';pCG.appendChild(a);pCC.push(a);
+  const b=document.createElement('div');b.className='cell';pQG.appendChild(b);pQC.push(b);
+}
+
+let pC={running:false,step:-1,found:false,timer:0};
+let pQ={running:false,iter:0,phase:'idle',found:false,timer:0,subphase:'oracle',diffApplied:false};
+let pBothDone=false;
+
+function pwReset(){
+  pickPW();
+  pC={running:false,step:-1,found:false,timer:0};
+  pQ={running:false,iter:0,phase:'idle',found:false,timer:0,subphase:'oracle',diffApplied:false};
+  pBothDone=false;
+  pCC.forEach(c=>{c.className='cell';c.textContent='';c.style.opacity='';});
+  pQC.forEach(c=>{c.className='cell';c.textContent='';c.style.opacity='';});
+  document.getElementById('p-c-guess').textContent='--';document.getElementById('p-c-guess').className='current-guess';
+  document.getElementById('p-c-status').textContent='Ready';document.getElementById('p-c-status').className='status-text';
+  document.getElementById('p-c-steps').textContent='0 / 1,296';
+  document.getElementById('p-q-guess').textContent='--';document.getElementById('p-q-guess').className='current-guess quantum-state';
+  document.getElementById('p-q-status').textContent='Ready';document.getElementById('p-q-status').className='status-text';
+  document.getElementById('p-q-steps').textContent=`0 / ${PW_GITERS}`;
+  document.getElementById('p-password').innerHTML='<span class="hidden">??</span>';
+  document.getElementById('p-result').textContent='';
+  document.getElementById('p-start').disabled=false;
+}
+function pwStart(){
+  pwReset();document.getElementById('p-start').disabled=true;
+  pC={running:true,step:-1,found:false,timer:0};
+  pQ={running:true,iter:0,phase:'superposition',found:false,timer:0,subphase:'oracle',diffApplied:false};
+}
+function pCheckDone(){
+  if(pC.found&&pQ.found&&!pBothDone){
+    pBothDone=true;
+    document.getElementById('p-result').textContent=`Brute force: ${(pC.step+1).toLocaleString()} guesses · Grover: ${PW_GITERS} iter · ${Math.round((pC.step+1)/PW_GITERS)}× speedup`;
+    document.getElementById('p-password').textContent=PW_SECRET;
+  }
+}
+function pwReveal(panel,idx){
+  const cells=panel==='c'?pCC:pQC;
+  cells[idx].className='cell found';cells[idx].textContent=PW_SECRET;
+  const g=document.getElementById('p-'+panel+'-guess');g.textContent=PW_SECRET;g.className='current-guess found';
+  document.getElementById('p-'+panel+'-status').textContent=`Cracked: "${PW_SECRET}"`;
+  document.getElementById('p-'+panel+'-status').className='status-text found';
+}
+
+const PW_TICK=0.06;
+function updatePwClassical(dt){
+  if(!pC.running||pC.found)return;
+  pC.timer+=dt;
+  if(pC.timer>=PW_TICK){
+    pC.timer-=PW_TICK;pC.step++;const i=pC.step;if(i>=PN){pC.running=false;return;}
+    const pw=pw_idx2pw(i);
+    if(i>0&&i-1!==PW_IDX){pCC[i-1].className='cell checked';pCC[i-1].textContent='';}
+    if(i===PW_IDX){pC.found=true;pC.running=false;pwReveal('c',i);pCheckDone();}
+    else{pCC[i].className='cell checking';pCC[i].textContent=pw;
+      document.getElementById('p-c-guess').textContent=pw;document.getElementById('p-c-guess').className='current-guess checking';
+      document.getElementById('p-c-status').textContent=`Trying "${pw}"...`;}
+    document.getElementById('p-c-steps').textContent=`${(pC.step+1).toLocaleString()} / 1,296`;
+  }
+}
+
+function updatePwQuantum(dt){
+  if(!pQ.running||pQ.found)return;
+  pQ.timer+=dt*pQSpeed();
+  if(pQ.phase==='superposition'){
+    document.getElementById('p-q-status').textContent='Superposition: all passwords';
+    document.getElementById('p-q-guess').textContent='**';document.getElementById('p-q-guess').className='current-guess quantum-state';
+    const progress=Math.min(pQ.timer/0.8,1);const count=Math.floor(progress*PN);
+    for(let i=0;i<count;i++){if(pQC[i].className==='cell')pQC[i].className='cell superposition';}
+    if(pQ.timer>0.8){pQ.timer=0;pQ.phase='iterate';pQ.iter=0;pQ.subphase='oracle';pQ.diffApplied=false;}
+    return;
+  }
+  if(pQ.phase==='iterate'){
+    if(pQ.subphase==='oracle'){
+      document.getElementById('p-q-status').textContent=`Iter ${pQ.iter+1}/${PW_GITERS}: Oracle`;
+      document.getElementById('p-q-guess').textContent='⟨?⟩';document.getElementById('p-q-guess').className='current-guess amplified';
+      pQC[PW_IDX].className='cell oracle-hit';
+      if(pQ.timer>PW_TICK*0.4){pQ.subphase='diffuse';pQ.diffApplied=false;}
+    }
+    if(pQ.subphase==='diffuse'){
+      document.getElementById('p-q-status').textContent=`Iter ${pQ.iter+1}/${PW_GITERS}: Amplify`;
+      if(!pQ.diffApplied){pQ.diffApplied=true;
+        const dim=Math.min(pQ.iter/PW_GITERS,0.8);
+        pQC.forEach((c,i)=>{if(i===PW_IDX){c.className='cell amplified';}else{c.className='cell superposition';c.style.opacity=dim>0.5?String(0.9-dim*0.6):'';}});
+      }
+    }
+    if(pQ.timer>=PW_TICK){pQ.timer-=PW_TICK;pQ.iter++;document.getElementById('p-q-steps').textContent=`${pQ.iter} / ${PW_GITERS}`;
+      if(pQ.iter>=PW_GITERS){pQ.phase='measure';pQ.timer=0;}else{pQ.subphase='oracle';pQ.diffApplied=false;}}
+    return;
+  }
+  if(pQ.phase==='measure'){
+    document.getElementById('p-q-status').textContent='Measuring...';
+    if(pQ.timer>0.3&&!pQ.found){
+      pQ.found=true;pQ.running=false;
+      pQC.forEach((c,i)=>{c.style.opacity='';if(i===PW_IDX){c.className='cell found';c.textContent=PW_SECRET;}else{c.className='cell dimmed';c.textContent='';}});
+      pwReveal('q',PW_IDX);pCheckDone();
+    }
+  }
+}
+
+// ════════════════════════════════════════
+//  MAIN LOOP
+// ════════════════════════════════════════
+let prevTime=performance.now();
+function animate(){
+  requestAnimationFrame(animate);
+  const now=performance.now();
+  const dt=Math.min((now-prevTime)/1000,0.05);
+  prevTime=now;
+
+  if(currentDemo==='search'){
+    updateSearchClassical(dt);updateSearchQuantum(dt);
+    if(sPanel.c){
+      const t=now*0.001;
+      sPanel.c.group.rotation.y=Math.sin(t*0.12)*0.06;
+      sPanel.q.group.rotation.y=Math.sin(t*0.12+0.4)*0.06;
+      sPanel.c.renderer.render(sPanel.c.scene,sPanel.c.camera);
+      sPanel.q.renderer.render(sPanel.q.scene,sPanel.q.camera);
+    }
+  } else {
+    updatePwClassical(dt);updatePwQuantum(dt);
+  }
+}
+animate();
+
+window.addEventListener('resize',()=>{
+  if(sPanel.c)[sPanel.c,sPanel.q].forEach(p=>{const w=p.container.clientWidth,h=p.container.clientHeight;p.camera.aspect=w/h;p.camera.updateProjectionMatrix();p.renderer.setSize(w,h);});
+});
+</script>
+</body>
+</html>
