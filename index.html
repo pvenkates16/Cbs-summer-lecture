@@ -1,504 +1,835 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Classical vs Quantum — Interactive Demos</title>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<title>AI, Fintech & Deep Tech — Course Map</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reveal.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/theme/black.min.css">
 <style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,300&family=DM+Mono:wght@400&display=swap');
+
 :root {
-  --bg: #06060a;
-  --panel: #0c0c14;
-  --classical: #ff4d6a;
-  --classical-dim: #3a1520;
-  --quantum: #00e5cc;
-  --quantum-dim: #0a2e2a;
-  --found: #4dff91;
-  --text: #e8e6df;
-  --muted: #4e4c62;
-  --gold: #ffd644;
-  --orange: #ff8822;
-  --dim: #1a1a28;
+  --c-bg: #0b0f14;
+  --c-surface: #141a22;
+  --c-surface2: #1c2430;
+  --c-white: #e8eaed;
+  --c-muted: #8b95a5;
+  --c-dim: #4a5568;
+  --c-border: #2a3342;
+  --c-teal: #5DCAA5;
+  --c-teal-dark: #0F6E56;
+  --c-teal-bg: rgba(93,202,165,0.12);
+  --c-amber: #EF9F27;
+  --c-amber-dark: #854F0B;
+  --c-amber-bg: rgba(239,159,39,0.12);
+  --c-coral: #F0997B;
+  --c-coral-dark: #993C1D;
+  --c-coral-bg: rgba(240,153,123,0.12);
+  --c-blue: #85B7EB;
+  --c-blue-bg: rgba(133,183,235,0.12);
+  --font: 'DM Sans', system-ui, sans-serif;
+  --mono: 'DM Mono', monospace;
 }
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;min-height:100vh;overflow-x:hidden}
-.site-header{text-align:center;padding:20px 16px 8px}
-.site-header h1{font-size:clamp(20px,4vw,34px);font-weight:800;letter-spacing:-0.02em;background:linear-gradient(135deg,var(--text) 0%,var(--gold) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.site-header p{font-size:12px;color:var(--muted);margin-top:3px;font-family:'JetBrains Mono',monospace}
 
-/* Tab nav */
-.tab-nav{display:flex;gap:4px;justify-content:center;padding:4px;background:rgba(255,255,255,0.04);border-radius:10px;margin:8px auto 14px;max-width:500px;border:1px solid rgba(255,255,255,0.06)}
-.tab-btn{flex:1;padding:9px 14px;border:none;border-radius:7px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s;background:transparent;color:var(--muted);display:flex;align-items:center;justify-content:center;gap:6px}
-.tab-btn:hover{color:rgba(255,255,255,0.7)}
-.tab-btn.active{background:rgba(255,255,255,0.1);color:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.3)}
-.demo-page{display:none}
-.demo-page.active{display:block}
+.reveal { font-family: var(--font); color: var(--c-white); }
+.reveal .slide-background { background: var(--c-bg) !important; }
+.reveal h1, .reveal h2, .reveal h3 {
+  font-family: var(--font); color: var(--c-white);
+  font-weight: 700; text-transform: none; letter-spacing: -0.02em;
+}
+.reveal h1 { font-size: 2.4em; line-height: 1.1; }
+.reveal h2 { font-size: 1.6em; line-height: 1.2; }
+.reveal h3 { font-size: 1.1em; line-height: 1.3; }
+.reveal p, .reveal li { font-size: 0.7em; line-height: 1.6; }
+.reveal .small { font-size: 0.55em; color: var(--c-muted); }
 
-/* Shared panel styles */
-.panels{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:8px 12px;max-width:1300px;margin:0 auto}
-@media(max-width:750px){.panels{grid-template-columns:1fr}}
-.panel{background:var(--panel);border-radius:12px;border:1px solid rgba(255,255,255,0.05);overflow:hidden}
-.panel-header{padding:10px 14px 6px;display:flex;justify-content:space-between;align-items:center}
-.panel-title{font-size:14px;font-weight:700}
-.panel-title.classical{color:var(--classical)}
-.panel-title.quantum{color:var(--quantum)}
-.badge{font-family:'JetBrains Mono',monospace;font-size:10px;padding:2px 7px;border-radius:4px;font-weight:600}
-.badge.classical{background:rgba(255,77,106,0.15);color:var(--classical)}
-.badge.quantum{background:rgba(0,229,204,0.15);color:var(--quantum)}
-.status-bar{padding:8px 14px 10px;font-family:'JetBrains Mono',monospace;font-size:11px;display:flex;justify-content:space-between;align-items:center}
-.status-text{color:var(--muted)}
-.status-text.found{color:var(--found);font-weight:600}
-.step-count{font-weight:700;font-size:12px}
-.step-count.classical{color:var(--classical)}
-.step-count.quantum{color:var(--quantum)}
-.controls{text-align:center;padding:8px 16px 14px;display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap}
-.btn{font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;padding:9px 28px;border:none;border-radius:7px;cursor:pointer;transition:all 0.2s}
-.btn-start{background:linear-gradient(135deg,var(--classical),var(--quantum));color:#000}
-.btn-start:hover{transform:scale(1.04);filter:brightness(1.1)}
-.btn-start:disabled{opacity:0.4;cursor:default;transform:none}
-.btn-reset{background:rgba(255,255,255,0.06);color:var(--muted);border:1px solid rgba(255,255,255,0.1)}
-.btn-reset:hover{background:rgba(255,255,255,0.1);color:var(--text)}
-.speed-ctrl{display:flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted)}
-.speed-ctrl input{width:80px;accent-color:var(--quantum)}
-.result-banner{text-align:center;padding:4px 16px 10px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--gold);min-height:20px}
-.demo-subtitle{text-align:center;padding:6px 16px 10px;font-size:13px;color:var(--muted);font-family:'JetBrains Mono',monospace}
+.tag {
+  display: inline-block; font-family: var(--mono); font-size: 0.5em;
+  padding: 3px 10px; border-radius: 20px; font-weight: 400; vertical-align: middle; margin: 0 2px;
+}
+.tag-understand { background: rgba(133,183,235,0.2); color: #85B7EB; }
+.tag-analyze { background: rgba(239,159,39,0.2); color: #EF9F27; }
+.tag-evaluate { background: rgba(227,121,121,0.2); color: #F09595; }
+.tag-create { background: rgba(175,169,236,0.2); color: #AFA9EC; }
+.tag-apply { background: rgba(93,202,165,0.2); color: #5DCAA5; }
+.tag-meta { background: var(--c-surface2); color: var(--c-muted); }
 
-/* ═══ SEARCH-specific ═══ */
-.canvas-wrap{width:100%;height:340px;position:relative}
-.canvas-wrap canvas{width:100%!important;height:100%!important;display:block}
+.week-card {
+  background: var(--c-surface); border: 1px solid var(--c-border);
+  border-radius: 16px; padding: 28px 32px; text-align: left;
+}
+.week-card h3 { margin: 0 0 8px; font-size: 0.9em; }
+.week-card p { margin: 0; font-size: 0.6em; color: var(--c-muted); }
+.week-card.w1 { border-left: 4px solid var(--c-teal); }
+.week-card.w2 { border-left: 4px solid var(--c-amber); }
+.week-card.w3 { border-left: 4px solid var(--c-coral); }
 
-/* ═══ PASSWORD-specific ═══ */
-.target-display{text-align:center;padding:8px 16px 10px}
-.target-display .label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;font-family:'JetBrains Mono',monospace}
-.target-display .password{font-family:'JetBrains Mono',monospace;font-size:32px;font-weight:700;letter-spacing:0.15em;color:var(--gold);margin-top:2px}
-.target-display .password .hidden{color:var(--muted)}
-.target-display .hash{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);margin-top:3px}
-.attempt-display{padding:6px 14px;font-family:'JetBrains Mono',monospace;text-align:center}
-.attempt-display .current-guess{font-size:28px;font-weight:700;letter-spacing:0.12em;min-height:38px;transition:color 0.1s}
-.current-guess.checking{color:var(--classical)}
-.current-guess.quantum-state{color:var(--quantum)}
-.current-guess.amplified{color:var(--gold)}
-.current-guess.found{color:var(--found)}
-.grid-wrap{padding:4px 10px;height:210px;overflow:hidden;position:relative}
-.char-grid{display:grid;gap:1px;width:100%;height:100%}
-.char-grid .cell{border-radius:2px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:600;transition:background 0.12s,color 0.12s,transform 0.15s,opacity 0.12s;background:var(--dim);color:var(--muted);opacity:0.8}
-.cell.checked{background:#1a0a10;color:#3a2030;opacity:0.4;transform:scale(0.85)}
-.cell.checking{background:var(--classical);color:#fff;transform:scale(1.1);opacity:1}
-.cell.superposition{background:rgba(0,229,204,0.12);color:var(--quantum);opacity:0.9}
-.cell.amplified{background:rgba(255,214,68,0.25);color:var(--gold);transform:scale(1.15);opacity:1}
-.cell.oracle-hit{background:var(--orange);color:#fff;transform:scale(1.15);opacity:1}
-.cell.found{background:var(--found);color:#000;transform:scale(1.2);opacity:1;font-weight:700}
-.cell.dimmed{background:rgba(10,10,20,0.6);color:#1a1a28;opacity:0.25;transform:scale(0.7)}
-.explainer{max-width:1300px;margin:0 auto;padding:6px 12px 16px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
-@media(max-width:750px){.explainer{grid-template-columns:1fr}}
-.explainer .box{background:var(--panel);border-radius:10px;border:1px solid rgba(255,255,255,0.05);padding:10px 12px;font-size:11px;color:var(--muted);line-height:1.6}
-.explainer .box strong{font-weight:600}
-.explainer .box strong.c{color:var(--classical)}
-.explainer .box strong.q{color:var(--quantum)}
+.three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; width: 100%; }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; width: 100%; }
+.four-col { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; width: 100%; }
+
+.day-card {
+  background: var(--c-surface); border: 1px solid var(--c-border);
+  border-radius: 12px; padding: 16px 20px; text-align: left;
+}
+.day-card .day-label {
+  font-family: var(--mono); font-size: 0.45em; color: var(--c-muted);
+  margin: 0 0 6px; text-transform: uppercase; letter-spacing: 0.08em;
+}
+.day-card .day-title { font-size: 0.6em; font-weight: 500; margin: 0 0 4px; color: var(--c-white); }
+.day-card .day-slot { font-family: var(--mono); font-size: 0.45em; color: var(--c-dim); margin: 0; }
+
+.session-row {
+  display: grid; grid-template-columns: 60px 1fr; gap: 12px;
+  align-items: start; text-align: left; margin: 0 0 14px;
+}
+.session-num {
+  font-family: var(--mono); font-size: 0.55em; font-weight: 500; color: var(--c-bg);
+  border-radius: 8px; padding: 6px 0; text-align: center; margin-top: 2px;
+}
+.session-num.w1 { background: var(--c-teal); }
+.session-num.w2 { background: var(--c-amber); }
+.session-num.w3 { background: var(--c-coral); }
+.session-info h3 { font-size: 0.7em; margin: 0 0 4px; font-weight: 500; }
+.session-info p { font-size: 0.5em; color: var(--c-muted); margin: 0; line-height: 1.4; }
+
+.flow-arrow { font-size: 1.4em; color: var(--c-dim); line-height: 1; }
+.flow-label { font-size: 0.5em; color: var(--c-muted); font-style: italic; }
+
+.reveal .progress { color: var(--c-teal); height: 3px; }
+.reveal .controls button { color: var(--c-muted); }
 </style>
 </head>
 <body>
+<div class="reveal">
+<div class="slides">
 
-<div class="site-header">
-  <h1>Classical vs Quantum Algorithms</h1>
-  <p>interactive side-by-side comparisons</p>
-</div>
+<!-- SLIDE 1: TITLE -->
+<section data-transition="fade">
+  <h1 style="margin-bottom:12px">AI, Fintech &<br>Deep Tech</h1>
+  <p style="font-size:0.8em;color:var(--c-muted);margin:0 0 24px">in Finance and Business</p>
+  <p style="font-size:0.6em;margin:0">
+    <span class="tag tag-understand">BA-BHAAI1115U</span>
+    <span class="tag tag-meta">7.5 ECTS</span>
+    <span class="tag tag-meta">Summer 2026</span>
+  </p>
+  <p style="font-size:0.55em;color:var(--c-dim);margin:20px 0 0">Prabhu Venkatesh &middot; Copenhagen Business School</p>
+</section>
 
-<div class="tab-nav">
-  <button class="tab-btn active" onclick="switchDemo('search')">🔍 Database Search</button>
-  <button class="tab-btn" onclick="switchDemo('password')">🔐 Password Cracking</button>
-</div>
-
-<!-- ════════════════════════════════════════════════════════════════ -->
-<!--  DEMO 1: DATABASE SEARCH (Three.js)                           -->
-<!-- ════════════════════════════════════════════════════════════════ -->
-<div class="demo-page active" id="demo-search">
-  <div class="demo-subtitle">N = 100 items · O(N) vs O(√N) · target at index 85</div>
-  <div class="panels">
-    <div class="panel">
-      <div class="panel-header"><div class="panel-title classical">Classical Linear Search</div><div class="badge classical">O(N) = 100 worst</div></div>
-      <div class="canvas-wrap" id="s-classical-canvas"></div>
-      <div class="status-bar"><div class="status-text" id="s-c-status">Ready</div><div class="step-count classical" id="s-c-steps">0 / 100</div></div>
+<!-- SLIDE 2: THE ARC -->
+<section data-transition="fade">
+  <h2 style="margin-bottom:6px">Three weeks, one arc</h2>
+  <p class="small" style="margin-bottom:28px">Minimise memorisation &rarr; maximise understanding &rarr; ground for analysis &rarr; drive to action</p>
+  <div class="three-col">
+    <div style="text-align:center">
+      <h3 style="font-size:0.8em;margin:0 0 6px;color:var(--c-teal)">Concepts</h3>
+      <p style="font-size:0.55em;color:var(--c-muted);margin:0">"What is this?"</p>
+      <p style="margin:10px 0 0"><span class="tag tag-understand">Understand</span></p>
     </div>
-    <div class="panel">
-      <div class="panel-header"><div class="panel-title quantum">Grover's Algorithm</div><div class="badge quantum">O(√N) ≈ 8 iter</div></div>
-      <div class="canvas-wrap" id="s-quantum-canvas"></div>
-      <div class="status-bar"><div class="status-text" id="s-q-status">Ready</div><div class="step-count quantum" id="s-q-steps">0 / 8</div></div>
+    <div style="text-align:center">
+      <h3 style="font-size:0.8em;margin:0 0 6px;color:var(--c-amber)">Practice</h3>
+      <p style="font-size:0.55em;color:var(--c-muted);margin:0">"How does this play out?"</p>
+      <p style="margin:10px 0 0"><span class="tag tag-analyze">Analyze</span> <span class="tag tag-evaluate">Evaluate</span></p>
     </div>
-  </div>
-  <div class="result-banner" id="s-result"></div>
-  <div class="controls">
-    <button class="btn btn-start" id="s-start" onclick="searchStart()">Run Both</button>
-    <button class="btn btn-reset" onclick="searchReset()">Reset</button>
-    <div class="speed-ctrl"><label>Quantum speed</label><input type="range" min="5" max="100" value="100" step="5" id="s-speed"><span id="s-speed-label">1.00×</span></div>
-  </div>
-</div>
-
-<!-- ════════════════════════════════════════════════════════════════ -->
-<!--  DEMO 2: PASSWORD CRACKING                                     -->
-<!-- ════════════════════════════════════════════════════════════════ -->
-<div class="demo-page" id="demo-password">
-  <div class="target-display">
-    <div class="label">Target password (hidden from algorithms)</div>
-    <div class="password" id="p-password"><span class="hidden">??</span></div>
-    <div class="hash">algorithms only see the hash — checking guesses against it</div>
-  </div>
-  <div class="panels">
-    <div class="panel">
-      <div class="panel-header"><div class="panel-title classical">Classical Brute Force</div><div class="badge classical">O(N) = 1,296 worst</div></div>
-      <div class="attempt-display"><div class="current-guess" id="p-c-guess">--</div></div>
-      <div class="grid-wrap"><div class="char-grid" id="p-c-grid" style="grid-template-columns:repeat(36,1fr);grid-template-rows:repeat(36,1fr)"></div></div>
-      <div class="status-bar"><div class="status-text" id="p-c-status">Ready</div><div class="step-count classical" id="p-c-steps">0 / 1,296</div></div>
-    </div>
-    <div class="panel">
-      <div class="panel-header"><div class="panel-title quantum">Grover's Algorithm</div><div class="badge quantum">O(√N) ≈ 28 iter</div></div>
-      <div class="attempt-display"><div class="current-guess quantum-state" id="p-q-guess">--</div></div>
-      <div class="grid-wrap"><div class="char-grid" id="p-q-grid" style="grid-template-columns:repeat(36,1fr);grid-template-rows:repeat(36,1fr)"></div></div>
-      <div class="status-bar"><div class="status-text" id="p-q-status">Ready</div><div class="step-count quantum" id="p-q-steps">0 / 28</div></div>
+    <div style="text-align:center">
+      <h3 style="font-size:0.8em;margin:0 0 6px;color:var(--c-coral)">Frontiers</h3>
+      <p style="font-size:0.55em;color:var(--c-muted);margin:0">"What should we do?"</p>
+      <p style="margin:10px 0 0"><span class="tag tag-evaluate">Evaluate</span> <span class="tag tag-create">Create</span></p>
     </div>
   </div>
-  <div class="result-banner" id="p-result"></div>
-  <div class="controls">
-    <button class="btn btn-start" id="p-start" onclick="pwStart()">Crack It</button>
-    <button class="btn btn-reset" onclick="pwReset()">Reset</button>
-    <div class="speed-ctrl"><label>Quantum speed</label><input type="range" min="5" max="100" value="100" step="5" id="p-speed"><span id="p-speed-label">1.00×</span></div>
+  <div style="margin-top:24px">
+    <p class="flow-arrow">&darr;</p>
+    <p class="flow-label">16 sessions &middot; 11 teaching days &middot; open-book exam</p>
   </div>
-  <div class="explainer">
-    <div class="box"><strong class="c">Classical brute force</strong> tries every combination: aa, ab, ac... With 36 chars (a-z, 0-9) and 2 positions → 1,296 possibilities. Average: N/2 = 648 guesses.</div>
-    <div class="box"><strong class="q">Grover's algorithm</strong> puts all 1,296 guesses into superposition. The oracle checks hash(guess) = target hash. After √1296 ≈ 28 iterations, measurement collapses to the password.</div>
-  </div>
-</div>
+</section>
 
-<!-- ═══ SCRIPTS ═══ -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<!-- SLIDE 3: WEEK 1 OVERVIEW -->
+<section data-transition="slide">
+  <div class="week-card w1" style="margin-bottom:20px">
+    <h3 style="color:var(--c-teal)">Week 1: Concepts &mdash; "What is this?"</h3>
+    <p>Build conceptual literacy across every major technology. No applications yet &mdash; pure understanding. By Friday you can explain each technology to a non-expert.</p>
+  </div>
+  <div class="three-col">
+    <div class="day-card">
+      <p class="day-label">Mon 22 Jun</p>
+      <p class="day-title">AI/ML + NLP/GenAI</p>
+      <p class="day-slot">08:00 &ndash; 11:30 &middot; S1 + S2</p>
+    </div>
+    <div class="day-card">
+      <p class="day-label">Tue 23 Jun</p>
+      <p class="day-title">Blockchain + Quantum</p>
+      <p class="day-slot">08:00 &ndash; 11:30 &middot; S3 + S4</p>
+    </div>
+    <div class="day-card">
+      <p class="day-label">Wed 24 Jun</p>
+      <p class="day-title">Data governance + Synthesis</p>
+      <p class="day-slot">08:00 &ndash; 11:30 &middot; S5 + S6</p>
+    </div>
+  </div>
+  <p style="margin-top:16px"><span class="tag tag-understand">Understand</span></p>
+</section>
+
+<!-- SLIDE 4: WEEK 1 SESSIONS -->
+<section data-transition="fade">
+  <h3 style="color:var(--c-teal);margin-bottom:16px">Week 1 sessions</h3>
+  <div class="session-row"><div class="session-num w1">S1</div><div class="session-info"><h3>AI, machine learning & deep learning</h3><p>How machines learn. ML workflow, algorithms (conceptual), confusion matrices, data quality.</p></div></div>
+  <div class="session-row"><div class="session-num w1">S2</div><div class="session-info"><h3>NLP, computer vision & generative AI</h3><p>Three application families. LLMs as next-token prediction. Why GenAI hallucinates.</p></div></div>
+  <div class="session-row"><div class="session-num w1">S3</div><div class="session-info"><h3>Blockchain, digital assets & CBDCs</h3><p>Consensus, smart contracts, digital euro. When does blockchain actually solve a problem?</p></div></div>
+  <div class="session-row"><div class="session-num w1">S4</div><div class="session-info"><h3>Quantum computing</h3><p>Qubits, superposition, entanglement via analogies. Finance applications. Post-quantum cryptography.</p></div></div>
+  <div class="session-row"><div class="session-num w1">S5</div><div class="session-info"><h3>Data management & governance</h3><p>DAMA-DMBOK. Data-to-AI pipeline. Centralised vs. federated governance. GDPR + EU AI Act.</p></div></div>
+  <div class="session-row"><div class="session-num w1">S6</div><div class="session-info"><h3>Technology landscape map</h3><p>Synthesis: connect all 5 domains. Gallery walk. Self-assessment. Preview of Week 2.</p></div></div>
+</section>
+
+<!-- SLIDE 5: WEEK 2 OVERVIEW -->
+<section data-transition="slide">
+  <div class="week-card w2" style="margin-bottom:20px">
+    <h3 style="color:var(--c-amber)">Week 2: Practice &mdash; "How does this play out?"</h3>
+    <p>Every session is case-driven. Paired success/failure case studies. You analyse why things worked or failed, building a generalised framework by Friday.</p>
+  </div>
+  <div class="four-col">
+    <div class="day-card"><p class="day-label">Mon 29 Jun</p><p class="day-title">Credit + Trading</p><p class="day-slot">08:00&ndash;11:30 &middot; S7+S8</p></div>
+    <div class="day-card"><p class="day-label">Tue 30 Jun</p><p class="day-title">Supply chain + GenAI</p><p class="day-slot">08:00&ndash;11:30 &middot; S9+S10</p></div>
+    <div class="day-card"><p class="day-label">Wed 1 Jul</p><p class="day-title">Deep tech hype vs. reality</p><p class="day-slot">08:00&ndash;10:35 &middot; S11</p></div>
+    <div class="day-card"><p class="day-label">Thu 2 Jul</p><p class="day-title">Cross-industry deep-dive</p><p class="day-slot">08:00&ndash;10:35 &middot; S12</p></div>
+  </div>
+  <p style="margin-top:16px"><span class="tag tag-analyze">Analyze</span> <span class="tag tag-evaluate">Evaluate</span></p>
+</section>
+
+<!-- SLIDE 6: WEEK 2 SESSIONS -->
+<section data-transition="fade">
+  <h3 style="color:var(--c-amber);margin-bottom:16px">Week 2 sessions</h3>
+  <div class="two-col">
+    <div>
+      <div class="session-row"><div class="session-num w2">S7</div><div class="session-info"><h3>Credit scoring & lending</h3><p>Upstart (success) vs. Apple Card bias (failure)</p></div></div>
+      <div class="session-row"><div class="session-num w2">S8</div><div class="session-info"><h3>Algorithmic trading</h3><p>Renaissance Technologies (success) vs. Knight Capital (failure)</p></div></div>
+      <div class="session-row"><div class="session-num w2">S9</div><div class="session-info"><h3>Supply chain & operations</h3><p>Maersk AI logistics (success) vs. COVID forecasting (failure)</p></div></div>
+    </div>
+    <div>
+      <div class="session-row"><div class="session-num w2">S10</div><div class="session-info"><h3>Generative AI in enterprise</h3><p>Klarna (success) vs. Air Canada chatbot (failure)</p></div></div>
+      <div class="session-row"><div class="session-num w2">S11</div><div class="session-info"><h3>Deep tech: hype vs. reality</h3><p>JPMorgan Onyx vs. TradeLens. Quantum reality check.</p></div></div>
+      <div class="session-row"><div class="session-num w2">S12</div><div class="session-info"><h3>Cross-industry deep-dive</h3><p>COiN + John Deere vs. Watson Oncology + Zillow</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 7: WEEK 3 OVERVIEW -->
+<section data-transition="slide">
+  <div class="week-card w3" style="margin-bottom:20px">
+    <h3 style="color:var(--c-coral)">Week 3: Frontiers &mdash; "What should we do?"</h3>
+    <p>From analysis to action. Ethics, regulation, strategy, emerging tech, and your implementation plan. The failure patterns from Week 2 become the backbone of your plans.</p>
+  </div>
+  <div class="four-col">
+    <div class="day-card"><p class="day-label">Mon 6 Jul</p><p class="day-title">Ethics & regulation</p><p class="day-slot">08:00&ndash;10:35 &middot; S13</p></div>
+    <div class="day-card"><p class="day-label">Tue 7 Jul</p><p class="day-title">AI-first strategy</p><p class="day-slot">08:00&ndash;10:35 &middot; S14</p></div>
+    <div class="day-card"><p class="day-label">Wed 8 Jul</p><p class="day-title">Emerging frontiers</p><p class="day-slot">08:00&ndash;10:35 &middot; S15</p></div>
+    <div class="day-card"><p class="day-label">Thu 9 Jul</p><p class="day-title">Workshop + exam prep</p><p class="day-slot">08:00&ndash;10:35 &middot; S16</p></div>
+  </div>
+  <p style="margin-top:16px"><span class="tag tag-evaluate">Evaluate</span> <span class="tag tag-create">Create</span></p>
+</section>
+
+<!-- SLIDE 8: WEEK 3 SESSIONS -->
+<section data-transition="fade">
+  <h3 style="color:var(--c-coral);margin-bottom:16px">Week 3 sessions</h3>
+  <div class="session-row"><div class="session-num w3">S13</div><div class="session-info"><h3>Ethics, bias & the regulatory response</h3><p>Amazon hiring + COMPAS failures. EU AI Act risk tiers. Would regulation have prevented Week 2 failures?</p></div></div>
+  <div class="session-row"><div class="session-num w3">S14</div><div class="session-info"><h3>Building an AI-first business strategy</h3><p>AI Strategy Canvas. Ping An (success) vs. European bank (failure). Data governance operating model.</p></div></div>
+  <div class="session-row"><div class="session-num w3">S15</div><div class="session-info"><h3>Emerging frontiers</h3><p>Agentic AI, multimodal models, sovereign AI, open vs. closed. Personal technology radar.</p></div></div>
+  <div class="session-row"><div class="session-num w3">S16</div><div class="session-info"><h3>Implementation workshop + exam prep</h3><p>Full implementation plan with governance. Peer review. Practice exam. Course wrap-up.</p></div></div>
+  <div style="margin-top:20px;padding:16px 24px;background:var(--c-surface);border-radius:12px;border:1px solid var(--c-border)">
+    <p style="font-size:0.6em;margin:0;color:var(--c-white)"><strong>Exam:</strong> 4-hour written sit-in &middot; Open book &middot; Individual &middot; 7-point scale</p>
+    <p style="font-size:0.5em;margin:4px 0 0;color:var(--c-muted)">The course rewards understanding and analytical ability, not memorisation.</p>
+  </div>
+</section>
+
+<!-- SLIDE 9: THREADS -->
+<section data-transition="fade">
+  <h2 style="margin-bottom:20px">Two threads run<br>through everything</h2>
+  <div class="two-col" style="gap:24px">
+    <div class="week-card" style="border-left:4px solid var(--c-blue)">
+      <h3 style="color:var(--c-blue);font-size:0.8em">Data governance</h3>
+      <p style="font-size:0.55em;line-height:1.6;color:var(--c-muted)">S5 concepts &rarr; S7&ndash;9 applied in cases &rarr; S13 regulation &rarr; S14 strategy &rarr; S16 your plan</p>
+      <p style="font-size:0.55em;margin-top:8px;color:var(--c-white)">AI projects fail from data problems, not algorithm problems.</p>
+    </div>
+    <div class="week-card" style="border-left:4px solid var(--c-amber)">
+      <h3 style="color:var(--c-amber);font-size:0.8em">Success/failure case studies</h3>
+      <p style="font-size:0.55em;line-height:1.6;color:var(--c-muted)">S7&ndash;S12 paired cases &rarr; S12 framework &rarr; S14&ndash;S16 applied to your strategy</p>
+      <p style="font-size:0.55em;margin-top:8px;color:var(--c-white)">Technology choice is rarely the differentiator. Execution is.</p>
+    </div>
+  </div>
+  <p style="margin-top:24px;font-size:0.6em;color:var(--c-muted)">No coding. No memorisation. Visual diagrams, case analysis, structured worksheets, and discussion.</p>
+</section>
+
+<!-- SLIDE 10: LET'S BEGIN -->
+<section data-transition="zoom">
+  <h1 style="margin-bottom:16px">Let's begin</h1>
+  <p style="font-size:0.8em;color:var(--c-teal);margin:0">Session 1: How machines learn</p>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SESSION 1: AI, ML & DEEP LEARNING          -->
+<!-- ═══════════════════════════════════════════ -->
+
+<!-- S1 - Title -->
+<section data-transition="fade">
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px">
+    <span style="font-family:var(--mono);font-size:0.5em;background:var(--c-teal);color:var(--c-bg);padding:4px 14px;border-radius:8px;font-weight:500">S1</span>
+    <span class="tag tag-understand">Understand</span>
+  </div>
+  <h1 style="margin:8px 0 12px;font-size:2em">AI, machine learning<br>& deep learning</h1>
+  <p style="font-size:0.7em;color:var(--c-muted);margin:0">How machines learn</p>
+</section>
+
+<!-- S1 - Learning objectives -->
+<section data-transition="fade">
+  <h3 style="color:var(--c-teal);margin-bottom:20px">Session 1 &mdash; Learning objectives</h3>
+  <div style="text-align:left;max-width:640px;margin:0 auto">
+    <div style="display:flex;gap:12px;align-items:start;margin:0 0 16px">
+      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">01</span>
+      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Explain what AI, machine learning, and deep learning are and how they relate to each other</p>
+    </div>
+    <div style="display:flex;gap:12px;align-items:start;margin:0 0 16px">
+      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">02</span>
+      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Describe the ML workflow (data collection, training, validation, deployment) using conceptual diagrams</p>
+    </div>
+    <div style="display:flex;gap:12px;align-items:start;margin:0 0 16px">
+      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">03</span>
+      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Interpret a confusion matrix and basic performance metrics from pre-prepared examples</p>
+    </div>
+    <div style="display:flex;gap:12px;align-items:start;margin:0 0 16px">
+      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">04</span>
+      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Explain why data quality, volume, and representativeness determine model quality</p>
+    </div>
+  </div>
+</section>
+
+<!-- S1 - Placeholder: AI / ML / DL explained -->
+<section data-transition="fade">
+  <h3 style="color:var(--c-teal);margin-bottom:8px">AI / ML / DL &mdash; the stack</h3>
+  <p class="small" style="margin-bottom:24px">Placeholder: diagram or Three.js animation showing nested relationship</p>
+  <div style="width:480px;height:280px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center">
+    <p style="font-size:0.6em;color:var(--c-dim);margin:0">[ AI &supset; ML &supset; DL visual ]</p>
+  </div>
+</section>
+
+<!-- S1 - Placeholder: ML pipeline walkthrough -->
+<section data-transition="fade">
+  <h3 style="color:var(--c-teal);margin-bottom:8px">The ML pipeline</h3>
+  <p class="small" style="margin-bottom:24px">Placeholder: visual walkthrough from raw data to deployed model</p>
+  <div style="width:600px;height:280px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center">
+    <p style="font-size:0.6em;color:var(--c-dim);margin:0">[ Data &rarr; Clean &rarr; Train &rarr; Validate &rarr; Deploy ]</p>
+  </div>
+</section>
+
+<!-- S1 - Placeholder: Confusion matrix exercise -->
+<section data-transition="fade">
+  <h3 style="color:var(--c-teal);margin-bottom:8px">Reading model performance</h3>
+  <p class="small" style="margin-bottom:24px">Placeholder: pre-prepared confusion matrix examples for think-pair-share</p>
+  <div style="width:520px;height:280px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center">
+    <p style="font-size:0.6em;color:var(--c-dim);margin:0">[ Confusion matrix &middot; precision &middot; recall &middot; overfitting ]</p>
+  </div>
+</section>
+
+<!-- S1 - Placeholder: Data quality discussion -->
+<section data-transition="fade">
+  <h3 style="color:var(--c-teal);margin-bottom:8px">What could go wrong with the data?</h3>
+  <p class="small" style="margin-bottom:24px">Placeholder: group discussion prompt &mdash; introducing data quality as foundation</p>
+  <div style="width:520px;height:260px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center">
+    <p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ Discussion prompts:<br>bias, missing data, stale data,<br>labelling errors, consent ]</p>
+  </div>
+</section>
+
+<!-- S1 - Assessment -->
+<section data-transition="fade">
+  <h3 style="color:var(--c-teal);margin-bottom:8px">Session 1 &mdash; formative check</h3>
+  <div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:16px;padding:28px 32px;text-align:left;max-width:560px;margin:0 auto">
+    <p style="font-size:0.65em;color:var(--c-white);margin:0 0 12px"><strong>Worksheet:</strong> Interpret model outputs and identify data quality risks</p>
+    <p style="font-size:0.55em;color:var(--c-muted);margin:0">Formative &mdash; not graded. Checks understanding before moving to Session 2.</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════ BREAK ══════════════════════════ -->
+
+<section data-transition="fade" data-background-color="#0f1920">
+  <p style="font-size:1.2em;color:var(--c-dim);margin:0 0 8px">~15 minute break</p>
+  <p style="font-size:0.6em;color:var(--c-dim);margin:0">Session 2 starts shortly</p>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SESSION 2: NLP, CV & GENERATIVE AI         -->
+<!-- ═══════════════════════════════════════════ -->
+
+<!-- S2 - Title -->
+<section data-transition="fade">
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px">
+    <span style="font-family:var(--mono);font-size:0.5em;background:var(--c-teal);color:var(--c-bg);padding:4px 14px;border-radius:8px;font-weight:500">S2</span>
+    <span class="tag tag-understand">Understand</span>
+  </div>
+  <h1 style="margin:8px 0 12px;font-size:2em">NLP, computer vision<br>& generative AI</h1>
+  <p style="font-size:0.7em;color:var(--c-muted);margin:0">The application families</p>
+</section>
+
+<!-- S2 - Learning objectives -->
+<section data-transition="fade">
+  <h3 style="color:var(--c-teal);margin-bottom:20px">Session 2 &mdash; Learning objectives</h3>
+  <div style="text-align:left;max-width:640px;margin:0 auto">
+    <div style="display:flex;gap:12px;align-items:start;margin:0 0 16px">
+      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">01</span>
+      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Explain how NLP processes text (tokenization, sentiment scoring, named entity recognition)</p>
+    </div>
+    <div style="display:flex;gap:12px;align-items:start;margin:0 0 16px">
+      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">02</span>
+      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Describe how computer vision systems interpret images and video at a conceptual level</p>
+    </div>
+    <div style="display:flex;gap:12px;align-items:start;margin:0 0 16px">
+      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">03</span>
+      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Explain how generative AI models work using analogies &mdash; prediction, not understanding</p>
+    </div>
+    <div style="display:flex;gap:12px;align-items:start;margin:0 0 16px">
+      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">04</span>
+      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Compare the data requirements, strengths, and limitations of each application family</p>
+    </div>
+  </div>
+</section>
+
+<!-- S2 - Placeholder: Three families overview -->
+<section data-transition="fade">
+  <h3 style="color:var(--c-teal);margin-bottom:8px">Three application families</h3>
+  <p class="small" style="margin-bottom:24px">Placeholder: side-by-side comparison of NLP, CV, and GenAI</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;max-width:640px;margin:0 auto">
+    <div style="border:1px dashed var(--c-dim);border-radius:12px;padding:20px;text-align:center">
+      <p style="font-size:0.7em;color:var(--c-teal);margin:0 0 6px;font-weight:500">NLP</p>
+      <p style="font-size:0.5em;color:var(--c-dim);margin:0">Text in &rarr; meaning out</p>
+    </div>
+    <div style="border:1px dashed var(--c-dim);border-radius:12px;padding:20px;text-align:center">
+      <p style="font-size:0.7em;color:var(--c-teal);margin:0 0 6px;font-weight:500">Computer vision</p>
+      <p style="font-size:0.5em;color:var(--c-dim);margin:0">Pixels in &rarr; labels out</p>
+    </div>
+    <div style="border:1px dashed var(--c-dim);border-radius:12px;padding:20px;text-align:center">
+      <p style="font-size:0.7em;color:var(--c-teal);margin:0 0 6px;font-weight:500">Generative AI</p>
+      <p style="font-size:0.5em;color:var(--c-dim);margin:0">Prompt in &rarr; content out</p>
+    </div>
+  </div>
+</section>
+
+<!-- S2 - Placeholder: How an LLM generates text -->
+<section data-transition="fade">
+  <h3 style="color:var(--c-teal);margin-bottom:8px">How an LLM generates text</h3>
+  <p class="small" style="margin-bottom:24px">Placeholder: next-token prediction walkthrough (animation or diagram)</p>
+  <div style="width:560px;height:280px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center">
+    <p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ "The cat sat on the ___"<br>P(mat)=0.31 &middot; P(roof)=0.12 &middot; P(floor)=0.09 ]</p>
+  </div>
+</section>
+
+<!-- S2 - Placeholder: Use case classification exercise -->
+<section data-transition="fade">
+  <h3 style="color:var(--c-teal);margin-bottom:8px">Classify the use case</h3>
+  <p class="small" style="margin-bottom:24px">Placeholder: 6 business use cases for group classification exercise</p>
+  <div style="width:560px;height:280px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center">
+    <p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ 6 use cases &rarr; NLP / CV / GenAI?<br>+ what data does each need? ]</p>
+  </div>
+</section>
+
+<!-- S2 - Placeholder: Why GenAI hallucinates -->
+<section data-transition="fade">
+  <h3 style="color:var(--c-teal);margin-bottom:8px">Why generative AI hallucinates</h3>
+  <p class="small" style="margin-bottom:24px">Placeholder: connecting the prediction model to failure modes</p>
+  <div style="width:520px;height:260px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center">
+    <p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ Prediction &ne; understanding<br>Confident + wrong = hallucination ]</p>
+  </div>
+</section>
+
+<!-- S2 - Assessment -->
+<section data-transition="fade">
+  <h3 style="color:var(--c-teal);margin-bottom:8px">Session 2 &mdash; formative check</h3>
+  <div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:16px;padding:28px 32px;text-align:left;max-width:560px;margin:0 auto">
+    <p style="font-size:0.65em;color:var(--c-white);margin:0 0 12px"><strong>Classification exercise:</strong> Match use cases to application families with data requirements</p>
+    <p style="font-size:0.55em;color:var(--c-muted);margin:0">Formative &mdash; not graded. Confirms readiness for tomorrow&rsquo;s sessions.</p>
+  </div>
+</section>
+
+<!-- DAY 1 WRAP -->
+<section data-transition="fade">
+  <h2 style="margin-bottom:12px">Day 1 complete</h2>
+  <p style="font-size:0.65em;color:var(--c-muted);margin:0 0 20px">Tomorrow: Blockchain & digital assets + Quantum computing</p>
+  <div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:12px;padding:20px 28px;display:inline-block;text-align:left">
+    <p style="font-size:0.55em;color:var(--c-muted);margin:0 0 6px">Prep for Tuesday:</p>
+    <p style="font-size:0.6em;color:var(--c-white);margin:0">Drescher, Blockchain Basics, Steps 1&ndash;15 (selected)</p>
+    <p style="font-size:0.6em;color:var(--c-white);margin:4px 0 0">Quantum computing primer (Canvas)</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- DAY 2: TUESDAY 23 JUN — S3 + S4                        -->
+<!-- ═══════════════════════════════════════════════════════ -->
+
+<!-- DAY 2 OPENER -->
+<section data-transition="zoom" data-background-color="#0f1920">
+  <p style="font-family:var(--mono);font-size:0.5em;color:var(--c-dim);margin:0 0 8px;text-transform:uppercase;letter-spacing:0.1em">Tuesday 23 June &middot; 08:00 &ndash; 11:30</p>
+  <h1 style="margin:0 0 12px;font-size:2em">Day 2</h1>
+  <p style="font-size:0.7em;color:var(--c-teal);margin:0">Blockchain & digital assets + Quantum computing</p>
+</section>
+
+<!-- ═══ SESSION 3: BLOCKCHAIN & DIGITAL ASSETS ═══ -->
+
+<section data-transition="fade">
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px">
+    <span style="font-family:var(--mono);font-size:0.5em;background:var(--c-teal);color:var(--c-bg);padding:4px 14px;border-radius:8px;font-weight:500">S3</span>
+    <span class="tag tag-understand">Understand</span>
+  </div>
+  <h1 style="margin:8px 0 12px;font-size:1.9em">Distributed ledger technology,<br>digital assets & CBDCs</h1>
+  <p style="font-size:0.7em;color:var(--c-muted);margin:0">Blockchain in one session</p>
+</section>
+
+<section data-transition="fade">
+  <h3 style="color:var(--c-teal);margin-bottom:20px">Session 3 &mdash; Learning objectives</h3>
+  <div style="text-align:left;max-width:640px;margin:0 auto">
+    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px">
+      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">01</span>
+      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Explain what a blockchain is, how consensus mechanisms work, and what smart contracts do</p>
+    </div>
+    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px">
+      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">02</span>
+      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Distinguish between public, private, and consortium blockchains</p>
+    </div>
+    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px">
+      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">03</span>
+      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Describe how digital assets (cryptocurrencies, stablecoins, tokens, CBDCs) function</p>
+    </div>
+    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px">
+      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">04</span>
+      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Explain the ECB digital euro initiative and MiCA regulatory framework</p>
+    </div>
+    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px">
+      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">05</span>
+      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Identify the narrow conditions under which blockchain adds genuine value</p>
+    </div>
+  </div>
+</section>
+
+<section data-transition="fade">
+  <h3 style="color:var(--c-teal);margin-bottom:8px">Blockchain in 45 minutes</h3>
+  <p class="small" style="margin-bottom:24px">Placeholder: visual transaction walkthrough, consensus game metaphor</p>
+  <div style="width:560px;height:280px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center">
+    <p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ Block &rarr; hash &rarr; chain &rarr; consensus<br>Smart contracts as "if-then" rules ]</p>
+  </div>
+</section>
+
+<section data-transition="fade">
+  <h3 style="color:var(--c-teal);margin-bottom:8px">Classroom consensus exercise</h3>
+  <p class="small" style="margin-bottom:24px">Placeholder: pen-and-paper transaction validation simulation</p>
+  <div style="width:520px;height:260px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center">
+    <p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ Students validate transactions<br>in groups &middot; pen and paper ]</p>
+  </div>
+</section>
+
+<section data-transition="fade">
+  <h3 style="color:var(--c-teal);margin-bottom:8px">Digital assets landscape</h3>
+  <p class="small" style="margin-bottom:24px">Placeholder: from Bitcoin to CBDCs &mdash; what a business student needs to know</p>
+  <div style="width:560px;height:280px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center">
+    <p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ Crypto &middot; stablecoins &middot; tokens &middot; CBDCs<br>ECB digital euro &middot; MiCA framework ]</p>
+  </div>
+</section>
+
+<section data-transition="fade">
+  <h3 style="color:var(--c-teal);margin-bottom:8px">When does blockchain actually solve a problem?</h3>
+  <p class="small" style="margin-bottom:24px">Placeholder: decision framework discussion</p>
+  <div style="width:520px;height:260px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center">
+    <p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ Multi-party trust deficit?<br>No trusted intermediary?<br>Immutability needed?<br>If not all three &rarr; use a database ]</p>
+  </div>
+</section>
+
+<section data-transition="fade">
+  <h3 style="color:var(--c-teal);margin-bottom:8px">Session 3 &mdash; formative check</h3>
+  <div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:16px;padding:28px 32px;text-align:left;max-width:560px;margin:0 auto">
+    <p style="font-size:0.65em;color:var(--c-white);margin:0 0 12px"><strong>Decision framework exercise:</strong> Evaluate 5 business scenarios &mdash; is blockchain the right tool?</p>
+    <p style="font-size:0.55em;color:var(--c-muted);margin:0">Formative &mdash; not graded.</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════ BREAK ══════════════════════════ -->
+
+<section data-transition="fade" data-background-color="#0f1920">
+  <p style="font-size:1.2em;color:var(--c-dim);margin:0 0 8px">~15 minute break</p>
+  <p style="font-size:0.6em;color:var(--c-dim);margin:0">Session 4 starts shortly</p>
+</section>
+
+<!-- ═══ SESSION 4: QUANTUM COMPUTING ═══ -->
+
+<section data-transition="fade">
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px">
+    <span style="font-family:var(--mono);font-size:0.5em;background:var(--c-teal);color:var(--c-bg);padding:4px 14px;border-radius:8px;font-weight:500">S4</span>
+    <span class="tag tag-understand">Understand</span>
+    <span class="tag tag-evaluate">Evaluate</span>
+  </div>
+  <h1 style="margin:8px 0 12px;font-size:2em">Quantum computing</h1>
+  <p style="font-size:0.7em;color:var(--c-muted);margin:0">Concepts, promise & realistic outlook</p>
+</section>
+
+<section data-transition="fade">
+  <h3 style="color:var(--c-teal);margin-bottom:20px">Session 4 &mdash; Learning objectives</h3>
+  <div style="text-align:left;max-width:640px;margin:0 auto">
+    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px">
+      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">01</span>
+      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Explain qubits, superposition, and entanglement using visual analogies</p>
+    </div>
+    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px">
+      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">02</span>
+      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Describe the difference between classical and quantum computation</p>
+    </div>
+    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px">
+      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">03</span>
+      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Identify finance applications: portfolio optimization, Monte Carlo, cryptography</p>
+    </div>
+    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px">
+      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">04</span>
+      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Evaluate the realistic timeline for quantum advantage in business</p>
+    </div>
+    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px">
+      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">05</span>
+      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Explain post-quantum cryptography and why organisations need to prepare now</p>
+    </div>
+  </div>
+</section>
+
+<section data-transition="fade">
+  <h3 style="color:var(--c-teal);margin-bottom:8px">Quantum computing for non-physicists</h3>
+  <p class="small" style="margin-bottom:24px">Placeholder: coin-flip analogy, visual diagrams of qubit states</p>
+  <div style="width:560px;height:280px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center">
+    <p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ Classical bit: 0 or 1<br>Qubit: both until measured<br>Why speedup only works for certain problems ]</p>
+  </div>
+</section>
+
+<section data-transition="fade">
+  <h3 style="color:var(--c-teal);margin-bottom:8px">Classical vs. quantum: portfolio optimization</h3>
+  <p class="small" style="margin-bottom:24px">Placeholder: conceptual side-by-side comparison</p>
+  <div style="width:560px;height:280px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center">
+    <p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ Classical: try combinations one by one<br>Quantum: explore many paths simultaneously<br>Conceptual, not mathematical ]</p>
+  </div>
+</section>
+
+<section data-transition="fade">
+  <h3 style="color:var(--c-teal);margin-bottom:8px">Quantum timeline exercise</h3>
+  <p class="small" style="margin-bottom:24px">Placeholder: students place milestones and debate realistic horizons</p>
+  <div style="width:560px;height:260px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center">
+    <p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ Now &middot; 2 years &middot; 5 years &middot; 10 years &middot; 20 years<br>Place: error correction, quantum advantage,<br>commercial applications, crypto threat ]</p>
+  </div>
+</section>
+
+<section data-transition="fade">
+  <h3 style="color:var(--c-teal);margin-bottom:8px">Post-quantum cryptography</h3>
+  <p class="small" style="margin-bottom:24px">Placeholder: what should a financial institution do today?</p>
+  <div style="width:520px;height:260px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center">
+    <p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ "Harvest now, decrypt later" threat<br>NIST post-quantum standards<br>Discussion: what to do now? ]</p>
+  </div>
+</section>
+
+<section data-transition="fade">
+  <h3 style="color:var(--c-teal);margin-bottom:8px">Session 4 &mdash; formative check</h3>
+  <div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:16px;padding:28px 32px;text-align:left;max-width:560px;margin:0 auto">
+    <p style="font-size:0.65em;color:var(--c-white);margin:0 0 12px"><strong>Reflection:</strong> Quantum readiness assessment for a chosen industry</p>
+    <p style="font-size:0.55em;color:var(--c-muted);margin:0">Formative &mdash; not graded.</p>
+  </div>
+</section>
+
+<!-- DAY 2 WRAP -->
+<section data-transition="fade">
+  <h2 style="margin-bottom:12px">Day 2 complete</h2>
+  <p style="font-size:0.65em;color:var(--c-muted);margin:0 0 20px">Tomorrow: Data governance + Technology landscape synthesis</p>
+  <div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:12px;padding:20px 28px;display:inline-block;text-align:left">
+    <p style="font-size:0.55em;color:var(--c-muted);margin:0 0 6px">Prep for Wednesday:</p>
+    <p style="font-size:0.6em;color:var(--c-white);margin:0">DAMA-DMBOK overview (Canvas)</p>
+    <p style="font-size:0.6em;color:var(--c-white);margin:4px 0 0">GDPR Articles 5 & 25; EU AI Act Article 10</p>
+    <p style="font-size:0.6em;color:var(--c-white);margin:4px 0 0">Review all Week 1 materials for synthesis session</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- DAY 3: WEDNESDAY 24 JUN — S5 + S6                      -->
+<!-- ═══════════════════════════════════════════════════════ -->
+
+<!-- DAY 3 OPENER -->
+<section data-transition="zoom" data-background-color="#0f1920">
+  <p style="font-family:var(--mono);font-size:0.5em;color:var(--c-dim);margin:0 0 8px;text-transform:uppercase;letter-spacing:0.1em">Wednesday 24 June &middot; 08:00 &ndash; 11:30</p>
+  <h1 style="margin:0 0 12px;font-size:2em">Day 3</h1>
+  <p style="font-size:0.7em;color:var(--c-teal);margin:0">Data governance + Technology landscape synthesis</p>
+</section>
+
+<!-- ═══ SESSION 5: DATA MANAGEMENT & GOVERNANCE ═══ -->
+
+<section data-transition="fade">
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px">
+    <span style="font-family:var(--mono);font-size:0.5em;background:var(--c-teal);color:var(--c-bg);padding:4px 14px;border-radius:8px;font-weight:500">S5</span>
+    <span class="tag tag-understand">Understand</span>
+  </div>
+  <h1 style="margin:8px 0 12px;font-size:2em">Data management,<br>governance & the<br>data-to-AI pipeline</h1>
+</section>
+
+<section data-transition="fade">
+  <h3 style="color:var(--c-teal);margin-bottom:20px">Session 5 &mdash; Learning objectives</h3>
+  <div style="text-align:left;max-width:640px;margin:0 auto">
+    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px">
+      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">01</span>
+      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Explain core concepts: data governance, stewardship, master data management, metadata, catalogues</p>
+    </div>
+    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px">
+      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">02</span>
+      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Describe the DAMA-DMBOK framework and how it structures governance disciplines</p>
+    </div>
+    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px">
+      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">03</span>
+      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Explain the full data-to-AI pipeline: raw data through governance gates to model deployment</p>
+    </div>
+    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px">
+      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">04</span>
+      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Compare centralised (CDO model) vs. federated (data mesh) governance</p>
+    </div>
+    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px">
+      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">05</span>
+      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Describe how GDPR and EU AI Act impose data quality, documentation, and traceability requirements</p>
+    </div>
+  </div>
+</section>
+
+<section data-transition="fade">
+  <h3 style="color:var(--c-teal);margin-bottom:8px">The data governance stack</h3>
+  <p class="small" style="margin-bottom:24px">Placeholder: policies, roles, processes, and technology layers</p>
+  <div style="width:560px;height:280px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center">
+    <p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ Policies &rarr; Roles (CDO, stewards)<br>&rarr; Processes (quality checks, lineage)<br>&rarr; Technology (catalogues, MDM) ]</p>
+  </div>
+</section>
+
+<section data-transition="fade">
+  <h3 style="color:var(--c-teal);margin-bottom:8px">Data-to-AI pipeline walkthrough</h3>
+  <p class="small" style="margin-bottom:24px">Placeholder: trace governance checkpoints from raw data to deployed model</p>
+  <div style="width:600px;height:280px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center">
+    <p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ Source &rarr; Ingest &rarr; Quality gate &rarr; Transform<br>&rarr; Feature store &rarr; Train &rarr; Validate &rarr; Deploy<br>Where do governance checkpoints sit? ]</p>
+  </div>
+</section>
+
+<section data-transition="fade">
+  <h3 style="color:var(--c-teal);margin-bottom:8px">Centralised vs. federated governance</h3>
+  <p class="small" style="margin-bottom:24px">Placeholder: CDO model vs. data mesh &mdash; when does each fit?</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:560px;margin:0 auto">
+    <div style="border:1px dashed var(--c-dim);border-radius:12px;padding:20px;text-align:center">
+      <p style="font-size:0.65em;color:var(--c-teal);margin:0 0 6px;font-weight:500">Centralised (CDO)</p>
+      <p style="font-size:0.5em;color:var(--c-dim);margin:0">Single authority<br>Consistency<br>Slower to scale</p>
+    </div>
+    <div style="border:1px dashed var(--c-dim);border-radius:12px;padding:20px;text-align:center">
+      <p style="font-size:0.65em;color:var(--c-teal);margin:0 0 6px;font-weight:500">Federated (data mesh)</p>
+      <p style="font-size:0.5em;color:var(--c-dim);margin:0">Domain ownership<br>Agility<br>Harder to coordinate</p>
+    </div>
+  </div>
+</section>
+
+<section data-transition="fade">
+  <h3 style="color:var(--c-teal);margin-bottom:8px">Why should a CEO care about data governance?</h3>
+  <p class="small" style="margin-bottom:24px">Placeholder: discussion connecting governance to competitive advantage and risk</p>
+  <div style="width:520px;height:260px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center">
+    <p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ Two organisations: one with mature governance,<br>one without &mdash; predict which succeeds at AI.<br>Governance = competitive advantage, not compliance ]</p>
+  </div>
+</section>
+
+<section data-transition="fade">
+  <h3 style="color:var(--c-teal);margin-bottom:8px">Session 5 &mdash; formative check</h3>
+  <div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:16px;padding:28px 32px;text-align:left;max-width:560px;margin:0 auto">
+    <p style="font-size:0.65em;color:var(--c-white);margin:0 0 12px"><strong>Governance gap analysis:</strong> Identify missing controls in a described organisation</p>
+    <p style="font-size:0.55em;color:var(--c-muted);margin:0">Formative &mdash; not graded.</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════ BREAK ══════════════════════════ -->
+
+<section data-transition="fade" data-background-color="#0f1920">
+  <p style="font-size:1.2em;color:var(--c-dim);margin:0 0 8px">~15 minute break</p>
+  <p style="font-size:0.6em;color:var(--c-dim);margin:0">Session 6 starts shortly</p>
+</section>
+
+<!-- ═══ SESSION 6: TECHNOLOGY LANDSCAPE MAP ═══ -->
+
+<section data-transition="fade">
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px">
+    <span style="font-family:var(--mono);font-size:0.5em;background:var(--c-teal);color:var(--c-bg);padding:4px 14px;border-radius:8px;font-weight:500">S6</span>
+    <span class="tag tag-understand">Understand</span>
+    <span class="tag tag-analyze">Analyze</span>
+  </div>
+  <h1 style="margin:8px 0 12px;font-size:2em">Technology<br>landscape map</h1>
+  <p style="font-size:0.7em;color:var(--c-muted);margin:0">Week 1 synthesis</p>
+</section>
+
+<section data-transition="fade">
+  <h3 style="color:var(--c-teal);margin-bottom:20px">Session 6 &mdash; Learning objectives</h3>
+  <div style="text-align:left;max-width:640px;margin:0 auto">
+    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px">
+      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">01</span>
+      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Integrate the five technology domains into a coherent conceptual map</p>
+    </div>
+    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px">
+      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">02</span>
+      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Explain the dependencies and overlaps between technologies</p>
+    </div>
+    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px">
+      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">03</span>
+      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Assess own understanding gaps before Week 2</p>
+    </div>
+    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px">
+      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">04</span>
+      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Articulate what each technology can and cannot do &mdash; the "honest brochure"</p>
+    </div>
+  </div>
+</section>
+
+<section data-transition="fade">
+  <h3 style="color:var(--c-teal);margin-bottom:8px">Group workshop: build the map</h3>
+  <p class="small" style="margin-bottom:24px">Placeholder: groups connect technologies, data requirements, governance needs, maturity</p>
+  <div style="width:600px;height:300px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center">
+    <p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ AI/ML ] &mdash; [ NLP/GenAI ] &mdash; [ Blockchain ]<br>&nbsp;&nbsp;&nbsp;&nbsp;&darr;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br>[ Data governance ] &larr;&rarr; [ Quantum ]<br><br>Template provided &middot; groups fill in connections</p>
+  </div>
+</section>
+
+<section data-transition="fade">
+  <h3 style="color:var(--c-teal);margin-bottom:8px">Gallery walk</h3>
+  <p class="small" style="margin-bottom:24px">Placeholder: groups visit each other's maps, add challenges and questions</p>
+  <div style="width:520px;height:260px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center">
+    <p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ Rotate between maps<br>Add sticky-note questions<br>Instructor resolves disagreements ]</p>
+  </div>
+</section>
+
+<section data-transition="fade">
+  <h3 style="color:var(--c-teal);margin-bottom:8px">Preview: Week 2</h3>
+  <p class="small" style="margin-bottom:24px">How these concepts play out in real industry</p>
+  <div style="width:520px;height:260px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center">
+    <p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ Next week: every session is a case study<br>Success vs. failure, same technology<br>You now have the vocabulary &mdash; time to use it ]</p>
+  </div>
+</section>
+
+<section data-transition="fade">
+  <h3 style="color:var(--c-teal);margin-bottom:8px">Session 6 &mdash; formative check</h3>
+  <div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:16px;padding:28px 32px;text-align:left;max-width:560px;margin:0 auto">
+    <p style="font-size:0.65em;color:var(--c-white);margin:0 0 12px"><strong>Technology Landscape Map</strong> (group) + self-assessment quiz on conceptual foundations</p>
+    <p style="font-size:0.55em;color:var(--c-muted);margin:0">Formative &mdash; not graded. Confirms readiness for Week 2.</p>
+  </div>
+</section>
+
+<!-- WEEK 1 WRAP -->
+<section data-transition="fade">
+  <h2 style="margin-bottom:12px">Week 1 complete</h2>
+  <p style="font-size:0.65em;color:var(--c-muted);margin:0 0 20px">You can now explain every major technology to a non-expert.</p>
+  <p style="font-size:0.65em;color:var(--c-amber);margin:0 0 20px">Next week: how does this play out in real companies?</p>
+  <div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:12px;padding:20px 28px;display:inline-block;text-align:left">
+    <p style="font-size:0.55em;color:var(--c-muted);margin:0 0 6px">Prep for Monday 29 Jun:</p>
+    <p style="font-size:0.6em;color:var(--c-white);margin:0">AI in credit risk readings (Canvas)</p>
+    <p style="font-size:0.6em;color:var(--c-white);margin:4px 0 0">Algorithmic trading readings (Canvas)</p>
+  </div>
+</section>
+
+</div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reveal.min.js"></script>
 <script>
-// ════════════════════════════════════════
-//  TAB SWITCHING
-// ════════════════════════════════════════
-let currentDemo = 'search';
-function switchDemo(name) {
-  currentDemo = name;
-  document.querySelectorAll('.demo-page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('demo-' + name).classList.add('active');
-  event.target.classList.add('active');
-  if (name === 'search' && !searchInitialized) initSearch();
-  if (name === 'search' && sPanel.c) {
-    sPanel.c.renderer.setSize(sPanel.c.container.clientWidth, sPanel.c.container.clientHeight);
-    sPanel.q.renderer.setSize(sPanel.q.container.clientWidth, sPanel.q.container.clientHeight);
-  }
-}
-
-// Slider helpers
-document.getElementById('s-speed').addEventListener('input', e => {
-  document.getElementById('s-speed-label').textContent = (parseFloat(e.target.value)/100).toFixed(2)+'×';
-});
-document.getElementById('p-speed').addEventListener('input', e => {
-  document.getElementById('p-speed-label').textContent = (parseFloat(e.target.value)/100).toFixed(2)+'×';
-});
-function sQSpeed(){ return parseFloat(document.getElementById('s-speed').value)/100; }
-function pQSpeed(){ return parseFloat(document.getElementById('p-speed').value)/100; }
-
-// ════════════════════════════════════════
-//  DEMO 1: DATABASE SEARCH (Three.js)
-// ════════════════════════════════════════
-const S_N=100, S_COLS=10, S_ROWS=10, S_TARGET=85;
-const S_GITERS=Math.round(Math.PI/4*Math.sqrt(S_N));
-const S_SPACING=0.72, S_CUBE=0.52;
-const SC={
-  unch:new THREE.Color(0x2a2a3e), cChk:new THREE.Color(0xff4d6a), cGrey:new THREE.Color(0x111118),
-  qSup:new THREE.Color(0x00e5cc), qAmp:new THREE.Color(0xffd644), qDim:new THREE.Color(0x0a1612),
-  found:new THREE.Color(0x4dff91), orange:new THREE.Color(0xff8800),
-};
-
-let sPanel={c:null,q:null}, searchInitialized=false;
-let sC={running:false,step:-1,found:false,timer:0};
-let sQ={running:false,iter:0,phase:'idle',found:false,timer:0,amps:null,subphase:'oracle',diffApplied:false};
-let sBothDone=false;
-
-function makeSearchPanel(id){
-  const container=document.getElementById(id);
-  const w=container.clientWidth||500, h=container.clientHeight||340;
-  const scene=new THREE.Scene(); scene.background=new THREE.Color(0x0c0c14);
-  const camera=new THREE.PerspectiveCamera(40,w/h,0.1,200);
-  camera.position.set(0,7,10); camera.lookAt(0,-0.5,0);
-  const renderer=new THREE.WebGLRenderer({antialias:true});
-  renderer.setSize(w,h); renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
-  container.appendChild(renderer.domElement);
-  scene.add(new THREE.AmbientLight(0xffffff,0.4));
-  const d=new THREE.DirectionalLight(0xffffff,0.65);d.position.set(4,8,5);scene.add(d);
-  const p=new THREE.PointLight(0xffffff,0.25);p.position.set(-3,5,4);scene.add(p);
-  const group=new THREE.Group(), cubes=[], bars=[];
-  const ox=-(S_COLS-1)*S_SPACING/2, oz=-(S_ROWS-1)*S_SPACING/2;
-  for(let i=0;i<S_N;i++){
-    const col=i%S_COLS, row=Math.floor(i/S_COLS);
-    const geo=new THREE.BoxGeometry(S_CUBE,S_CUBE,S_CUBE);
-    const mat=new THREE.MeshPhongMaterial({color:SC.unch,emissive:0,shininess:50,transparent:true,opacity:0.9});
-    const cube=new THREE.Mesh(geo,mat);
-    cube.position.set(ox+col*S_SPACING,0,oz+row*S_SPACING);
-    cube.userData={baseY:0}; group.add(cube); cubes.push(cube);
-    const bG=new THREE.BoxGeometry(S_CUBE*0.55,0.01,S_CUBE*0.55);
-    const bM=new THREE.MeshPhongMaterial({color:0x00e5cc,emissive:0,transparent:true,opacity:0});
-    const bar=new THREE.Mesh(bG,bM);
-    bar.position.set(ox+col*S_SPACING,-0.45,oz+row*S_SPACING);
-    group.add(bar); bars.push(bar);
-  }
-  scene.add(group); group.position.y=-1.5;
-  return {scene,camera,renderer,cubes,bars,group,container};
-}
-
-function initSearch(){
-  sPanel.c=makeSearchPanel('s-classical-canvas');
-  sPanel.q=makeSearchPanel('s-quantum-canvas');
-  searchInitialized=true;
-}
-initSearch();
-
-function searchResetCubes(p){
-  p.cubes.forEach(c=>{c.material.color.copy(SC.unch);c.material.emissive.set(0);c.material.opacity=0.9;c.position.y=c.userData.baseY;c.scale.set(1,1,1);});
-  p.bars.forEach(b=>{b.scale.y=0.01;b.material.opacity=0;b.material.color.set(0x00e5cc);});
-}
-function searchReset(){
-  sC={running:false,step:-1,found:false,timer:0};
-  sQ={running:false,iter:0,phase:'idle',found:false,timer:0,amps:null,subphase:'oracle',diffApplied:false};
-  sBothDone=false;
-  if(sPanel.c)searchResetCubes(sPanel.c);
-  if(sPanel.q)searchResetCubes(sPanel.q);
-  document.getElementById('s-c-status').textContent='Ready';
-  document.getElementById('s-c-status').className='status-text';
-  document.getElementById('s-c-steps').textContent='0 / 100';
-  document.getElementById('s-q-status').textContent='Ready';
-  document.getElementById('s-q-status').className='status-text';
-  document.getElementById('s-q-steps').textContent=`0 / ${S_GITERS}`;
-  document.getElementById('s-result').textContent='';
-  document.getElementById('s-start').disabled=false;
-}
-function searchStart(){
-  searchReset();
-  document.getElementById('s-start').disabled=true;
-  sC={running:true,step:-1,found:false,timer:0};
-  sQ={running:true,iter:0,phase:'superposition',found:false,timer:0,amps:new Float32Array(S_N).fill(1/Math.sqrt(S_N)),subphase:'oracle',diffApplied:false};
-}
-function sCheckDone(){
-  if(sC.found&&sQ.found&&!sBothDone){
-    sBothDone=true;
-    document.getElementById('s-result').textContent=`Classical: ${sC.step+1} steps · Grover: ${S_GITERS} iterations · ${Math.round((sC.step+1)/S_GITERS)}× speedup`;
-  }
-}
-
-const S_TICK=0.35;
-function lerp(a,b,t){return a+(b-a)*t;}
-
-function updateSearchClassical(dt){
-  if(!sC.running||sC.found)return;
-  sC.timer+=dt;
-  if(sC.timer>=S_TICK){
-    sC.timer-=S_TICK; sC.step++;
-    const i=sC.step; if(i>=S_N){sC.running=false;return;}
-    const cube=sPanel.c.cubes[i];
-    if(i>0&&i-1!==S_TARGET){const prev=sPanel.c.cubes[i-1];prev.material.color.copy(SC.cGrey);prev.material.emissive.set(0);prev.material.opacity=0.25;prev.scale.set(0.7,0.7,0.7);}
-    if(i===S_TARGET){
-      sC.found=true;sC.running=false;
-      if(i>0){const prev=sPanel.c.cubes[i-1];prev.material.color.copy(SC.cGrey);prev.material.emissive.set(0);prev.material.opacity=0.25;prev.scale.set(0.7,0.7,0.7);}
-      cube.material.color.copy(SC.found);cube.material.emissive.set(0x1a4d2a);cube.scale.set(1.3,1.3,1.3);cube.position.y=cube.userData.baseY+0.5;
-      document.getElementById('s-c-status').textContent=`Found at index ${S_TARGET}!`;
-      document.getElementById('s-c-status').className='status-text found'; sCheckDone();
-    } else {
-      cube.material.color.copy(SC.cChk);cube.material.emissive.set(0x3a0a14);cube.material.opacity=0.95;cube.scale.set(1.05,1.05,1.05);
-      document.getElementById('s-c-status').textContent=`Checking index ${i}...`;
-    }
-    document.getElementById('s-c-steps').textContent=`${sC.step+1} / 100`;
-  }
-}
-
-function updateSearchQuantum(dt){
-  if(!sQ.running||sQ.found)return;
-  sQ.timer+=dt*sQSpeed();
-  const amps=sQ.amps, lr=0.12;
-  if(sQ.phase==='superposition'){
-    document.getElementById('s-q-status').textContent='Hadamard → superposition';
-    sPanel.q.cubes.forEach(c=>{c.material.color.lerp(SC.qSup,0.08);c.material.emissive.lerp(new THREE.Color(0x00524a),0.08);c.material.opacity=lerp(c.material.opacity,0.95,0.08);});
-    sPanel.q.bars.forEach(b=>{b.scale.y=lerp(b.scale.y,6,0.08);b.material.opacity=lerp(b.material.opacity,0.35,0.08);});
-    if(sQ.timer>0.8){sQ.timer=0;sQ.phase='iterate';sQ.iter=0;sQ.subphase='oracle';sQ.diffApplied=false;}
-    return;
-  }
-  if(sQ.phase==='iterate'){
-    let maxP=0;const probs=new Float32Array(S_N);
-    for(let i=0;i<S_N;i++){probs[i]=amps[i]*amps[i];if(probs[i]>maxP)maxP=probs[i];}
-    sPanel.q.cubes.forEach((c,i)=>{const ratio=maxP>0?probs[i]/maxP:1/S_N;
-      if(i===S_TARGET){const t=new THREE.Color().lerpColors(SC.qSup,SC.qAmp,Math.min(ratio,1));c.material.color.lerp(t,lr);c.material.emissive.lerp(new THREE.Color(0x4a3800),lr);const sc=1+ratio*0.35;c.scale.set(lerp(c.scale.x,sc,lr),lerp(c.scale.y,sc,lr),lerp(c.scale.z,sc,lr));c.position.y=lerp(c.position.y,c.userData.baseY+ratio*0.5,lr);c.material.opacity=lerp(c.material.opacity,1,lr);}
-      else{const t=new THREE.Color().lerpColors(SC.qDim,SC.qSup,Math.min(ratio*4,1));c.material.color.lerp(t,lr);c.material.emissive.lerp(new THREE.Color(0x001510),lr*0.5);c.material.opacity=lerp(c.material.opacity,0.5+ratio*1.5,lr);const sc=0.8+ratio*0.6;c.scale.set(lerp(c.scale.x,sc,lr*0.5),lerp(c.scale.y,sc,lr*0.5),lerp(c.scale.z,sc,lr*0.5));}
-    });
-    sPanel.q.bars.forEach((b,i)=>{const th=Math.max((maxP>0?probs[i]/maxP:1)*35,0.3);b.scale.y=lerp(b.scale.y,th,lr);
-      if(i===S_TARGET){b.material.color.lerp(new THREE.Color(0xffd644),lr);b.material.opacity=lerp(b.material.opacity,0.75,lr);}
-      else{b.material.color.lerp(new THREE.Color(0x00e5cc),lr*0.5);b.material.opacity=lerp(b.material.opacity,0.12,lr);}
-    });
-    if(sQ.subphase==='oracle'){
-      sPanel.q.cubes[S_TARGET].material.color.lerp(SC.orange,0.15);
-      document.getElementById('s-q-status').textContent=`Iter ${sQ.iter+1}/${S_GITERS}: Oracle`;
-      if(sQ.timer>S_TICK*0.4){amps[S_TARGET]*=-1;sQ.subphase='diffuse';sQ.diffApplied=false;}
-    }
-    if(sQ.subphase==='diffuse'){
-      document.getElementById('s-q-status').textContent=`Iter ${sQ.iter+1}/${S_GITERS}: Amplify`;
-      if(!sQ.diffApplied){let mean=0;for(let i=0;i<S_N;i++)mean+=amps[i];mean/=S_N;for(let i=0;i<S_N;i++)amps[i]=2*mean-amps[i];sQ.diffApplied=true;}
-    }
-    if(sQ.timer>=S_TICK){sQ.timer-=S_TICK;sQ.iter++;document.getElementById('s-q-steps').textContent=`${sQ.iter} / ${S_GITERS}`;
-      if(sQ.iter>=S_GITERS){sQ.phase='measure';sQ.timer=0;}else{sQ.subphase='oracle';sQ.diffApplied=false;}}
-    return;
-  }
-  if(sQ.phase==='measure'){
-    document.getElementById('s-q-status').textContent='Measuring...';
-    if(sQ.timer>0.3&&!sQ.found){
-      sQ.found=true;sQ.running=false;
-      sPanel.q.cubes.forEach((c,i)=>{if(i===S_TARGET){c.material.color.copy(SC.found);c.material.emissive.set(0x1a6d3a);c.scale.set(1.3,1.3,1.3);c.position.y=c.userData.baseY+0.6;c.material.opacity=1;}else{c.material.color.set(0x151520);c.material.emissive.set(0);c.material.opacity=0.35;c.scale.set(0.75,0.75,0.75);}});
-      sPanel.q.bars.forEach((b,i)=>{if(i===S_TARGET){b.material.color.set(0x4dff91);b.material.opacity=0.9;b.scale.y=50;}else{b.material.opacity=0;b.scale.y=0.01;}});
-      document.getElementById('s-q-status').textContent=`Found at index ${S_TARGET}!`;
-      document.getElementById('s-q-status').className='status-text found'; sCheckDone();
-    }
-  }
-}
-
-// ════════════════════════════════════════
-//  DEMO 2: PASSWORD CRACKING
-// ════════════════════════════════════════
-const CHARS='abcdefghijklmnopqrstuvwxyz0123456789';
-const NC=CHARS.length, PN=NC*NC;
-const PW_GITERS=Math.round(Math.PI/4*Math.sqrt(PN));
-let PW_SECRET, PW_IDX;
-function pw_idx2pw(i){return CHARS[Math.floor(i/NC)]+CHARS[i%NC];}
-function pickPW(){PW_IDX=Math.floor(Math.random()*PN);PW_SECRET=pw_idx2pw(PW_IDX);}
-pickPW();
-
-const pCG=document.getElementById('p-c-grid'), pQG=document.getElementById('p-q-grid');
-const pCC=[], pQC=[];
-for(let i=0;i<PN;i++){
-  const a=document.createElement('div');a.className='cell';pCG.appendChild(a);pCC.push(a);
-  const b=document.createElement('div');b.className='cell';pQG.appendChild(b);pQC.push(b);
-}
-
-let pC={running:false,step:-1,found:false,timer:0};
-let pQ={running:false,iter:0,phase:'idle',found:false,timer:0,subphase:'oracle',diffApplied:false};
-let pBothDone=false;
-
-function pwReset(){
-  pickPW();
-  pC={running:false,step:-1,found:false,timer:0};
-  pQ={running:false,iter:0,phase:'idle',found:false,timer:0,subphase:'oracle',diffApplied:false};
-  pBothDone=false;
-  pCC.forEach(c=>{c.className='cell';c.textContent='';c.style.opacity='';});
-  pQC.forEach(c=>{c.className='cell';c.textContent='';c.style.opacity='';});
-  document.getElementById('p-c-guess').textContent='--';document.getElementById('p-c-guess').className='current-guess';
-  document.getElementById('p-c-status').textContent='Ready';document.getElementById('p-c-status').className='status-text';
-  document.getElementById('p-c-steps').textContent='0 / 1,296';
-  document.getElementById('p-q-guess').textContent='--';document.getElementById('p-q-guess').className='current-guess quantum-state';
-  document.getElementById('p-q-status').textContent='Ready';document.getElementById('p-q-status').className='status-text';
-  document.getElementById('p-q-steps').textContent=`0 / ${PW_GITERS}`;
-  document.getElementById('p-password').innerHTML='<span class="hidden">??</span>';
-  document.getElementById('p-result').textContent='';
-  document.getElementById('p-start').disabled=false;
-}
-function pwStart(){
-  pwReset();document.getElementById('p-start').disabled=true;
-  pC={running:true,step:-1,found:false,timer:0};
-  pQ={running:true,iter:0,phase:'superposition',found:false,timer:0,subphase:'oracle',diffApplied:false};
-}
-function pCheckDone(){
-  if(pC.found&&pQ.found&&!pBothDone){
-    pBothDone=true;
-    document.getElementById('p-result').textContent=`Brute force: ${(pC.step+1).toLocaleString()} guesses · Grover: ${PW_GITERS} iter · ${Math.round((pC.step+1)/PW_GITERS)}× speedup`;
-    document.getElementById('p-password').textContent=PW_SECRET;
-  }
-}
-function pwReveal(panel,idx){
-  const cells=panel==='c'?pCC:pQC;
-  cells[idx].className='cell found';cells[idx].textContent=PW_SECRET;
-  const g=document.getElementById('p-'+panel+'-guess');g.textContent=PW_SECRET;g.className='current-guess found';
-  document.getElementById('p-'+panel+'-status').textContent=`Cracked: "${PW_SECRET}"`;
-  document.getElementById('p-'+panel+'-status').className='status-text found';
-}
-
-const PW_TICK=0.06;
-function updatePwClassical(dt){
-  if(!pC.running||pC.found)return;
-  pC.timer+=dt;
-  if(pC.timer>=PW_TICK){
-    pC.timer-=PW_TICK;pC.step++;const i=pC.step;if(i>=PN){pC.running=false;return;}
-    const pw=pw_idx2pw(i);
-    if(i>0&&i-1!==PW_IDX){pCC[i-1].className='cell checked';pCC[i-1].textContent='';}
-    if(i===PW_IDX){pC.found=true;pC.running=false;pwReveal('c',i);pCheckDone();}
-    else{pCC[i].className='cell checking';pCC[i].textContent=pw;
-      document.getElementById('p-c-guess').textContent=pw;document.getElementById('p-c-guess').className='current-guess checking';
-      document.getElementById('p-c-status').textContent=`Trying "${pw}"...`;}
-    document.getElementById('p-c-steps').textContent=`${(pC.step+1).toLocaleString()} / 1,296`;
-  }
-}
-
-function updatePwQuantum(dt){
-  if(!pQ.running||pQ.found)return;
-  pQ.timer+=dt*pQSpeed();
-  if(pQ.phase==='superposition'){
-    document.getElementById('p-q-status').textContent='Superposition: all passwords';
-    document.getElementById('p-q-guess').textContent='**';document.getElementById('p-q-guess').className='current-guess quantum-state';
-    const progress=Math.min(pQ.timer/0.8,1);const count=Math.floor(progress*PN);
-    for(let i=0;i<count;i++){if(pQC[i].className==='cell')pQC[i].className='cell superposition';}
-    if(pQ.timer>0.8){pQ.timer=0;pQ.phase='iterate';pQ.iter=0;pQ.subphase='oracle';pQ.diffApplied=false;}
-    return;
-  }
-  if(pQ.phase==='iterate'){
-    if(pQ.subphase==='oracle'){
-      document.getElementById('p-q-status').textContent=`Iter ${pQ.iter+1}/${PW_GITERS}: Oracle`;
-      document.getElementById('p-q-guess').textContent='⟨?⟩';document.getElementById('p-q-guess').className='current-guess amplified';
-      pQC[PW_IDX].className='cell oracle-hit';
-      if(pQ.timer>PW_TICK*0.4){pQ.subphase='diffuse';pQ.diffApplied=false;}
-    }
-    if(pQ.subphase==='diffuse'){
-      document.getElementById('p-q-status').textContent=`Iter ${pQ.iter+1}/${PW_GITERS}: Amplify`;
-      if(!pQ.diffApplied){pQ.diffApplied=true;
-        const dim=Math.min(pQ.iter/PW_GITERS,0.8);
-        pQC.forEach((c,i)=>{if(i===PW_IDX){c.className='cell amplified';}else{c.className='cell superposition';c.style.opacity=dim>0.5?String(0.9-dim*0.6):'';}});
-      }
-    }
-    if(pQ.timer>=PW_TICK){pQ.timer-=PW_TICK;pQ.iter++;document.getElementById('p-q-steps').textContent=`${pQ.iter} / ${PW_GITERS}`;
-      if(pQ.iter>=PW_GITERS){pQ.phase='measure';pQ.timer=0;}else{pQ.subphase='oracle';pQ.diffApplied=false;}}
-    return;
-  }
-  if(pQ.phase==='measure'){
-    document.getElementById('p-q-status').textContent='Measuring...';
-    if(pQ.timer>0.3&&!pQ.found){
-      pQ.found=true;pQ.running=false;
-      pQC.forEach((c,i)=>{c.style.opacity='';if(i===PW_IDX){c.className='cell found';c.textContent=PW_SECRET;}else{c.className='cell dimmed';c.textContent='';}});
-      pwReveal('q',PW_IDX);pCheckDone();
-    }
-  }
-}
-
-// ════════════════════════════════════════
-//  MAIN LOOP
-// ════════════════════════════════════════
-let prevTime=performance.now();
-function animate(){
-  requestAnimationFrame(animate);
-  const now=performance.now();
-  const dt=Math.min((now-prevTime)/1000,0.05);
-  prevTime=now;
-
-  if(currentDemo==='search'){
-    updateSearchClassical(dt);updateSearchQuantum(dt);
-    if(sPanel.c){
-      const t=now*0.001;
-      sPanel.c.group.rotation.y=Math.sin(t*0.12)*0.06;
-      sPanel.q.group.rotation.y=Math.sin(t*0.12+0.4)*0.06;
-      sPanel.c.renderer.render(sPanel.c.scene,sPanel.c.camera);
-      sPanel.q.renderer.render(sPanel.q.scene,sPanel.q.camera);
-    }
-  } else {
-    updatePwClassical(dt);updatePwQuantum(dt);
-  }
-}
-animate();
-
-window.addEventListener('resize',()=>{
-  if(sPanel.c)[sPanel.c,sPanel.q].forEach(p=>{const w=p.container.clientWidth,h=p.container.clientHeight;p.camera.aspect=w/h;p.camera.updateProjectionMatrix();p.renderer.setSize(w,h);});
+Reveal.initialize({
+  hash: true, transition: 'fade', transitionSpeed: 'default',
+  controlsTutorial: false, progress: true, center: true,
+  width: 1280, height: 720, margin: 0.08
 });
 </script>
 </body>
