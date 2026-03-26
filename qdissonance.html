@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Detectable Quantum Dissonance</title>
+    <style>
+        body { background: #0a0a0c; color: #cbd5e0; font-family: 'Segoe UI', sans-serif; display: flex; flex-direction: column; align-items: center; padding: 50px; }
+        .stage { display: flex; gap: 12px; align-items: flex-end; height: 250px; width: 800px; justify-content: center; border-bottom: 2px solid #2d3748; padding-bottom: 20px; }
+        .child { width: 40px; background: #1a202c; border: 1px solid #4a5568; border-radius: 4px; transition: all 0.5s ease; position: relative; }
+        .target { background: #f56565 !important; box-shadow: 0 0 20px #f56565; border-color: #feb2b2 !important; }
+        .controls { margin-top: 50px; display: flex; gap: 15px; }
+        button { background: #2d3748; color: white; border: none; padding: 12px 24px; cursor: pointer; border-radius: 5px; font-size: 14px; transition: 0.2s; }
+        button:hover:not(:disabled) { background: #4a5568; transform: translateY(-2px); }
+        button:disabled { opacity: 0.3; cursor: not-allowed; }
+        #status { margin-top: 20px; font-family: monospace; color: #63b3ed; }
+    </style>
+</head>
+<body>
+
+    <h2>FINDING THE DETUNED WAVE</h2>
+    <div id="status">Ready to initialize the choir...</div>
+
+    <div class="stage" id="choir"></div>
+
+    <div class="controls">
+        <button id="btn-init">1. UNIFORM CHORD (440Hz)</button>
+        <button id="btn-detune" disabled>2. INFECT TARGET (Detune)</button>
+        <button id="btn-cancel" disabled>3. TEACHER'S FILTER</button>
+    </div>
+
+<script>
+    const N = 10;
+    const targetIdx = 3; 
+    let audioCtx, masterGain;
+    const singers = [];
+
+    const choirDiv = document.getElementById('choir');
+    for(let i=0; i<N; i++) {
+        const div = document.createElement('div');
+        div.className = 'child';
+        div.style.height = '60px';
+        choirDiv.appendChild(div);
+    }
+    const children = document.querySelectorAll('.child');
+
+    function setupAudio() {
+        if (!audioCtx) {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            masterGain = audioCtx.createGain();
+            masterGain.connect(audioCtx.destination);
+            masterGain.gain.value = 0.3;
+        }
+    }
+
+    document.getElementById('btn-init').onclick = function() {
+        setupAudio();
+        this.disabled = true;
+        children.forEach((el, i) => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.frequency.value = 440; // Perfect A4
+            gain.gain.value = 0.05;
+            osc.connect(gain).connect(masterGain);
+            osc.start();
+            singers.push({osc, gain});
+            el.style.height = '120px';
+        });
+        document.getElementById('status').innerText = "All singers at 440.0Hz. Perfect Harmony.";
+        document.getElementById('btn-detune').disabled = false;
+    };
+
+    document.getElementById('btn-detune').onclick = function() {
+        this.disabled = true;
+        // Physically detuning the target by 5Hz to create a "Beat"
+        // In Quantum, this represents a phase rotation that accumulates over time
+        singers[targetIdx].osc.frequency.setTargetAtTime(445, audioCtx.currentTime, 0.5);
+        
+        document.getElementById('status').innerText = "Target detuned to 445Hz. Hear the 'wobble' starting?";
+        document.getElementById('btn-cancel').disabled = false;
+    };
+
+    document.getElementById('btn-cancel').onclick = function() {
+        this.disabled = true;
+        
+        // The Teacher sings a "Correction Note" at 440Hz, but inverted (Phase -180)
+        // This is the Diffuser: It subtracts the 'Average' (440Hz) from everyone.
+        
+        children.forEach((el, i) => {
+            if (i === targetIdx) {
+                // The Target doesn't cancel because 445Hz minus 440Hz = 5Hz "Ghost" note
+                el.classList.add('target');
+                el.style.height = '200px';
+                singers[i].gain.gain.setTargetAtTime(0.3, audioCtx.currentTime, 0.2);
+            } else {
+                // The harmonious 440Hz kids are perfectly subtracted. Silence.
+                el.style.height = '10px';
+                el.style.opacity = '0.3';
+                singers[i].gain.gain.setTargetAtTime(0, audioCtx.currentTime, 0.2);
+            }
+        });
+        
+        document.getElementById('status').innerText = "HARMONY CANCELLED. Only the 5Hz dissonance remains.";
+    };
+</script>
+</body>
+</html>

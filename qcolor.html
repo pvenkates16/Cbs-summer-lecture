@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quantum Weighted Sum: Signal vs Noise</title>
+    <style>
+        body { background: #050505; color: #eee; font-family: 'Courier New', monospace; display: flex; flex-direction: column; align-items: center; padding: 20px; }
+        .lab-row { display: flex; gap: 30px; align-items: center; margin-bottom: 40px; background: #111; padding: 25px; border-radius: 15px; border: 1px solid #333; width: 980px; }
+        .spectrum { display: flex; align-items: flex-end; justify-content: space-around; height: 180px; width: 620px; border-bottom: 2px solid #444; padding-bottom: 10px; position: relative; }
+        .bar { width: 45px; transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1); position: relative; border-radius: 3px; }
+        .label { position: absolute; bottom: -25px; width: 100%; text-align: center; font-size: 9px; color: #666; }
+        .prism-box { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 240px; border-left: 1px solid #333; padding-left: 30px; }
+        .prism { width: 140px; height: 140px; border-radius: 50%; background: #222; transition: all 1s ease; border: 4px solid #333; }
+        .prism-label { margin-top: 15px; font-size: 11px; color: #888; text-transform: uppercase; text-align: center;}
+        #scanner { position: absolute; width: 50px; height: 190px; border: 2px solid #fff; top: -5px; left: -100px; transition: left 0.4s; pointer-events: none; z-index: 10; }
+        .controls { margin-top: 20px; display: flex; gap: 10px; }
+        button { background: #1a1a1a; color: #0cf; border: 1px solid #0cf; padding: 10px 15px; cursor: pointer; border-radius: 4px; font-size: 11px; font-weight: bold; }
+        button:hover:not(:disabled) { background: #0cf; color: #000; }
+        button:disabled { border-color: #333; color: #333; }
+    </style>
+</head>
+<body>
+
+    <div class="lab-row">
+        <div>
+            <h4 style="color:#ff4444; margin:0 0 10px 0;">CLASSICAL: SEQUENTIAL WEIGHTED SUBTRACTION</h4>
+            <div class="spectrum" id="c-spectrum"><div id="scanner"></div></div>
+            <button id="btn-c-start" style="margin-top:20px">SCAN WEIGHTED SIGNAL</button>
+        </div>
+        <div class="prism-box">
+            <div class="prism" id="c-prism"></div>
+            <div class="prism-label">WEIGHTED SUM:<br><span id="c-res-text" style="color:#fff">---</span></div>
+        </div>
+    </div>
+
+    <div class="lab-row">
+        <div>
+            <h4 style="color:#00ffd2; margin:0 0 10px 0;">QUANTUM: AMPLITUDE NORMALIZATION & AMPLIFICATION</h4>
+            <div class="spectrum" id="q-spectrum"></div>
+            <div class="controls">
+                <button id="btn-q-init">1. HADAMARD (EQUALIZE)</button>
+                <button id="btn-q-oracle" disabled>2. ORACLE (FLIP TEAL)</button>
+                <button id="btn-q-diffuser" disabled>3. DIFFUSER (INVERT)</button>
+            </div>
+        </div>
+        <div class="prism-box">
+            <div class="prism" id="q-prism"></div>
+            <div class="prism-label">WEIGHTED SUM:<br><span id="q-res-text" style="color:#fff">---</span></div>
+        </div>
+    </div>
+
+<script>
+    // Different starting intensities (0.1 to 1.0)
+    const colors = [
+        { name: 'RED', r:255, g:68, b:68, weight: 0.8 },
+        { name: 'ORG', r:255, g:153, b:68, weight: 0.3 },
+        { name: 'YEL', r:255, g:235, b:68, weight: 0.9 },
+        { name: 'GRN', r:68, g:255, b:110, weight: 0.5 },
+        { name: 'BLU', r:68, g:119, b:255, weight: 0.2 },
+        { name: 'PUR', r:157, g:68, b:255, weight: 0.7 },
+        { name: 'TEAL', r:0, g:255, b:210, weight: 0.4 }, // TARGET
+        { name: 'PNK', r:255, g:68, b:210, weight: 0.6 }
+    ];
+    const targetIdx = 6;
+
+    function blendWeighted(arr) {
+        if (arr.length === 0) return "rgb(30,30,30)";
+        let r = 0, g = 0, b = 0, totalW = 0;
+        arr.forEach(c => {
+            r += c.r * c.weight;
+            g += c.g * c.weight;
+            b += c.b * c.weight;
+            totalW += c.weight;
+        });
+        return `rgb(${Math.round(r/totalW)}, ${Math.round(g/totalW)}, ${Math.round(b/totalW)})`;
+    }
+
+    function build(id, type) {
+        const cont = document.getElementById(id);
+        colors.forEach((c, i) => {
+            const b = document.createElement('div');
+            b.className = 'bar';
+            b.style.backgroundColor = `rgb(${c.r},${c.g},${c.b})`;
+            // Show initial uneven intensities
+            b.style.height = (c.weight * 150) + 'px';
+            b.innerHTML = `<div class="label">${c.name}</div>`;
+            cont.appendChild(b);
+        });
+    }
+    build('c-spectrum'); build('q-spectrum');
+
+    // Initial Blends
+    document.getElementById('c-prism').style.background = blendWeighted(colors);
+    document.getElementById('q-prism').style.background = blendWeighted(colors);
+
+    // --- Classical Logic ---
+    document.getElementById('btn-c-start').onclick = async function() {
+        this.disabled = true;
+        const scan = document.getElementById('scanner');
+        const prism = document.getElementById('c-prism');
+        let currentPool = [...colors];
+        
+        for(let i=0; i<colors.length; i++) {
+            scan.style.left = (i * 77 + 10) + 'px';
+            await new Promise(r => setTimeout(r, 700));
+            
+            if(i === targetIdx) {
+                currentPool = [colors[targetIdx]];
+                prism.style.background = blendWeighted(currentPool);
+                prism.style.boxShadow = `0 0 30px rgba(0,255,210,0.6)`;
+                document.getElementById('c-res-text').innerText = "TARGET ISOLATED";
+                break;
+            } else {
+                currentPool = currentPool.filter(c => c.name !== colors[i].name);
+                prism.style.background = blendWeighted(currentPool);
+                document.getElementById('c-spectrum').querySelectorAll('.bar')[i].style.opacity = "0.1";
+                document.getElementById('c-res-text').innerText = `REMOVING ${colors[i].name}`;
+            }
+        }
+    };
+
+    // --- Quantum Logic ---
+    const qBars = document.getElementById('q-spectrum').querySelectorAll('.bar');
+    const qPrism = document.getElementById('q-prism');
+
+    document.getElementById('btn-q-init').onclick = function() {
+        this.disabled = true;
+        // HADAMARD: In this case, it 'equalizes' the weights to start the search
+        qBars.forEach(b => { b.style.height = '70px'; b.style.opacity = '1'; });
+        qPrism.style.background = "#888"; 
+        document.getElementById('q-res-text').innerText = "NORMALIZED MIX";
+        document.getElementById('btn-q-oracle').disabled = false;
+    };
+
+    document.getElementById('btn-q-oracle').onclick = function() {
+        this.disabled = true;
+        qBars[targetIdx].style.transform = "translateY(70px) scaleY(-1)";
+        qPrism.style.background = "#333";
+        document.getElementById('q-res-text').innerText = "TEAL PHASE INVERTED";
+        document.getElementById('btn-q-diffuser').disabled = false;
+    };
+
+    document.getElementById('btn-q-diffuser').onclick = function() {
+        this.disabled = true;
+        qBars.forEach((b, i) => {
+            if(i === targetIdx) {
+                b.style.transform = "translateY(0) scaleY(1)";
+                b.style.height = "170px";
+            } else {
+                b.style.height = "8px"; b.style.opacity = "0.2";
+            }
+        });
+        qPrism.style.background = `rgb(${colors[targetIdx].r},${colors[targetIdx].g},${colors[targetIdx].b})`;
+        qPrism.style.boxShadow = `0 0 40px rgba(0,255,210,0.8)`;
+        document.getElementById('q-res-text').innerText = "PURE TEAL AMPLIFIED";
+    };
+</script>
+</body>
+</html>

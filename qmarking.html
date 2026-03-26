@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quantum Search: The Audio Lab</title>
+    <style>
+        body { background: #0a0a0a; color: #00ff00; font-family: 'Courier New', monospace; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; }
+        .dashboard { border: 2px solid #333; padding: 30px; border-radius: 15px; background: #000; box-shadow: 0 0 20px rgba(0,255,0,0.1); text-align: center; width: 450px; }
+        h1 { color: #fff; font-size: 1.5rem; margin-bottom: 20px; letter-spacing: 2px; }
+        .btn-group { display: flex; flex-direction: column; gap: 10px; }
+        button { background: #111; color: #00ff00; border: 1px solid #00ff00; padding: 15px; cursor: pointer; font-family: inherit; font-size: 14px; transition: all 0.2s; border-radius: 5px; }
+        button:hover { background: #00ff00; color: #000; box-shadow: 0 0 15px #00ff00; }
+        button:disabled { border-color: #333; color: #333; cursor: not-allowed; }
+        #status { margin-top: 20px; height: 50px; font-size: 13px; color: #888; line-height: 1.4; }
+        .highlight { color: #fff; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="dashboard">
+    <h1>QUANTUM SEARCH SONAR</h1>
+    <div class="btn-group">
+        <button id="btn-init">1. INITIALIZE SUPERPOSITION</button>
+        <button id="btn-oracle" disabled>2. APPLY ORACLE (PHASE FLIP)</button>
+        <button id="btn-diffuser" disabled>3. RUN DIFFUSER (INTERFERENCE)</button>
+        <button id="btn-stop" style="border-color: #ff4444; color: #ff4444;">RESET / STOP</button>
+    </div>
+    <div id="status">Click 'Initialize' to start the quantum state...</div>
+</div>
+
+<script>
+    let audioCtx, oscMain, oscTarget, gainMain, gainTarget;
+    const status = document.getElementById('status');
+
+    function initAudio() {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        
+        // Setup oscillators (Middle C)
+        oscMain = audioCtx.createOscillator();
+        oscTarget = audioCtx.createOscillator();
+        gainMain = audioCtx.createGain();
+        gainTarget = audioCtx.createGain();
+
+        oscMain.frequency.value = 261.63;
+        oscTarget.frequency.value = 265.00;
+
+        // Connect
+        oscMain.connect(gainMain).connect(audioCtx.destination);
+        oscTarget.connect(gainTarget).connect(audioCtx.destination);
+        
+        gainMain.gain.value = 0;
+        gainTarget.gain.value = 0;
+
+        oscMain.start();
+        oscTarget.start();
+    }
+
+    document.getElementById('btn-init').onclick = () => {
+        initAudio();
+        // Step 1: Superposition (Both waves positive)
+        gainMain.gain.setTargetAtTime(0.4, audioCtx.currentTime, 0.1);
+        gainTarget.gain.setTargetAtTime(0.4, audioCtx.currentTime, 0.1);
+        
+        status.innerHTML = "<span class='highlight'>SUPERPOSITION:</span> Two waves in phase.<br>Result: <span class='highlight'>LOUD</span> (Constructive Interference)";
+        document.getElementById('btn-oracle').disabled = false;
+        document.getElementById('btn-init').disabled = true;
+    };
+
+    document.getElementById('btn-oracle').onclick = () => {
+        // Step 2: The Oracle (Flip target to negative phase)
+        gainTarget.gain.setTargetAtTime(-0.4, audioCtx.currentTime, 0.1);
+        
+        status.innerHTML = "<span class='highlight'>ORACLE:</span> Target wave flipped to -1 phase.<br>Result: <span class='highlight'>SILENCE</span> (Destructive Interference)";
+        document.getElementById('btn-diffuser').disabled = false;
+        document.getElementById('btn-oracle').disabled = true;
+    };
+
+    document.getElementById('btn-diffuser').onclick = () => {
+        // Step 3: The Diffuser (Cancel the 'average', boost the 'target')
+        gainMain.gain.setTargetAtTime(0, audioCtx.currentTime, 0.1);
+        gainTarget.gain.setTargetAtTime(0.8, audioCtx.currentTime, 0.1);
+        
+        status.innerHTML = "<span class='highlight'>DIFFUSER:</span> Background noise canceled.<br>Result: <span class='highlight'>PURE TONE</span> (Signal found)";
+        document.getElementById('btn-diffuser').disabled = true;
+    };
+
+    document.getElementById('btn-stop').onclick = () => {
+        location.reload(); // Simplest way to reset the AudioContext
+    };
+</script>
+
+</body>
+</html>
