@@ -3,889 +3,492 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI, Fintech & Deep Tech — Course Map</title>
+<title>Week 1: Concepts — AI, Fintech & Deep Tech</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reveal.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/theme/black.min.css">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,300&family=DM+Mono:wght@400&display=swap');
-
-:root {
-  --c-bg: #0b0f14;
-  --c-surface: #141a22;
-  --c-surface2: #1c2430;
-  --c-white: #e8eaed;
-  --c-muted: #8b95a5;
-  --c-dim: #4a5568;
-  --c-border: #2a3342;
-  --c-teal: #5DCAA5;
-  --c-teal-dark: #0F6E56;
-  --c-teal-bg: rgba(93,202,165,0.12);
-  --c-amber: #EF9F27;
-  --c-amber-dark: #854F0B;
-  --c-amber-bg: rgba(239,159,39,0.12);
-  --c-coral: #F0997B;
-  --c-coral-dark: #993C1D;
-  --c-coral-bg: rgba(240,153,123,0.12);
-  --c-blue: #85B7EB;
-  --c-blue-bg: rgba(133,183,235,0.12);
-  --font: 'DM Sans', system-ui, sans-serif;
-  --mono: 'DM Mono', monospace;
-}
-
-.reveal { font-family: var(--font); color: var(--c-white); }
-.reveal .slide-background { background: var(--c-bg) !important; }
-.reveal h1, .reveal h2, .reveal h3 {
-  font-family: var(--font); color: var(--c-white);
-  font-weight: 700; text-transform: none; letter-spacing: -0.02em;
-}
-.reveal h1 { font-size: 2.4em; line-height: 1.1; }
-.reveal h2 { font-size: 1.6em; line-height: 1.2; }
-.reveal h3 { font-size: 1.1em; line-height: 1.3; }
-.reveal p, .reveal li { font-size: 0.7em; line-height: 1.6; }
-.reveal .small { font-size: 0.55em; color: var(--c-muted); }
-
-.tag {
-  display: inline-block; font-family: var(--mono); font-size: 0.5em;
-  padding: 3px 10px; border-radius: 20px; font-weight: 400; vertical-align: middle; margin: 0 2px;
-}
-.tag-understand { background: rgba(133,183,235,0.2); color: #85B7EB; }
-.tag-analyze { background: rgba(239,159,39,0.2); color: #EF9F27; }
-.tag-evaluate { background: rgba(227,121,121,0.2); color: #F09595; }
-.tag-create { background: rgba(175,169,236,0.2); color: #AFA9EC; }
-.tag-apply { background: rgba(93,202,165,0.2); color: #5DCAA5; }
-.tag-meta { background: var(--c-surface2); color: var(--c-muted); }
-
-.week-card {
-  background: var(--c-surface); border: 1px solid var(--c-border);
-  border-radius: 16px; padding: 28px 32px; text-align: left;
-}
-.week-card h3 { margin: 0 0 8px; font-size: 0.9em; }
-.week-card p { margin: 0; font-size: 0.6em; color: var(--c-muted); }
-.week-card.w1 { border-left: 4px solid var(--c-teal); }
-.week-card.w2 { border-left: 4px solid var(--c-amber); }
-.week-card.w3 { border-left: 4px solid var(--c-coral); }
-
-.three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; width: 100%; }
-.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; width: 100%; }
-.four-col { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; width: 100%; }
-
-.day-card {
-  background: var(--c-surface); border: 1px solid var(--c-border);
-  border-radius: 12px; padding: 16px 20px; text-align: left;
-}
-.day-card .day-label {
-  font-family: var(--mono); font-size: 0.45em; color: var(--c-muted);
-  margin: 0 0 6px; text-transform: uppercase; letter-spacing: 0.08em;
-}
-.day-card .day-title { font-size: 0.6em; font-weight: 500; margin: 0 0 4px; color: var(--c-white); }
-.day-card .day-slot { font-family: var(--mono); font-size: 0.45em; color: var(--c-dim); margin: 0; }
-
-.session-row {
-  display: grid; grid-template-columns: 60px 1fr; gap: 12px;
-  align-items: start; text-align: left; margin: 0 0 14px;
-}
-.session-num {
-  font-family: var(--mono); font-size: 0.55em; font-weight: 500; color: var(--c-bg);
-  border-radius: 8px; padding: 6px 0; text-align: center; margin-top: 2px;
-}
-.session-num.w1 { background: var(--c-teal); }
-.session-num.w2 { background: var(--c-amber); }
-.session-num.w3 { background: var(--c-coral); }
-.session-info h3 { font-size: 0.7em; margin: 0 0 4px; font-weight: 500; }
-.session-info p { font-size: 0.5em; color: var(--c-muted); margin: 0; line-height: 1.4; }
-
-.flow-arrow { font-size: 1.4em; color: var(--c-dim); line-height: 1; }
-.flow-label { font-size: 0.5em; color: var(--c-muted); font-style: italic; }
-
-.reveal .progress { color: var(--c-teal); height: 3px; }
-.reveal .controls button { color: var(--c-muted); }
+:root{--c-bg:#0b0f14;--c-surface:#141a22;--c-surface2:#1c2430;--c-white:#e8eaed;--c-muted:#8b95a5;--c-dim:#4a5568;--c-border:#2a3342;--c-teal:#5DCAA5;--c-amber:#EF9F27;--c-coral:#F0997B;--c-blue:#85B7EB;--font:'DM Sans',system-ui,sans-serif;--mono:'DM Mono',monospace}
+.reveal{font-family:var(--font);color:var(--c-white)}.reveal .slide-background{background:var(--c-bg)!important}
+.reveal h1,.reveal h2,.reveal h3{font-family:var(--font);color:var(--c-white);font-weight:700;text-transform:none;letter-spacing:-0.02em}
+.reveal h1{font-size:2.4em;line-height:1.1}.reveal h2{font-size:1.6em;line-height:1.2}.reveal h3{font-size:1.1em;line-height:1.3}
+.reveal p,.reveal li{font-size:0.7em;line-height:1.6}.reveal .small{font-size:0.55em;color:var(--c-muted)}
+.tag{display:inline-block;font-family:var(--mono);font-size:0.5em;padding:3px 10px;border-radius:20px;font-weight:400;vertical-align:middle;margin:0 2px}
+.tag-understand{background:rgba(133,183,235,0.2);color:#85B7EB}.tag-analyze{background:rgba(239,159,39,0.2);color:#EF9F27}.tag-evaluate{background:rgba(227,121,121,0.2);color:#F09595}.tag-create{background:rgba(175,169,236,0.2);color:#AFA9EC}
+.week-card{background:var(--c-surface);border:1px solid var(--c-border);border-radius:16px;padding:28px 32px;text-align:left}
+.week-card h3{margin:0 0 8px;font-size:0.9em}.week-card p{margin:0;font-size:0.6em;color:var(--c-muted)}
+.week-card.w1{border-left:4px solid var(--c-teal)}.week-card.w2{border-left:4px solid var(--c-amber)}.week-card.w3{border-left:4px solid var(--c-coral)}
+.day-card{background:var(--c-surface);border:1px solid var(--c-border);border-radius:12px;padding:16px 20px;text-align:left}
+.day-card .day-label{font-family:var(--mono);font-size:0.45em;color:var(--c-muted);margin:0 0 6px;text-transform:uppercase;letter-spacing:0.08em}
+.day-card .day-title{font-size:0.6em;font-weight:500;margin:0 0 4px;color:var(--c-white)}
+.day-card .day-slot{font-family:var(--mono);font-size:0.45em;color:var(--c-dim);margin:0}
+.session-row{display:grid;grid-template-columns:60px 1fr;gap:12px;align-items:start;text-align:left;margin:0 0 14px}
+.session-num{font-family:var(--mono);font-size:0.55em;font-weight:500;color:var(--c-bg);border-radius:8px;padding:6px 0;text-align:center;margin-top:2px;background:var(--c-teal)}
+.session-num.w2{background:var(--c-amber)}.session-num.w3{background:var(--c-coral)}
+.session-info h3{font-size:0.7em;margin:0 0 4px;font-weight:500}.session-info p{font-size:0.5em;color:var(--c-muted);margin:0;line-height:1.4}
+.reveal .progress{color:var(--c-teal);height:3px}.reveal .controls button{color:var(--c-muted)}
 </style>
 </head>
 <body>
 <div class="reveal">
 <div class="slides">
 
-<!-- SLIDE 1: TITLE -->
+<!-- ═══ COURSE MAP ═══ -->
+
 <section data-transition="fade">
   <h1 style="margin-bottom:12px">AI, Fintech &<br>Deep Tech</h1>
   <p style="font-size:0.8em;color:var(--c-muted);margin:0 0 24px">in Finance and Business</p>
   <p style="font-size:0.6em;margin:0">
     <span class="tag tag-understand">BA-BHAAI1115U</span>
-    <span class="tag tag-meta">7.5 ECTS</span>
-    <span class="tag tag-meta">Summer 2026</span>
+    <span class="tag" style="background:var(--c-surface2);color:var(--c-muted)">7.5 ECTS</span>
+    <span class="tag" style="background:var(--c-surface2);color:var(--c-muted)">Summer 2026</span>
   </p>
   <p style="font-size:0.55em;color:var(--c-dim);margin:20px 0 0">Prabhu Venkatesh &middot; Copenhagen Business School</p>
 </section>
 
-<!-- SLIDE 2: WHY THIS MATTERS TO YOU -->
+<!-- ★ COURSE SCOPE: WHAT WE COVER vs. WHAT WE WON'T ★ -->
 <section data-transition="fade">
-  <h2 style="margin-bottom:24px">Why does this matter <em style="font-weight:400;color:var(--c-teal)">to you</em>?</h2>
-  <div style="max-width:600px;margin:0 auto;text-align:left;display:flex;flex-direction:column;gap:20px">
-    <p style="font-size:0.8em;margin:0;color:var(--c-white)">These technologies are becoming part of every decision you&rsquo;ll be part of.</p>
-    <p style="font-size:0.8em;margin:0;color:var(--c-muted)">This course makes that layer visible &mdash; through cases that show you what works, and what breaks.</p>
+  <h2 style="margin-bottom:8px">Course scope</h2>
+  <p class="small" style="margin-bottom:20px">What we cover, what we don&rsquo;t, and why</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:780px;margin:0 auto;text-align:left">
+
+    <!-- LEFT: WHAT WE COVER -->
+    <div>
+      <p style="font-family:var(--mono);font-size:0.45em;color:var(--c-teal);margin:0 0 10px;text-transform:uppercase;letter-spacing:0.1em">&#10003; What we cover</p>
+      <div style="background:var(--c-surface);border:1px solid var(--c-border);border-left:3px solid var(--c-teal);border-radius:10px;padding:12px 16px;margin:0 0 8px">
+        <p style="font-size:0.55em;font-weight:500;color:var(--c-white);margin:0 0 3px">AI, ML & deep learning</p>
+        <p style="font-size:0.42em;color:var(--c-muted);margin:0;line-height:1.4">Concepts, workflow, data quality &mdash; the foundation</p>
+      </div>
+      <div style="background:var(--c-surface);border:1px solid var(--c-border);border-left:3px solid var(--c-teal);border-radius:10px;padding:12px 16px;margin:0 0 8px">
+        <p style="font-size:0.55em;font-weight:500;color:var(--c-white);margin:0 0 3px">NLP, CV, generative & agentic AI</p>
+        <p style="font-size:0.42em;color:var(--c-muted);margin:0;line-height:1.4">Application families, LLMs, autonomous systems</p>
+      </div>
+      <div style="background:var(--c-surface);border:1px solid var(--c-border);border-left:3px solid var(--c-teal);border-radius:10px;padding:12px 16px;margin:0 0 8px">
+        <p style="font-size:0.55em;font-weight:500;color:var(--c-white);margin:0 0 3px">Quantum computing</p>
+        <p style="font-size:0.42em;color:var(--c-muted);margin:0;line-height:1.4">Conceptual foundations, finance applications, realistic outlook</p>
+      </div>
+      <div style="background:var(--c-surface);border:1px solid var(--c-border);border-left:3px solid var(--c-teal);border-radius:10px;padding:12px 16px;margin:0 0 8px">
+        <p style="font-size:0.55em;font-weight:500;color:var(--c-white);margin:0 0 3px">Data governance & regulation</p>
+        <p style="font-size:0.42em;color:var(--c-muted);margin:0;line-height:1.4">DAMA-DMBOK, GDPR, EU AI Act, risk tiers</p>
+      </div>
+      <div style="background:var(--c-surface);border:1px solid var(--c-border);border-left:3px solid var(--c-teal);border-radius:10px;padding:12px 16px">
+        <p style="font-size:0.55em;font-weight:500;color:var(--c-white);margin:0 0 3px">Real-world cases & strategy</p>
+        <p style="font-size:0.42em;color:var(--c-muted);margin:0;line-height:1.4">Success/failure analysis, strategy design, implementation</p>
+      </div>
+    </div>
+
+    <!-- RIGHT: WHAT WE DON'T -->
+    <div>
+      <p style="font-family:var(--mono);font-size:0.45em;color:var(--c-dim);margin:0 0 10px;text-transform:uppercase;letter-spacing:0.1em">&#10007; What we don&rsquo;t cover</p>
+      <div style="background:var(--c-surface);border:1px solid var(--c-border);border-left:3px solid var(--c-dim);border-radius:10px;padding:12px 16px;margin:0 0 8px">
+        <p style="font-size:0.55em;font-weight:500;color:var(--c-muted);margin:0 0 3px">Blockchain & cryptocurrencies</p>
+        <p style="font-size:0.42em;color:var(--c-dim);margin:0;line-height:1.4">Enterprise adoption has plateaued. We reference deep-tech failures (TradeLens) but don&rsquo;t teach the concepts.</p>
+      </div>
+      <div style="background:var(--c-surface);border:1px solid var(--c-border);border-left:3px solid var(--c-dim);border-radius:10px;padding:12px 16px;margin:0 0 8px">
+        <p style="font-size:0.55em;font-weight:500;color:var(--c-muted);margin:0 0 3px">Coding & implementation</p>
+        <p style="font-size:0.42em;color:var(--c-dim);margin:0;line-height:1.4">No Python, no notebooks. The goal is decision-quality understanding, not engineering skill.</p>
+      </div>
+      <div style="background:var(--c-surface);border:1px solid var(--c-border);border-left:3px solid var(--c-dim);border-radius:10px;padding:12px 16px;margin:0 0 8px">
+        <p style="font-size:0.55em;font-weight:500;color:var(--c-muted);margin:0 0 3px">Mathematical foundations</p>
+        <p style="font-size:0.42em;color:var(--c-dim);margin:0;line-height:1.4">No linear algebra, calculus, or probability proofs. Concepts come through analogies and diagrams.</p>
+      </div>
+      <div style="background:var(--c-surface);border:1px solid var(--c-border);border-left:3px solid var(--c-dim);border-radius:10px;padding:12px 16px">
+        <p style="font-size:0.55em;font-weight:500;color:var(--c-muted);margin:0 0 3px">Tool tutorials</p>
+        <p style="font-size:0.42em;color:var(--c-dim);margin:0;line-height:1.4">No TensorFlow, PyTorch, or prompt engineering training. Tools change quarterly; concepts last a career.</p>
+      </div>
+    </div>
+
   </div>
+  <p style="font-size:0.5em;color:var(--c-dim);margin:18px 0 0;text-align:center;font-style:italic">Understanding and judgment, not memorisation or implementation</p>
 </section>
 
-<!-- SLIDE 3: YOUR INSTRUCTOR -->
-<section data-transition="fade">
-  <h2 style="margin-bottom:20px">Your instructor</h2>
-  <div style="max-width:600px;margin:0 auto;text-align:left;display:flex;flex-direction:column;gap:16px">
-    <div>
-      <p style="font-family:var(--mono);font-size:0.4em;text-transform:uppercase;letter-spacing:0.1em;color:var(--c-teal);margin:0 0 4px">Background</p>
-      <p style="font-size:0.75em;margin:0;color:var(--c-white)">30+ years across multinationals, hedge funds, and startups. <span style="color:var(--c-muted)">Technology, business products, trading floors, founding, investing.</span></p>
-    </div>
-    <div>
-      <p style="font-family:var(--mono);font-size:0.4em;text-transform:uppercase;letter-spacing:0.1em;color:var(--c-amber);margin:0 0 4px">What I learned</p>
-      <p style="font-size:0.75em;margin:0;color:var(--c-white)">Technology shifts reward preparation, not prediction. <span style="color:var(--c-muted)">Not just knowing &mdash; understanding viscerally.</span></p>
-    </div>
-    <div>
-      <p style="font-family:var(--mono);font-size:0.4em;text-transform:uppercase;letter-spacing:0.1em;color:var(--c-coral);margin:0 0 4px">Why this course is built this way</p>
-      <p style="font-size:0.75em;margin:0;color:var(--c-white)">Theory gives you the tools. Cases show you what works, and what breaks. <span style="color:var(--c-muted)">You get both.</span></p>
-    </div>
-  </div>
-</section>
-
-<!-- SLIDE 4: THE ARC -->
 <section data-transition="fade">
   <h2 style="margin-bottom:6px">Three weeks, one arc</h2>
   <p class="small" style="margin-bottom:28px">Minimise memorisation &rarr; maximise understanding &rarr; ground for analysis &rarr; drive to action</p>
-  <div class="three-col">
-    <div style="text-align:center">
-      <h3 style="font-size:0.8em;margin:0 0 6px;color:var(--c-teal)">Concepts</h3>
-      <p style="font-size:0.55em;color:var(--c-muted);margin:0">"What is this?"</p>
-      <p style="margin:10px 0 0"><span class="tag tag-understand">Understand</span></p>
-    </div>
-    <div style="text-align:center">
-      <h3 style="font-size:0.8em;margin:0 0 6px;color:var(--c-amber)">Practice</h3>
-      <p style="font-size:0.55em;color:var(--c-muted);margin:0">"How does this play out?"</p>
-      <p style="margin:10px 0 0"><span class="tag tag-analyze">Analyze</span> <span class="tag tag-evaluate">Evaluate</span></p>
-    </div>
-    <div style="text-align:center">
-      <h3 style="font-size:0.8em;margin:0 0 6px;color:var(--c-coral)">Frontiers</h3>
-      <p style="font-size:0.55em;color:var(--c-muted);margin:0">"What should we do?"</p>
-      <p style="margin:10px 0 0"><span class="tag tag-evaluate">Evaluate</span> <span class="tag tag-create">Create</span></p>
-    </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px">
+    <div style="text-align:center"><h3 style="font-size:0.8em;margin:0 0 6px;color:var(--c-teal)">Concepts</h3><p style="font-size:0.55em;color:var(--c-muted);margin:0">"What is this?"</p><p style="margin:10px 0 0"><span class="tag tag-understand">Understand</span></p></div>
+    <div style="text-align:center"><h3 style="font-size:0.8em;margin:0 0 6px;color:var(--c-amber)">Practice</h3><p style="font-size:0.55em;color:var(--c-muted);margin:0">"How does this play out?"</p><p style="margin:10px 0 0"><span class="tag tag-analyze">Analyze</span> <span class="tag tag-evaluate">Evaluate</span></p></div>
+    <div style="text-align:center"><h3 style="font-size:0.8em;margin:0 0 6px;color:var(--c-coral)">Frontiers</h3><p style="font-size:0.55em;color:var(--c-muted);margin:0">"What should we do?"</p><p style="margin:10px 0 0"><span class="tag tag-evaluate">Evaluate</span> <span class="tag tag-create">Create</span></p></div>
   </div>
-  <div style="margin-top:24px">
-    <p class="flow-arrow">&darr;</p>
-    <p class="flow-label">16 sessions &middot; 11 teaching days &middot; open-book exam</p>
-  </div>
+  <div style="margin-top:24px"><p style="font-size:1.4em;color:var(--c-dim)">&darr;</p><p style="font-size:0.5em;color:var(--c-muted)">15 sessions &middot; 11 teaching days &middot; open-book exam</p></div>
 </section>
 
-<!-- SLIDE 3: WEEK 1 OVERVIEW -->
-<section data-transition="slide">
+<section data-transition="fade">
   <div class="week-card w1" style="margin-bottom:20px">
     <h3 style="color:var(--c-teal)">Week 1: Concepts &mdash; "What is this?"</h3>
     <p>Build conceptual literacy across every major technology. No applications yet &mdash; pure understanding. By Friday you can explain each technology to a non-expert.</p>
   </div>
-  <div class="three-col">
-    <div class="day-card">
-      <p class="day-label">Mon 22 Jun</p>
-      <p class="day-title">AI/ML + NLP/GenAI</p>
-      <p class="day-slot">08:00 &ndash; 11:30 &middot; S1 + S2</p>
-    </div>
-    <div class="day-card">
-      <p class="day-label">Tue 23 Jun</p>
-      <p class="day-title">Blockchain + Quantum</p>
-      <p class="day-slot">08:00 &ndash; 11:30 &middot; S3 + S4</p>
-    </div>
-    <div class="day-card">
-      <p class="day-label">Wed 24 Jun</p>
-      <p class="day-title">Data governance + Synthesis</p>
-      <p class="day-slot">08:00 &ndash; 11:30 &middot; S5 + S6</p>
-    </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px">
+    <div class="day-card"><p class="day-label">Mon 22 Jun</p><p class="day-title">AI/ML + GenAI/Agentic</p><p class="day-slot">08:00 &ndash; 11:30 &middot; S1 + S2</p></div>
+    <div class="day-card"><p class="day-label">Tue 23 Jun</p><p class="day-title">Quantum + Data governance</p><p class="day-slot">08:00 &ndash; 11:30 &middot; S3 + S4</p></div>
+    <div class="day-card"><p class="day-label">Wed 24 Jun</p><p class="day-title">Synthesis workshop</p><p class="day-slot">08:00 &ndash; 11:30 &middot; S5</p></div>
   </div>
   <p style="margin-top:16px"><span class="tag tag-understand">Understand</span></p>
 </section>
 
-<!-- SLIDE 4: WEEK 1 SESSIONS -->
 <section data-transition="fade">
   <h3 style="color:var(--c-teal);margin-bottom:16px">Week 1 sessions</h3>
-  <div class="session-row"><div class="session-num w1">S1</div><div class="session-info"><h3>AI, machine learning & deep learning</h3><p>How machines learn. ML workflow, algorithms (conceptual), confusion matrices, data quality.</p></div></div>
-  <div class="session-row"><div class="session-num w1">S2</div><div class="session-info"><h3>NLP, computer vision & generative AI</h3><p>Three application families. LLMs as next-token prediction. Why GenAI hallucinates.</p></div></div>
-  <div class="session-row"><div class="session-num w1">S3</div><div class="session-info"><h3>Blockchain, digital assets & CBDCs</h3><p>Consensus, smart contracts, digital euro. When does blockchain actually solve a problem?</p></div></div>
-  <div class="session-row"><div class="session-num w1">S4</div><div class="session-info"><h3>Quantum computing</h3><p>Qubits, superposition, entanglement via analogies. Finance applications. Post-quantum cryptography.</p></div></div>
-  <div class="session-row"><div class="session-num w1">S5</div><div class="session-info"><h3>Data management & governance</h3><p>DAMA-DMBOK. Data-to-AI pipeline. Centralised vs. federated governance. GDPR + EU AI Act.</p></div></div>
-  <div class="session-row"><div class="session-num w1">S6</div><div class="session-info"><h3>Technology landscape map</h3><p>Synthesis: connect all 5 domains. Gallery walk. Self-assessment. Preview of Week 2.</p></div></div>
+  <div class="session-row"><div class="session-num">S1</div><div class="session-info"><h3>AI, machine learning & deep learning</h3><p>How machines learn. ML workflow, algorithms (conceptual), confusion matrices, data quality.</p></div></div>
+  <div class="session-row"><div class="session-num">S2</div><div class="session-info"><h3>NLP, computer vision, generative AI & agentic AI</h3><p>Application families. LLMs as next-token prediction. Agentic AI: systems that plan and act.</p></div></div>
+  <div class="session-row"><div class="session-num">S3</div><div class="session-info"><h3>Quantum computing</h3><p>Qubits, superposition, entanglement via analogies. Finance applications. Post-quantum cryptography.</p></div></div>
+  <div class="session-row"><div class="session-num">S4</div><div class="session-info"><h3>Data management & governance</h3><p>DAMA-DMBOK. Data-to-AI pipeline. Centralised vs. federated governance. GDPR + EU AI Act.</p></div></div>
+  <div class="session-row"><div class="session-num">S5</div><div class="session-info"><h3>Technology landscape map</h3><p>Synthesis: connect all 4 domains. Gallery walk. Self-assessment. Preview of Week 2.</p></div></div>
 </section>
 
-<!-- SLIDE 5: WEEK 2 OVERVIEW -->
-<section data-transition="slide">
+<section data-transition="fade">
   <div class="week-card w2" style="margin-bottom:20px">
     <h3 style="color:var(--c-amber)">Week 2: Practice &mdash; "How does this play out?"</h3>
-    <p>Every session is case-driven. Paired success/failure case studies. You analyse why things worked or failed, building a generalised framework by Friday.</p>
+    <p>Every session is case-driven. Paired success/failure case studies. Build a generalised framework by Friday.</p>
   </div>
-  <div class="four-col">
-    <div class="day-card"><p class="day-label">Mon 29 Jun</p><p class="day-title">Credit + Trading</p><p class="day-slot">08:00&ndash;11:30 &middot; S7+S8</p></div>
-    <div class="day-card"><p class="day-label">Tue 30 Jun</p><p class="day-title">Supply chain + GenAI</p><p class="day-slot">08:00&ndash;11:30 &middot; S9+S10</p></div>
-    <div class="day-card"><p class="day-label">Wed 1 Jul</p><p class="day-title">Deep tech hype vs. reality</p><p class="day-slot">08:00&ndash;10:35 &middot; S11</p></div>
-    <div class="day-card"><p class="day-label">Thu 2 Jul</p><p class="day-title">Cross-industry deep-dive</p><p class="day-slot">08:00&ndash;10:35 &middot; S12</p></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px">
+    <div class="day-card"><p class="day-label">Mon 29 Jun</p><p class="day-title">Credit + Trading</p><p class="day-slot">08:00&ndash;11:30 &middot; S6+S7</p></div>
+    <div class="day-card"><p class="day-label">Tue 30 Jun</p><p class="day-title">Supply chain + GenAI</p><p class="day-slot">08:00&ndash;11:30 &middot; S8+S9</p></div>
+    <div class="day-card"><p class="day-label">Wed 1 Jul</p><p class="day-title">Frontier tech: hype vs. reality</p><p class="day-slot">08:00&ndash;10:35 &middot; S10</p></div>
+    <div class="day-card"><p class="day-label">Thu 2 Jul</p><p class="day-title">Cross-industry deep-dive</p><p class="day-slot">08:00&ndash;10:35 &middot; S11</p></div>
   </div>
   <p style="margin-top:16px"><span class="tag tag-analyze">Analyze</span> <span class="tag tag-evaluate">Evaluate</span></p>
 </section>
 
-<!-- SLIDE 6: WEEK 2 SESSIONS -->
 <section data-transition="fade">
-  <h3 style="color:var(--c-amber);margin-bottom:16px">Week 2 sessions</h3>
-  <div class="two-col">
-    <div>
-      <div class="session-row"><div class="session-num w2">S7</div><div class="session-info"><h3>Credit scoring & lending</h3><p>Upstart (success) vs. Apple Card bias (failure)</p></div></div>
-      <div class="session-row"><div class="session-num w2">S8</div><div class="session-info"><h3>Algorithmic trading</h3><p>Renaissance Technologies (success) vs. Knight Capital (failure)</p></div></div>
-      <div class="session-row"><div class="session-num w2">S9</div><div class="session-info"><h3>Supply chain & operations</h3><p>Maersk AI logistics (success) vs. COVID forecasting (failure)</p></div></div>
-    </div>
-    <div>
-      <div class="session-row"><div class="session-num w2">S10</div><div class="session-info"><h3>Generative AI in enterprise</h3><p>Klarna (success) vs. Air Canada chatbot (failure)</p></div></div>
-      <div class="session-row"><div class="session-num w2">S11</div><div class="session-info"><h3>Deep tech: hype vs. reality</h3><p>JPMorgan Onyx vs. TradeLens. Quantum reality check.</p></div></div>
-      <div class="session-row"><div class="session-num w2">S12</div><div class="session-info"><h3>Cross-industry deep-dive</h3><p>COiN + John Deere vs. Watson Oncology + Zillow</p></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- SLIDE 7: WEEK 3 OVERVIEW -->
-<section data-transition="slide">
   <div class="week-card w3" style="margin-bottom:20px">
     <h3 style="color:var(--c-coral)">Week 3: Frontiers &mdash; "What should we do?"</h3>
-    <p>From analysis to action. Ethics, regulation, strategy, emerging tech, and your implementation plan. The failure patterns from Week 2 become the backbone of your plans.</p>
+    <p>From analysis to action. Ethics, regulation, strategy, emerging tech, and your implementation plan.</p>
   </div>
-  <div class="four-col">
-    <div class="day-card"><p class="day-label">Mon 6 Jul</p><p class="day-title">Ethics & regulation</p><p class="day-slot">08:00&ndash;10:35 &middot; S13</p></div>
-    <div class="day-card"><p class="day-label">Tue 7 Jul</p><p class="day-title">AI-first strategy</p><p class="day-slot">08:00&ndash;10:35 &middot; S14</p></div>
-    <div class="day-card"><p class="day-label">Wed 8 Jul</p><p class="day-title">Emerging frontiers</p><p class="day-slot">08:00&ndash;10:35 &middot; S15</p></div>
-    <div class="day-card"><p class="day-label">Thu 9 Jul</p><p class="day-title">Workshop + exam prep</p><p class="day-slot">08:00&ndash;10:35 &middot; S16</p></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px">
+    <div class="day-card"><p class="day-label">Mon 6 Jul</p><p class="day-title">Ethics & regulation</p><p class="day-slot">08:00&ndash;10:35 &middot; S12</p></div>
+    <div class="day-card"><p class="day-label">Tue 7 Jul</p><p class="day-title">AI-first strategy</p><p class="day-slot">08:00&ndash;10:35 &middot; S13</p></div>
+    <div class="day-card"><p class="day-label">Wed 8 Jul</p><p class="day-title">Emerging frontiers</p><p class="day-slot">08:00&ndash;10:35 &middot; S14</p></div>
+    <div class="day-card"><p class="day-label">Thu 9 Jul</p><p class="day-title">Workshop + exam prep</p><p class="day-slot">08:00&ndash;10:35 &middot; S15</p></div>
   </div>
   <p style="margin-top:16px"><span class="tag tag-evaluate">Evaluate</span> <span class="tag tag-create">Create</span></p>
 </section>
 
-<!-- SLIDE 8: WEEK 3 SESSIONS -->
-<section data-transition="fade">
-  <h3 style="color:var(--c-coral);margin-bottom:16px">Week 3 sessions</h3>
-  <div class="session-row"><div class="session-num w3">S13</div><div class="session-info"><h3>Ethics, bias & the regulatory response</h3><p>Amazon hiring + COMPAS failures. EU AI Act risk tiers. Would regulation have prevented Week 2 failures?</p></div></div>
-  <div class="session-row"><div class="session-num w3">S14</div><div class="session-info"><h3>Building an AI-first business strategy</h3><p>AI Strategy Canvas. Ping An (success) vs. European bank (failure). Data governance operating model.</p></div></div>
-  <div class="session-row"><div class="session-num w3">S15</div><div class="session-info"><h3>Emerging frontiers</h3><p>Agentic AI, multimodal models, sovereign AI, open vs. closed. Personal technology radar.</p></div></div>
-  <div class="session-row"><div class="session-num w3">S16</div><div class="session-info"><h3>Implementation workshop + exam prep</h3><p>Full implementation plan with governance. Peer review. Practice exam. Course wrap-up.</p></div></div>
-  <div style="margin-top:20px;padding:16px 24px;background:var(--c-surface);border-radius:12px;border:1px solid var(--c-border)">
-    <p style="font-size:0.6em;margin:0;color:var(--c-white)"><strong>Exam:</strong> 4-hour written sit-in &middot; Open book &middot; Individual &middot; 7-point scale</p>
-    <p style="font-size:0.5em;margin:4px 0 0;color:var(--c-muted)">The course rewards understanding and analytical ability, not memorisation.</p>
-  </div>
-</section>
-
-<!-- SLIDE 9: THREADS -->
 <section data-transition="fade">
   <h2 style="margin-bottom:20px">Two threads run<br>through everything</h2>
-  <div class="two-col" style="gap:24px">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
     <div class="week-card" style="border-left:4px solid var(--c-blue)">
       <h3 style="color:var(--c-blue);font-size:0.8em">Data governance</h3>
-      <p style="font-size:0.55em;line-height:1.6;color:var(--c-muted)">S5 concepts &rarr; S7&ndash;9 applied in cases &rarr; S13 regulation &rarr; S14 strategy &rarr; S16 your plan</p>
+      <p style="font-size:0.55em;line-height:1.6;color:var(--c-muted)">S4 concepts &rarr; S6&ndash;8 applied &rarr; S12 regulation &rarr; S13 strategy &rarr; S15 your plan</p>
       <p style="font-size:0.55em;margin-top:8px;color:var(--c-white)">AI projects fail from data problems, not algorithm problems.</p>
     </div>
     <div class="week-card" style="border-left:4px solid var(--c-amber)">
       <h3 style="color:var(--c-amber);font-size:0.8em">Success/failure case studies</h3>
-      <p style="font-size:0.55em;line-height:1.6;color:var(--c-muted)">S7&ndash;S12 paired cases &rarr; S12 framework &rarr; S14&ndash;S16 applied to your strategy</p>
+      <p style="font-size:0.55em;line-height:1.6;color:var(--c-muted)">S6&ndash;S11 paired cases &rarr; S11 framework &rarr; S13&ndash;S15 applied to your strategy</p>
       <p style="font-size:0.55em;margin-top:8px;color:var(--c-white)">Technology choice is rarely the differentiator. Execution is.</p>
     </div>
   </div>
   <p style="margin-top:24px;font-size:0.6em;color:var(--c-muted)">No coding. No memorisation. Visual diagrams, case analysis, structured worksheets, and discussion.</p>
 </section>
 
-<!-- SLIDE 10: LET'S BEGIN -->
 <section data-transition="zoom">
   <h1 style="margin-bottom:16px">Let's begin</h1>
   <p style="font-size:0.8em;color:var(--c-teal);margin:0">Session 1: How machines learn</p>
 </section>
 
-<!-- ═══════════════════════════════════════════ -->
-<!-- SESSION 1: AI, ML & DEEP LEARNING          -->
-<!-- ═══════════════════════════════════════════ -->
+<!-- ═══ DAY 1: S1 + S2 ═══ -->
 
-<!-- S1 - Title -->
 <section data-transition="fade">
-  <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px">
-    <span style="font-family:var(--mono);font-size:0.5em;background:var(--c-teal);color:var(--c-bg);padding:4px 14px;border-radius:8px;font-weight:500">S1</span>
-    <span class="tag tag-understand">Understand</span>
-  </div>
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px"><span style="font-family:var(--mono);font-size:0.5em;background:var(--c-teal);color:var(--c-bg);padding:4px 14px;border-radius:8px;font-weight:500">S1</span><span class="tag tag-understand">Understand</span></div>
   <h1 style="margin:8px 0 12px;font-size:2em">AI, machine learning<br>& deep learning</h1>
   <p style="font-size:0.7em;color:var(--c-muted);margin:0">How machines learn</p>
 </section>
 
-<!-- S1 - Learning objectives -->
 <section data-transition="fade">
   <h3 style="color:var(--c-teal);margin-bottom:20px">Session 1 &mdash; Learning objectives</h3>
   <div style="text-align:left;max-width:640px;margin:0 auto">
-    <div style="display:flex;gap:12px;align-items:start;margin:0 0 16px">
-      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">01</span>
-      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Explain what AI, machine learning, and deep learning are and how they relate to each other</p>
-    </div>
-    <div style="display:flex;gap:12px;align-items:start;margin:0 0 16px">
-      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">02</span>
-      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Describe the ML workflow (data collection, training, validation, deployment) using conceptual diagrams</p>
-    </div>
-    <div style="display:flex;gap:12px;align-items:start;margin:0 0 16px">
-      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">03</span>
-      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Interpret a confusion matrix and basic performance metrics from pre-prepared examples</p>
-    </div>
-    <div style="display:flex;gap:12px;align-items:start;margin:0 0 16px">
-      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">04</span>
-      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Explain why data quality, volume, and representativeness determine model quality</p>
-    </div>
+    <div style="display:flex;gap:12px;align-items:start;margin:0 0 16px"><span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">01</span><p style="font-size:0.65em;margin:0;color:var(--c-white)">Explain what AI, machine learning, and deep learning are and how they relate to each other</p></div>
+    <div style="display:flex;gap:12px;align-items:start;margin:0 0 16px"><span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">02</span><p style="font-size:0.65em;margin:0;color:var(--c-white)">Describe the ML workflow (data collection, training, validation, deployment)</p></div>
+    <div style="display:flex;gap:12px;align-items:start;margin:0 0 16px"><span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">03</span><p style="font-size:0.65em;margin:0;color:var(--c-white)">Interpret a confusion matrix and basic performance metrics from pre-prepared examples</p></div>
+    <div style="display:flex;gap:12px;align-items:start;margin:0 0 16px"><span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">04</span><p style="font-size:0.65em;margin:0;color:var(--c-white)">Explain why data quality, volume, and representativeness determine model quality</p></div>
   </div>
 </section>
 
-<!-- S1 - Placeholder: AI / ML / DL explained -->
-<section data-transition="fade">
-  <h3 style="color:var(--c-teal);margin-bottom:8px">AI / ML / DL &mdash; the stack</h3>
-  <p class="small" style="margin-bottom:24px">Placeholder: diagram or Three.js animation showing nested relationship</p>
-  <div style="width:480px;height:280px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center">
-    <p style="font-size:0.6em;color:var(--c-dim);margin:0">[ AI &supset; ML &supset; DL visual ]</p>
-  </div>
-</section>
+<section data-transition="fade"><h3 style="color:var(--c-teal);margin-bottom:8px">AI / ML / DL &mdash; the stack</h3><p class="small" style="margin-bottom:24px">Placeholder</p><div style="width:480px;height:280px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center"><p style="font-size:0.6em;color:var(--c-dim);margin:0">[ AI &supset; ML &supset; DL visual ]</p></div></section>
+<section data-transition="fade"><h3 style="color:var(--c-teal);margin-bottom:8px">The ML pipeline</h3><p class="small" style="margin-bottom:24px">Placeholder</p><div style="width:600px;height:280px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center"><p style="font-size:0.6em;color:var(--c-dim);margin:0">[ Data &rarr; Clean &rarr; Train &rarr; Validate &rarr; Deploy ]</p></div></section>
+<section data-transition="fade"><h3 style="color:var(--c-teal);margin-bottom:8px">Reading model performance</h3><p class="small" style="margin-bottom:24px">Placeholder</p><div style="width:520px;height:280px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center"><p style="font-size:0.6em;color:var(--c-dim);margin:0">[ Confusion matrix &middot; precision &middot; recall &middot; overfitting ]</p></div></section>
+<section data-transition="fade"><h3 style="color:var(--c-teal);margin-bottom:8px">What could go wrong with the data?</h3><p class="small" style="margin-bottom:24px">Placeholder</p><div style="width:520px;height:260px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center"><p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ Discussion: bias, missing data, stale data, labelling errors, consent ]</p></div></section>
 
-<!-- S1 - Placeholder: ML pipeline walkthrough -->
-<section data-transition="fade">
-  <h3 style="color:var(--c-teal);margin-bottom:8px">The ML pipeline</h3>
-  <p class="small" style="margin-bottom:24px">Placeholder: visual walkthrough from raw data to deployed model</p>
-  <div style="width:600px;height:280px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center">
-    <p style="font-size:0.6em;color:var(--c-dim);margin:0">[ Data &rarr; Clean &rarr; Train &rarr; Validate &rarr; Deploy ]</p>
-  </div>
-</section>
-
-<!-- S1 - Placeholder: Confusion matrix exercise -->
-<section data-transition="fade">
-  <h3 style="color:var(--c-teal);margin-bottom:8px">Reading model performance</h3>
-  <p class="small" style="margin-bottom:24px">Placeholder: pre-prepared confusion matrix examples for think-pair-share</p>
-  <div style="width:520px;height:280px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center">
-    <p style="font-size:0.6em;color:var(--c-dim);margin:0">[ Confusion matrix &middot; precision &middot; recall &middot; overfitting ]</p>
-  </div>
-</section>
-
-<!-- S1 - Placeholder: Data quality discussion -->
-<section data-transition="fade">
-  <h3 style="color:var(--c-teal);margin-bottom:8px">What could go wrong with the data?</h3>
-  <p class="small" style="margin-bottom:24px">Placeholder: group discussion prompt &mdash; introducing data quality as foundation</p>
-  <div style="width:520px;height:260px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center">
-    <p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ Discussion prompts:<br>bias, missing data, stale data,<br>labelling errors, consent ]</p>
-  </div>
-</section>
-
-<!-- S1 - Assessment -->
 <section data-transition="fade">
   <h3 style="color:var(--c-teal);margin-bottom:8px">Session 1 &mdash; formative check</h3>
   <div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:16px;padding:28px 32px;text-align:left;max-width:560px;margin:0 auto">
     <p style="font-size:0.65em;color:var(--c-white);margin:0 0 12px"><strong>Worksheet:</strong> Interpret model outputs and identify data quality risks</p>
-    <p style="font-size:0.55em;color:var(--c-muted);margin:0">Formative &mdash; not graded. Checks understanding before moving to Session 2.</p>
+    <p style="font-size:0.55em;color:var(--c-muted);margin:0">Formative &mdash; not graded.</p>
   </div>
 </section>
-
-<!-- ══════════════════════════ BREAK ══════════════════════════ -->
 
 <section data-transition="fade" data-background-color="#0f1920">
   <p style="font-size:1.2em;color:var(--c-dim);margin:0 0 8px">~15 minute break</p>
   <p style="font-size:0.6em;color:var(--c-dim);margin:0">Session 2 starts shortly</p>
 </section>
 
-<!-- ═══════════════════════════════════════════ -->
-<!-- SESSION 2: NLP, CV & GENERATIVE AI         -->
-<!-- ═══════════════════════════════════════════ -->
+<!-- ═══ S2: NLP/CV/GenAI/Agentic ═══ -->
 
-<!-- S2 - Title -->
 <section data-transition="fade">
-  <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px">
-    <span style="font-family:var(--mono);font-size:0.5em;background:var(--c-teal);color:var(--c-bg);padding:4px 14px;border-radius:8px;font-weight:500">S2</span>
-    <span class="tag tag-understand">Understand</span>
-  </div>
-  <h1 style="margin:8px 0 12px;font-size:2em">NLP, computer vision<br>& generative AI</h1>
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px"><span style="font-family:var(--mono);font-size:0.5em;background:var(--c-teal);color:var(--c-bg);padding:4px 14px;border-radius:8px;font-weight:500">S2</span><span class="tag tag-understand">Understand</span></div>
+  <h1 style="margin:8px 0 12px;font-size:1.8em">NLP, computer vision,<br>generative AI<br>& agentic AI</h1>
   <p style="font-size:0.7em;color:var(--c-muted);margin:0">The application families</p>
 </section>
 
-<!-- S2 - Learning objectives -->
 <section data-transition="fade">
   <h3 style="color:var(--c-teal);margin-bottom:20px">Session 2 &mdash; Learning objectives</h3>
   <div style="text-align:left;max-width:640px;margin:0 auto">
-    <div style="display:flex;gap:12px;align-items:start;margin:0 0 16px">
-      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">01</span>
-      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Explain how NLP processes text (tokenization, sentiment scoring, named entity recognition)</p>
-    </div>
-    <div style="display:flex;gap:12px;align-items:start;margin:0 0 16px">
-      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">02</span>
-      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Describe how computer vision systems interpret images and video at a conceptual level</p>
-    </div>
-    <div style="display:flex;gap:12px;align-items:start;margin:0 0 16px">
-      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">03</span>
-      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Explain how generative AI models work using analogies &mdash; prediction, not understanding</p>
-    </div>
-    <div style="display:flex;gap:12px;align-items:start;margin:0 0 16px">
-      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">04</span>
-      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Compare the data requirements, strengths, and limitations of each application family</p>
-    </div>
+    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px"><span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">01</span><p style="font-size:0.65em;margin:0;color:var(--c-white)">Explain how NLP processes text (tokenization, sentiment, entity recognition)</p></div>
+    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px"><span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">02</span><p style="font-size:0.65em;margin:0;color:var(--c-white)">Describe how computer vision interprets images and video</p></div>
+    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px"><span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">03</span><p style="font-size:0.65em;margin:0;color:var(--c-white)">Explain how generative AI works using analogies &mdash; prediction, not understanding</p></div>
+    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px"><span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">04</span><p style="font-size:0.65em;margin:0;color:var(--c-white)">Explain agentic AI &mdash; how systems plan, use tools, and act autonomously</p></div>
+    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px"><span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">05</span><p style="font-size:0.65em;margin:0;color:var(--c-white)">Identify the benefits, business use cases, and pitfalls of agentic systems</p></div>
   </div>
 </section>
 
-<!-- S2 - Placeholder: Three families overview -->
+<section data-transition="fade"><h3 style="color:var(--c-teal);margin-bottom:8px">Three application families</h3><p class="small" style="margin-bottom:24px">Placeholder</p><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;max-width:640px;margin:0 auto"><div style="border:1px dashed var(--c-dim);border-radius:12px;padding:20px;text-align:center"><p style="font-size:0.7em;color:var(--c-teal);margin:0 0 6px;font-weight:500">NLP</p><p style="font-size:0.5em;color:var(--c-dim);margin:0">Text in &rarr; meaning out</p></div><div style="border:1px dashed var(--c-dim);border-radius:12px;padding:20px;text-align:center"><p style="font-size:0.7em;color:var(--c-teal);margin:0 0 6px;font-weight:500">Computer vision</p><p style="font-size:0.5em;color:var(--c-dim);margin:0">Pixels in &rarr; labels out</p></div><div style="border:1px dashed var(--c-dim);border-radius:12px;padding:20px;text-align:center"><p style="font-size:0.7em;color:var(--c-teal);margin:0 0 6px;font-weight:500">Generative AI</p><p style="font-size:0.5em;color:var(--c-dim);margin:0">Prompt in &rarr; content out</p></div></div></section>
+
+<section data-transition="fade"><h3 style="color:var(--c-teal);margin-bottom:8px">How an LLM generates text</h3><p class="small" style="margin-bottom:24px">Placeholder</p><div style="width:560px;height:280px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center"><p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ "The cat sat on the ___"<br>P(mat)=0.31 &middot; P(roof)=0.12 ]</p></div></section>
+
+<section data-transition="fade"><h3 style="color:var(--c-teal);margin-bottom:8px">Why generative AI hallucinates</h3><p class="small" style="margin-bottom:24px">Placeholder</p><div style="width:520px;height:260px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center"><p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ Prediction &ne; understanding<br>Confident + wrong = hallucination ]</p></div></section>
+
+<!-- ★ AGENTIC AI BLOCK ★ -->
+
 <section data-transition="fade">
-  <h3 style="color:var(--c-teal);margin-bottom:8px">Three application families</h3>
-  <p class="small" style="margin-bottom:24px">Placeholder: side-by-side comparison of NLP, CV, and GenAI</p>
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;max-width:640px;margin:0 auto">
-    <div style="border:1px dashed var(--c-dim);border-radius:12px;padding:20px;text-align:center">
-      <p style="font-size:0.7em;color:var(--c-teal);margin:0 0 6px;font-weight:500">NLP</p>
-      <p style="font-size:0.5em;color:var(--c-dim);margin:0">Text in &rarr; meaning out</p>
+  <h3 style="color:var(--c-teal);margin-bottom:8px">From generative to agentic</h3>
+  <p class="small" style="margin-bottom:20px">A new class of AI: systems that don&rsquo;t just generate, they act</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:680px;margin:0 auto;text-align:left">
+    <div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:12px;padding:18px 22px">
+      <p style="font-size:0.65em;font-weight:500;color:var(--c-blue);margin:0 0 8px">Generative AI</p>
+      <p style="font-size:0.55em;color:var(--c-white);margin:0 0 8px">You ask &rarr; it answers</p>
+      <p style="font-size:0.5em;color:var(--c-muted);margin:0;line-height:1.5">Single turn. Predicts the next token. Stateless. Cannot take action in the world.</p>
     </div>
-    <div style="border:1px dashed var(--c-dim);border-radius:12px;padding:20px;text-align:center">
-      <p style="font-size:0.7em;color:var(--c-teal);margin:0 0 6px;font-weight:500">Computer vision</p>
-      <p style="font-size:0.5em;color:var(--c-dim);margin:0">Pixels in &rarr; labels out</p>
-    </div>
-    <div style="border:1px dashed var(--c-dim);border-radius:12px;padding:20px;text-align:center">
-      <p style="font-size:0.7em;color:var(--c-teal);margin:0 0 6px;font-weight:500">Generative AI</p>
-      <p style="font-size:0.5em;color:var(--c-dim);margin:0">Prompt in &rarr; content out</p>
+    <div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:12px;padding:18px 22px">
+      <p style="font-size:0.65em;font-weight:500;color:var(--c-teal);margin:0 0 8px">Agentic AI</p>
+      <p style="font-size:0.55em;color:var(--c-white);margin:0 0 8px">You ask &rarr; it plans &rarr; it acts &rarr; it adjusts</p>
+      <p style="font-size:0.5em;color:var(--c-muted);margin:0;line-height:1.5">Multi-step. Uses tools (search, APIs, files, browsers). Maintains state. Can take real actions on real systems.</p>
     </div>
   </div>
+  <p style="font-size:0.5em;color:var(--c-dim);margin:20px 0 0;text-align:center">The same underlying LLM &mdash; wrapped in a planning loop with tool access</p>
 </section>
 
-<!-- S2 - Placeholder: How an LLM generates text -->
 <section data-transition="fade">
-  <h3 style="color:var(--c-teal);margin-bottom:8px">How an LLM generates text</h3>
-  <p class="small" style="margin-bottom:24px">Placeholder: next-token prediction walkthrough (animation or diagram)</p>
-  <div style="width:560px;height:280px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center">
-    <p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ "The cat sat on the ___"<br>P(mat)=0.31 &middot; P(roof)=0.12 &middot; P(floor)=0.09 ]</p>
+  <h3 style="color:var(--c-teal);margin-bottom:8px">How an agentic system works</h3>
+  <p class="small" style="margin-bottom:20px">Placeholder: visual showing the plan &rarr; act &rarr; observe &rarr; adjust loop</p>
+  <div style="width:600px;height:280px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center">
+    <p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ User goal &rarr; LLM plans steps &rarr;<br>calls tools (search/API/file) &rarr;<br>observes results &rarr; adjusts plan &rarr;<br>repeats until goal achieved ]</p>
   </div>
 </section>
 
-<!-- S2 - Placeholder: Use case classification exercise -->
 <section data-transition="fade">
-  <h3 style="color:var(--c-teal);margin-bottom:8px">Classify the use case</h3>
-  <p class="small" style="margin-bottom:24px">Placeholder: 6 business use cases for group classification exercise</p>
-  <div style="width:560px;height:280px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center">
-    <p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ 6 use cases &rarr; NLP / CV / GenAI?<br>+ what data does each need? ]</p>
+  <h3 style="color:var(--c-teal);margin-bottom:8px">Agentic AI &mdash; benefits</h3>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:680px;margin:0 auto;text-align:left">
+    <div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:12px;padding:16px 20px">
+      <p style="font-size:0.6em;font-weight:500;color:var(--c-teal);margin:0 0 6px">End-to-end automation</p>
+      <p style="font-size:0.5em;color:var(--c-muted);margin:0;line-height:1.5">Multi-step tasks complete without human intervention at every stage</p>
+    </div>
+    <div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:12px;padding:16px 20px">
+      <p style="font-size:0.6em;font-weight:500;color:var(--c-teal);margin:0 0 6px">Adaptive to context</p>
+      <p style="font-size:0.5em;color:var(--c-muted);margin:0;line-height:1.5">Can handle ambiguous goals and unexpected obstacles by replanning</p>
+    </div>
+    <div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:12px;padding:16px 20px">
+      <p style="font-size:0.6em;font-weight:500;color:var(--c-teal);margin:0 0 6px">Tool integration</p>
+      <p style="font-size:0.5em;color:var(--c-muted);margin:0;line-height:1.5">Uses existing software (APIs, databases, browsers) without custom integration code</p>
+    </div>
+    <div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:12px;padding:16px 20px">
+      <p style="font-size:0.6em;font-weight:500;color:var(--c-teal);margin:0 0 6px">Faster knowledge work</p>
+      <p style="font-size:0.5em;color:var(--c-muted);margin:0;line-height:1.5">Research, analysis, drafting, and routine decision-making at machine speed</p>
+    </div>
   </div>
 </section>
 
-<!-- S2 - Placeholder: Why GenAI hallucinates -->
 <section data-transition="fade">
-  <h3 style="color:var(--c-teal);margin-bottom:8px">Why generative AI hallucinates</h3>
-  <p class="small" style="margin-bottom:24px">Placeholder: connecting the prediction model to failure modes</p>
-  <div style="width:520px;height:260px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center">
-    <p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ Prediction &ne; understanding<br>Confident + wrong = hallucination ]</p>
+  <h3 style="color:var(--c-teal);margin-bottom:8px">Agentic AI &mdash; business use cases</h3>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:680px;margin:0 auto;text-align:left">
+    <div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:12px;padding:14px 18px">
+      <p style="font-size:0.6em;font-weight:500;color:var(--c-white);margin:0 0 4px">Customer service resolution</p>
+      <p style="font-size:0.5em;color:var(--c-muted);margin:0">Agent reads ticket, checks order DB, issues refund, sends email &mdash; one workflow</p>
+    </div>
+    <div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:12px;padding:14px 18px">
+      <p style="font-size:0.6em;font-weight:500;color:var(--c-white);margin:0 0 4px">Financial research & reporting</p>
+      <p style="font-size:0.5em;color:var(--c-muted);margin:0">Pulls earnings data, summarises filings, generates draft analyst report</p>
+    </div>
+    <div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:12px;padding:14px 18px">
+      <p style="font-size:0.6em;font-weight:500;color:var(--c-white);margin:0 0 4px">Coding & development</p>
+      <p style="font-size:0.5em;color:var(--c-muted);margin:0">Reads codebase, identifies bug, writes fix, runs tests, opens pull request</p>
+    </div>
+    <div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:12px;padding:14px 18px">
+      <p style="font-size:0.6em;font-weight:500;color:var(--c-white);margin:0 0 4px">Compliance & due diligence</p>
+      <p style="font-size:0.5em;color:var(--c-muted);margin:0">Reviews contracts, flags risks, cross-checks against regulations, drafts memos</p>
+    </div>
   </div>
 </section>
 
-<!-- S2 - Assessment -->
+<section data-transition="fade">
+  <h3 style="color:var(--c-teal);margin-bottom:8px">Agentic AI &mdash; pitfalls</h3>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:680px;margin:0 auto;text-align:left">
+    <div style="background:var(--c-surface);border:1px solid rgba(227,75,74,0.3);border-radius:12px;padding:14px 18px">
+      <p style="font-size:0.6em;font-weight:500;color:#F09595;margin:0 0 4px">Compounding errors</p>
+      <p style="font-size:0.5em;color:var(--c-muted);margin:0">A 95%-accurate step run 10 times is 60% accurate end-to-end. Long workflows fail silently.</p>
+    </div>
+    <div style="background:var(--c-surface);border:1px solid rgba(227,75,74,0.3);border-radius:12px;padding:14px 18px">
+      <p style="font-size:0.6em;font-weight:500;color:#F09595;margin:0 0 4px">Real-world side effects</p>
+      <p style="font-size:0.5em;color:var(--c-muted);margin:0">Agents that act on real systems can issue refunds, send emails, or delete files in error</p>
+    </div>
+    <div style="background:var(--c-surface);border:1px solid rgba(227,75,74,0.3);border-radius:12px;padding:14px 18px">
+      <p style="font-size:0.6em;font-weight:500;color:#F09595;margin:0 0 4px">Prompt injection & tool abuse</p>
+      <p style="font-size:0.5em;color:var(--c-muted);margin:0">Malicious instructions in fetched content can hijack the agent&rsquo;s tools</p>
+    </div>
+    <div style="background:var(--c-surface);border:1px solid rgba(227,75,74,0.3);border-radius:12px;padding:14px 18px">
+      <p style="font-size:0.6em;font-weight:500;color:#F09595;margin:0 0 4px">Accountability gap</p>
+      <p style="font-size:0.5em;color:var(--c-muted);margin:0">When an autonomous agent makes a bad decision, who is responsible? Legal frameworks are unclear.</p>
+    </div>
+  </div>
+  <p style="font-size:0.5em;color:var(--c-dim);margin:16px 0 0;text-align:center">Rule of thumb: human-in-the-loop wherever the action is irreversible, costly, or regulated</p>
+</section>
+
 <section data-transition="fade">
   <h3 style="color:var(--c-teal);margin-bottom:8px">Session 2 &mdash; formative check</h3>
   <div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:16px;padding:28px 32px;text-align:left;max-width:560px;margin:0 auto">
-    <p style="font-size:0.65em;color:var(--c-white);margin:0 0 12px"><strong>Classification exercise:</strong> Match use cases to application families with data requirements</p>
-    <p style="font-size:0.55em;color:var(--c-muted);margin:0">Formative &mdash; not graded. Confirms readiness for tomorrow&rsquo;s sessions.</p>
-  </div>
-</section>
-
-<!-- DAY 1 WRAP -->
-<section data-transition="fade">
-  <h2 style="margin-bottom:12px">Day 1 complete</h2>
-  <p style="font-size:0.65em;color:var(--c-muted);margin:0 0 20px">Tomorrow: Blockchain & digital assets + Quantum computing</p>
-  <div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:12px;padding:20px 28px;display:inline-block;text-align:left">
-    <p style="font-size:0.55em;color:var(--c-muted);margin:0 0 6px">Prep for Tuesday:</p>
-    <p style="font-size:0.6em;color:var(--c-white);margin:0">Drescher, Blockchain Basics, Steps 1&ndash;15 (selected)</p>
-    <p style="font-size:0.6em;color:var(--c-white);margin:4px 0 0">Quantum computing primer (Canvas)</p>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- DAY 2: TUESDAY 23 JUN — S3 + S4                        -->
-<!-- ═══════════════════════════════════════════════════════ -->
-
-<!-- DAY 2 OPENER -->
-<section data-transition="zoom" data-background-color="#0f1920">
-  <p style="font-family:var(--mono);font-size:0.5em;color:var(--c-dim);margin:0 0 8px;text-transform:uppercase;letter-spacing:0.1em">Tuesday 23 June &middot; 08:00 &ndash; 11:30</p>
-  <h1 style="margin:0 0 12px;font-size:2em">Day 2</h1>
-  <p style="font-size:0.7em;color:var(--c-teal);margin:0">Blockchain & digital assets + Quantum computing</p>
-</section>
-
-<!-- ═══ SESSION 3: BLOCKCHAIN & DIGITAL ASSETS ═══ -->
-
-<section data-transition="fade">
-  <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px">
-    <span style="font-family:var(--mono);font-size:0.5em;background:var(--c-teal);color:var(--c-bg);padding:4px 14px;border-radius:8px;font-weight:500">S3</span>
-    <span class="tag tag-understand">Understand</span>
-  </div>
-  <h1 style="margin:8px 0 12px;font-size:1.9em">Distributed ledger technology,<br>digital assets & CBDCs</h1>
-  <p style="font-size:0.7em;color:var(--c-muted);margin:0">Blockchain in one session</p>
-</section>
-
-<section data-transition="fade">
-  <h3 style="color:var(--c-teal);margin-bottom:20px">Session 3 &mdash; Learning objectives</h3>
-  <div style="text-align:left;max-width:640px;margin:0 auto">
-    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px">
-      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">01</span>
-      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Explain what a blockchain is, how consensus mechanisms work, and what smart contracts do</p>
-    </div>
-    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px">
-      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">02</span>
-      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Distinguish between public, private, and consortium blockchains</p>
-    </div>
-    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px">
-      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">03</span>
-      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Describe how digital assets (cryptocurrencies, stablecoins, tokens, CBDCs) function</p>
-    </div>
-    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px">
-      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">04</span>
-      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Explain the ECB digital euro initiative and MiCA regulatory framework</p>
-    </div>
-    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px">
-      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">05</span>
-      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Identify the narrow conditions under which blockchain adds genuine value</p>
-    </div>
-  </div>
-</section>
-
-<section data-transition="fade">
-  <h3 style="color:var(--c-teal);margin-bottom:8px">Blockchain in 45 minutes</h3>
-  <p class="small" style="margin-bottom:24px">Placeholder: visual transaction walkthrough, consensus game metaphor</p>
-  <div style="width:560px;height:280px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center">
-    <p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ Block &rarr; hash &rarr; chain &rarr; consensus<br>Smart contracts as "if-then" rules ]</p>
-  </div>
-</section>
-
-<section data-transition="fade">
-  <h3 style="color:var(--c-teal);margin-bottom:8px">Classroom consensus exercise</h3>
-  <p class="small" style="margin-bottom:24px">Placeholder: pen-and-paper transaction validation simulation</p>
-  <div style="width:520px;height:260px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center">
-    <p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ Students validate transactions<br>in groups &middot; pen and paper ]</p>
-  </div>
-</section>
-
-<section data-transition="fade">
-  <h3 style="color:var(--c-teal);margin-bottom:8px">Digital assets landscape</h3>
-  <p class="small" style="margin-bottom:24px">Placeholder: from Bitcoin to CBDCs &mdash; what a business student needs to know</p>
-  <div style="width:560px;height:280px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center">
-    <p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ Crypto &middot; stablecoins &middot; tokens &middot; CBDCs<br>ECB digital euro &middot; MiCA framework ]</p>
-  </div>
-</section>
-
-<section data-transition="fade">
-  <h3 style="color:var(--c-teal);margin-bottom:8px">When does blockchain actually solve a problem?</h3>
-  <p class="small" style="margin-bottom:24px">Placeholder: decision framework discussion</p>
-  <div style="width:520px;height:260px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center">
-    <p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ Multi-party trust deficit?<br>No trusted intermediary?<br>Immutability needed?<br>If not all three &rarr; use a database ]</p>
-  </div>
-</section>
-
-<section data-transition="fade">
-  <h3 style="color:var(--c-teal);margin-bottom:8px">Session 3 &mdash; formative check</h3>
-  <div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:16px;padding:28px 32px;text-align:left;max-width:560px;margin:0 auto">
-    <p style="font-size:0.65em;color:var(--c-white);margin:0 0 12px"><strong>Decision framework exercise:</strong> Evaluate 5 business scenarios &mdash; is blockchain the right tool?</p>
+    <p style="font-size:0.65em;color:var(--c-white);margin:0 0 12px"><strong>Classification + autonomy exercise:</strong> Match use cases to application families, then decide which need human-in-the-loop</p>
     <p style="font-size:0.55em;color:var(--c-muted);margin:0">Formative &mdash; not graded.</p>
   </div>
 </section>
 
-<!-- ══════════════════════════ BREAK ══════════════════════════ -->
-
-<section data-transition="fade" data-background-color="#0f1920">
-  <p style="font-size:1.2em;color:var(--c-dim);margin:0 0 8px">~15 minute break</p>
-  <p style="font-size:0.6em;color:var(--c-dim);margin:0">Session 4 starts shortly</p>
+<section data-transition="fade">
+  <h2 style="margin-bottom:12px">Day 1 complete</h2>
+  <p style="font-size:0.65em;color:var(--c-muted);margin:0 0 20px">Tomorrow: Quantum computing + Data governance</p>
+  <div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:12px;padding:20px 28px;display:inline-block;text-align:left">
+    <p style="font-size:0.55em;color:var(--c-muted);margin:0 0 6px">Prep for Tuesday:</p>
+    <p style="font-size:0.6em;color:var(--c-white);margin:0">Quantum computing primer (Canvas)</p>
+    <p style="font-size:0.6em;color:var(--c-white);margin:4px 0 0">DAMA-DMBOK overview (Canvas)</p>
+  </div>
 </section>
 
-<!-- ═══ SESSION 4: QUANTUM COMPUTING ═══ -->
+<!-- ═══ DAY 2: S3 + S4 ═══ -->
+
+<section data-transition="zoom" data-background-color="#0f1920">
+  <p style="font-family:var(--mono);font-size:0.5em;color:var(--c-dim);margin:0 0 8px;text-transform:uppercase;letter-spacing:0.1em">Tuesday 23 June &middot; 08:00 &ndash; 11:30</p>
+  <h1 style="margin:0 0 12px;font-size:2em">Day 2</h1>
+  <p style="font-size:0.7em;color:var(--c-teal);margin:0">Quantum computing + Data governance</p>
+</section>
 
 <section data-transition="fade">
-  <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px">
-    <span style="font-family:var(--mono);font-size:0.5em;background:var(--c-teal);color:var(--c-bg);padding:4px 14px;border-radius:8px;font-weight:500">S4</span>
-    <span class="tag tag-understand">Understand</span>
-    <span class="tag tag-evaluate">Evaluate</span>
-  </div>
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px"><span style="font-family:var(--mono);font-size:0.5em;background:var(--c-teal);color:var(--c-bg);padding:4px 14px;border-radius:8px;font-weight:500">S3</span><span class="tag tag-understand">Understand</span><span class="tag tag-evaluate">Evaluate</span></div>
   <h1 style="margin:8px 0 12px;font-size:2em">Quantum computing</h1>
   <p style="font-size:0.7em;color:var(--c-muted);margin:0">Concepts, promise & realistic outlook</p>
 </section>
 
 <section data-transition="fade">
-  <h3 style="color:var(--c-teal);margin-bottom:20px">Session 4 &mdash; Learning objectives</h3>
+  <h3 style="color:var(--c-teal);margin-bottom:20px">Session 3 &mdash; Learning objectives</h3>
   <div style="text-align:left;max-width:640px;margin:0 auto">
-    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px">
-      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">01</span>
-      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Explain qubits, superposition, and entanglement using visual analogies</p>
-    </div>
-    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px">
-      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">02</span>
-      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Describe the difference between classical and quantum computation</p>
-    </div>
-    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px">
-      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">03</span>
-      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Identify finance applications: portfolio optimization, Monte Carlo, cryptography</p>
-    </div>
-    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px">
-      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">04</span>
-      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Evaluate the realistic timeline for quantum advantage in business</p>
-    </div>
-    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px">
-      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">05</span>
-      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Explain post-quantum cryptography and why organisations need to prepare now</p>
-    </div>
+    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px"><span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">01</span><p style="font-size:0.65em;margin:0;color:var(--c-white)">Explain qubits, superposition, and entanglement using visual analogies</p></div>
+    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px"><span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">02</span><p style="font-size:0.65em;margin:0;color:var(--c-white)">Describe the difference between classical and quantum computation</p></div>
+    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px"><span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">03</span><p style="font-size:0.65em;margin:0;color:var(--c-white)">Identify finance applications: portfolio optimization, Monte Carlo, cryptography</p></div>
+    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px"><span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">04</span><p style="font-size:0.65em;margin:0;color:var(--c-white)">Evaluate the realistic timeline for quantum advantage in business</p></div>
+    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px"><span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">05</span><p style="font-size:0.65em;margin:0;color:var(--c-white)">Explain post-quantum cryptography and why organisations need to prepare now</p></div>
   </div>
 </section>
 
-<section data-transition="fade">
-  <h3 style="color:var(--c-teal);margin-bottom:8px">Quantum computing for non-physicists</h3>
-  <p class="small" style="margin-bottom:16px">How does quantum search work? Start with sound. A choir sings in perfect harmony &mdash; except one singer is slightly off. The quantum trick: cancel the harmony, and only the dissonance remains.</p>
-  <div style="width:680px;height:340px;margin:0 auto;border-radius:16px;overflow:hidden;border:1px solid var(--c-border)">
-    <iframe src="qdissonance.html" style="width:100%;height:100%;border:none" loading="lazy"></iframe>
-  </div>
-  <p class="small" style="margin-top:12px">Interactive demo &mdash; click the buttons to walk through each step</p>
-</section>
+<section data-transition="fade"><h3 style="color:var(--c-teal);margin-bottom:8px">Quantum computing for non-physicists</h3><p class="small" style="margin-bottom:24px">Placeholder</p><div style="width:560px;height:280px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center"><p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ Classical bit: 0 or 1<br>Qubit: both until measured ]</p></div></section>
+<section data-transition="fade"><h3 style="color:var(--c-teal);margin-bottom:8px">Classical vs. quantum: portfolio optimization</h3><p class="small" style="margin-bottom:24px">Placeholder</p><div style="width:560px;height:280px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center"><p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ Classical: try combinations one by one<br>Quantum: explore many paths simultaneously ]</p></div></section>
+<section data-transition="fade"><h3 style="color:var(--c-teal);margin-bottom:8px">Quantum timeline exercise</h3><p class="small" style="margin-bottom:24px">Placeholder</p><div style="width:560px;height:260px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center"><p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ Now &middot; 2y &middot; 5y &middot; 10y &middot; 20y<br>Place: error correction, quantum advantage, crypto threat ]</p></div></section>
+<section data-transition="fade"><h3 style="color:var(--c-teal);margin-bottom:8px">Post-quantum cryptography</h3><p class="small" style="margin-bottom:24px">Placeholder</p><div style="width:520px;height:260px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center"><p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ "Harvest now, decrypt later" threat<br>NIST post-quantum standards ]</p></div></section>
 
 <section data-transition="fade">
-  <h3 style="color:var(--c-teal);margin-bottom:8px">Quantum search: the audio lab</h3>
-  <p class="small" style="margin-bottom:16px">Same principle, stripped down. Two tones &mdash; superposition, oracle phase-flip, diffuser interference. Listen to how the signal emerges from the noise.</p>
-  <div style="width:520px;height:380px;margin:0 auto;border-radius:16px;overflow:hidden;border:1px solid var(--c-border)">
-    <iframe src="qmarking.html" style="width:100%;height:100%;border:none" loading="lazy"></iframe>
-  </div>
-</section>
-
-<section data-transition="fade">
-  <h3 style="color:var(--c-teal);margin-bottom:8px">Classical vs. quantum search</h3>
-  <p class="small" style="margin-bottom:16px">Classical search checks items one by one: O(N). Grover&rsquo;s quantum search uses amplitude amplification to find the target in O(&radic;N). Watch both run simultaneously on 100 items.</p>
-  <div style="width:960px;height:420px;margin:0 auto;border-radius:16px;overflow:hidden;border:1px solid var(--c-border)">
-    <iframe src="search.html" style="width:100%;height:100%;border:none" loading="lazy"></iframe>
-  </div>
-  <p class="small" style="margin-top:12px">Click &ldquo;Run Both&rdquo; and watch the speedup in real time</p>
-</section>
-
-<section data-transition="fade">
-  <h3 style="color:var(--c-teal);margin-bottom:8px">Quantum weighted sum: signal vs. noise</h3>
-  <p class="small" style="margin-bottom:16px">Another way to see it. Classical subtraction eliminates colours one at a time. Quantum normalisation, oracle, and diffuser isolate the target signal in three steps.</p>
-  <div style="width:720px;height:380px;margin:0 auto;border-radius:16px;overflow:hidden;border:1px solid var(--c-border)">
-    <iframe src="qcolor.html" style="width:100%;height:100%;border:none" loading="lazy"></iframe>
-  </div>
-</section>
-
-<section data-transition="fade">
-  <h3 style="color:var(--c-teal);margin-bottom:8px">Quantum timeline exercise</h3>
-  <p class="small" style="margin-bottom:24px">Placeholder: students place milestones and debate realistic horizons</p>
-  <div style="width:560px;height:260px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center">
-    <p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ Now &middot; 2 years &middot; 5 years &middot; 10 years &middot; 20 years<br>Place: error correction, quantum advantage,<br>commercial applications, crypto threat ]</p>
-  </div>
-</section>
-
-<section data-transition="fade">
-  <h3 style="color:var(--c-teal);margin-bottom:8px">Post-quantum cryptography</h3>
-  <p class="small" style="margin-bottom:16px">Why does this matter for finance? Modern encryption relies on the difficulty of factoring large numbers. Shor&rsquo;s algorithm makes that easy for a quantum computer. This is the &ldquo;harvest now, decrypt later&rdquo; threat.</p>
-  <div style="width:720px;height:400px;margin:0 auto;border-radius:16px;overflow:hidden;border:1px solid var(--c-border)">
-    <iframe src="shor.html" style="width:100%;height:100%;border:none" loading="lazy"></iframe>
-  </div>
-  <p class="small" style="margin-top:12px">Scroll within the demo to see all three approaches: the wall of digits, wave interference, and the scaling race</p>
-</section>
-
-<section data-transition="fade">
-  <h3 style="color:var(--c-teal);margin-bottom:8px">What should organisations do today?</h3>
-  <p class="small" style="margin-bottom:24px">The quantum threat is not here yet &mdash; but preparation takes years, not months</p>
-  <div style="width:520px;height:260px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center">
-    <p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ NIST post-quantum standards (2024)<br>&ldquo;Harvest now, decrypt later&rdquo; &mdash; data captured today, decrypted in 10 years<br>Discussion: what should a bank do <em>now</em>? ]</p>
-  </div>
-</section>
-
-<section data-transition="fade">
-  <h3 style="color:var(--c-teal);margin-bottom:8px">Session 4 &mdash; formative check</h3>
+  <h3 style="color:var(--c-teal);margin-bottom:8px">Session 3 &mdash; formative check</h3>
   <div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:16px;padding:28px 32px;text-align:left;max-width:560px;margin:0 auto">
     <p style="font-size:0.65em;color:var(--c-white);margin:0 0 12px"><strong>Reflection:</strong> Quantum readiness assessment for a chosen industry</p>
     <p style="font-size:0.55em;color:var(--c-muted);margin:0">Formative &mdash; not graded.</p>
   </div>
 </section>
 
-<!-- DAY 2 WRAP -->
-<section data-transition="fade">
-  <h2 style="margin-bottom:12px">Day 2 complete</h2>
-  <p style="font-size:0.65em;color:var(--c-muted);margin:0 0 20px">Tomorrow: Data governance + Technology landscape synthesis</p>
-  <div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:12px;padding:20px 28px;display:inline-block;text-align:left">
-    <p style="font-size:0.55em;color:var(--c-muted);margin:0 0 6px">Prep for Wednesday:</p>
-    <p style="font-size:0.6em;color:var(--c-white);margin:0">DAMA-DMBOK overview (Canvas)</p>
-    <p style="font-size:0.6em;color:var(--c-white);margin:4px 0 0">GDPR Articles 5 & 25; EU AI Act Article 10</p>
-    <p style="font-size:0.6em;color:var(--c-white);margin:4px 0 0">Review all Week 1 materials for synthesis session</p>
-  </div>
+<section data-transition="fade" data-background-color="#0f1920">
+  <p style="font-size:1.2em;color:var(--c-dim);margin:0 0 8px">~15 minute break</p>
+  <p style="font-size:0.6em;color:var(--c-dim);margin:0">Session 4 starts shortly</p>
 </section>
 
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- DAY 3: WEDNESDAY 24 JUN — S5 + S6                      -->
-<!-- ═══════════════════════════════════════════════════════ -->
-
-<!-- DAY 3 OPENER -->
-<section data-transition="zoom" data-background-color="#0f1920">
-  <p style="font-family:var(--mono);font-size:0.5em;color:var(--c-dim);margin:0 0 8px;text-transform:uppercase;letter-spacing:0.1em">Wednesday 24 June &middot; 08:00 &ndash; 11:30</p>
-  <h1 style="margin:0 0 12px;font-size:2em">Day 3</h1>
-  <p style="font-size:0.7em;color:var(--c-teal);margin:0">Data governance + Technology landscape synthesis</p>
-</section>
-
-<!-- ═══ SESSION 5: DATA MANAGEMENT & GOVERNANCE ═══ -->
-
 <section data-transition="fade">
-  <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px">
-    <span style="font-family:var(--mono);font-size:0.5em;background:var(--c-teal);color:var(--c-bg);padding:4px 14px;border-radius:8px;font-weight:500">S5</span>
-    <span class="tag tag-understand">Understand</span>
-  </div>
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px"><span style="font-family:var(--mono);font-size:0.5em;background:var(--c-teal);color:var(--c-bg);padding:4px 14px;border-radius:8px;font-weight:500">S4</span><span class="tag tag-understand">Understand</span></div>
   <h1 style="margin:8px 0 12px;font-size:2em">Data management,<br>governance & the<br>data-to-AI pipeline</h1>
 </section>
 
 <section data-transition="fade">
-  <h3 style="color:var(--c-teal);margin-bottom:20px">Session 5 &mdash; Learning objectives</h3>
+  <h3 style="color:var(--c-teal);margin-bottom:20px">Session 4 &mdash; Learning objectives</h3>
   <div style="text-align:left;max-width:640px;margin:0 auto">
-    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px">
-      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">01</span>
-      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Explain core concepts: data governance, stewardship, master data management, metadata, catalogues</p>
-    </div>
-    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px">
-      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">02</span>
-      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Describe the DAMA-DMBOK framework and how it structures governance disciplines</p>
-    </div>
-    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px">
-      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">03</span>
-      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Explain the full data-to-AI pipeline: raw data through governance gates to model deployment</p>
-    </div>
-    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px">
-      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">04</span>
-      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Compare centralised (CDO model) vs. federated (data mesh) governance</p>
-    </div>
-    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px">
-      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">05</span>
-      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Describe how GDPR and EU AI Act impose data quality, documentation, and traceability requirements</p>
-    </div>
+    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px"><span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">01</span><p style="font-size:0.65em;margin:0;color:var(--c-white)">Explain core concepts: governance, stewardship, master data management, metadata, catalogues</p></div>
+    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px"><span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">02</span><p style="font-size:0.65em;margin:0;color:var(--c-white)">Describe the DAMA-DMBOK framework</p></div>
+    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px"><span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">03</span><p style="font-size:0.65em;margin:0;color:var(--c-white)">Explain the full data-to-AI pipeline: raw data through governance gates to deployment</p></div>
+    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px"><span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">04</span><p style="font-size:0.65em;margin:0;color:var(--c-white)">Compare centralised (CDO model) vs. federated (data mesh) governance</p></div>
+    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px"><span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">05</span><p style="font-size:0.65em;margin:0;color:var(--c-white)">Describe how GDPR and EU AI Act impose data quality and traceability requirements</p></div>
   </div>
 </section>
 
-<section data-transition="fade">
-  <h3 style="color:var(--c-teal);margin-bottom:8px">The data governance stack</h3>
-  <p class="small" style="margin-bottom:24px">Placeholder: policies, roles, processes, and technology layers</p>
-  <div style="width:560px;height:280px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center">
-    <p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ Policies &rarr; Roles (CDO, stewards)<br>&rarr; Processes (quality checks, lineage)<br>&rarr; Technology (catalogues, MDM) ]</p>
-  </div>
-</section>
+<section data-transition="fade"><h3 style="color:var(--c-teal);margin-bottom:8px">The data governance stack</h3><p class="small" style="margin-bottom:24px">Placeholder</p><div style="width:560px;height:280px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center"><p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ Policies &rarr; Roles &rarr; Processes &rarr; Technology ]</p></div></section>
+<section data-transition="fade"><h3 style="color:var(--c-teal);margin-bottom:8px">Data-to-AI pipeline walkthrough</h3><p class="small" style="margin-bottom:24px">Placeholder</p><div style="width:600px;height:280px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center"><p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ Source &rarr; Ingest &rarr; Quality gate &rarr; Transform<br>&rarr; Feature store &rarr; Train &rarr; Validate &rarr; Deploy ]</p></div></section>
+<section data-transition="fade"><h3 style="color:var(--c-teal);margin-bottom:8px">Centralised vs. federated governance</h3><p class="small" style="margin-bottom:24px">Placeholder</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:560px;margin:0 auto"><div style="border:1px dashed var(--c-dim);border-radius:12px;padding:20px;text-align:center"><p style="font-size:0.65em;color:var(--c-teal);margin:0 0 6px;font-weight:500">Centralised (CDO)</p><p style="font-size:0.5em;color:var(--c-dim);margin:0">Single authority<br>Consistency<br>Slower to scale</p></div><div style="border:1px dashed var(--c-dim);border-radius:12px;padding:20px;text-align:center"><p style="font-size:0.65em;color:var(--c-teal);margin:0 0 6px;font-weight:500">Federated (data mesh)</p><p style="font-size:0.5em;color:var(--c-dim);margin:0">Domain ownership<br>Agility<br>Harder to coordinate</p></div></div></section>
+<section data-transition="fade"><h3 style="color:var(--c-teal);margin-bottom:8px">Why should a CEO care?</h3><p class="small" style="margin-bottom:24px">Placeholder</p><div style="width:520px;height:260px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center"><p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ Two organisations: mature vs. absent governance<br>Predict which succeeds at AI<br>Governance = advantage, not compliance ]</p></div></section>
 
 <section data-transition="fade">
-  <h3 style="color:var(--c-teal);margin-bottom:8px">Data-to-AI pipeline walkthrough</h3>
-  <p class="small" style="margin-bottom:24px">Placeholder: trace governance checkpoints from raw data to deployed model</p>
-  <div style="width:600px;height:280px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center">
-    <p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ Source &rarr; Ingest &rarr; Quality gate &rarr; Transform<br>&rarr; Feature store &rarr; Train &rarr; Validate &rarr; Deploy<br>Where do governance checkpoints sit? ]</p>
-  </div>
-</section>
-
-<section data-transition="fade">
-  <h3 style="color:var(--c-teal);margin-bottom:8px">Centralised vs. federated governance</h3>
-  <p class="small" style="margin-bottom:24px">Placeholder: CDO model vs. data mesh &mdash; when does each fit?</p>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:560px;margin:0 auto">
-    <div style="border:1px dashed var(--c-dim);border-radius:12px;padding:20px;text-align:center">
-      <p style="font-size:0.65em;color:var(--c-teal);margin:0 0 6px;font-weight:500">Centralised (CDO)</p>
-      <p style="font-size:0.5em;color:var(--c-dim);margin:0">Single authority<br>Consistency<br>Slower to scale</p>
-    </div>
-    <div style="border:1px dashed var(--c-dim);border-radius:12px;padding:20px;text-align:center">
-      <p style="font-size:0.65em;color:var(--c-teal);margin:0 0 6px;font-weight:500">Federated (data mesh)</p>
-      <p style="font-size:0.5em;color:var(--c-dim);margin:0">Domain ownership<br>Agility<br>Harder to coordinate</p>
-    </div>
-  </div>
-</section>
-
-<section data-transition="fade">
-  <h3 style="color:var(--c-teal);margin-bottom:8px">Why should a CEO care about data governance?</h3>
-  <p class="small" style="margin-bottom:24px">Placeholder: discussion connecting governance to competitive advantage and risk</p>
-  <div style="width:520px;height:260px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center">
-    <p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ Two organisations: one with mature governance,<br>one without &mdash; predict which succeeds at AI.<br>Governance = competitive advantage, not compliance ]</p>
-  </div>
-</section>
-
-<section data-transition="fade">
-  <h3 style="color:var(--c-teal);margin-bottom:8px">Session 5 &mdash; formative check</h3>
+  <h3 style="color:var(--c-teal);margin-bottom:8px">Session 4 &mdash; formative check</h3>
   <div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:16px;padding:28px 32px;text-align:left;max-width:560px;margin:0 auto">
     <p style="font-size:0.65em;color:var(--c-white);margin:0 0 12px"><strong>Governance gap analysis:</strong> Identify missing controls in a described organisation</p>
     <p style="font-size:0.55em;color:var(--c-muted);margin:0">Formative &mdash; not graded.</p>
   </div>
 </section>
 
-<!-- ══════════════════════════ BREAK ══════════════════════════ -->
-
-<section data-transition="fade" data-background-color="#0f1920">
-  <p style="font-size:1.2em;color:var(--c-dim);margin:0 0 8px">~15 minute break</p>
-  <p style="font-size:0.6em;color:var(--c-dim);margin:0">Session 6 starts shortly</p>
+<section data-transition="fade">
+  <h2 style="margin-bottom:12px">Day 2 complete</h2>
+  <p style="font-size:0.65em;color:var(--c-muted);margin:0 0 20px">Tomorrow: Technology landscape synthesis</p>
+  <div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:12px;padding:20px 28px;display:inline-block;text-align:left">
+    <p style="font-size:0.55em;color:var(--c-muted);margin:0 0 6px">Prep for Wednesday:</p>
+    <p style="font-size:0.6em;color:var(--c-white);margin:0">Review all Week 1 materials</p>
+  </div>
 </section>
 
-<!-- ═══ SESSION 6: TECHNOLOGY LANDSCAPE MAP ═══ -->
+<!-- ═══ DAY 3: S5 ═══ -->
+
+<section data-transition="zoom" data-background-color="#0f1920">
+  <p style="font-family:var(--mono);font-size:0.5em;color:var(--c-dim);margin:0 0 8px;text-transform:uppercase;letter-spacing:0.1em">Wednesday 24 June &middot; 08:00 &ndash; 11:30</p>
+  <h1 style="margin:0 0 12px;font-size:2em">Day 3</h1>
+  <p style="font-size:0.7em;color:var(--c-teal);margin:0">Technology landscape synthesis</p>
+</section>
 
 <section data-transition="fade">
-  <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px">
-    <span style="font-family:var(--mono);font-size:0.5em;background:var(--c-teal);color:var(--c-bg);padding:4px 14px;border-radius:8px;font-weight:500">S6</span>
-    <span class="tag tag-understand">Understand</span>
-    <span class="tag tag-analyze">Analyze</span>
-  </div>
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px"><span style="font-family:var(--mono);font-size:0.5em;background:var(--c-teal);color:var(--c-bg);padding:4px 14px;border-radius:8px;font-weight:500">S5</span><span class="tag tag-understand">Understand</span><span class="tag tag-analyze">Analyze</span></div>
   <h1 style="margin:8px 0 12px;font-size:2em">Technology<br>landscape map</h1>
   <p style="font-size:0.7em;color:var(--c-muted);margin:0">Week 1 synthesis</p>
 </section>
 
 <section data-transition="fade">
-  <h3 style="color:var(--c-teal);margin-bottom:20px">Session 6 &mdash; Learning objectives</h3>
+  <h3 style="color:var(--c-teal);margin-bottom:20px">Session 5 &mdash; Learning objectives</h3>
   <div style="text-align:left;max-width:640px;margin:0 auto">
-    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px">
-      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">01</span>
-      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Integrate the five technology domains into a coherent conceptual map</p>
-    </div>
-    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px">
-      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">02</span>
-      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Explain the dependencies and overlaps between technologies</p>
-    </div>
-    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px">
-      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">03</span>
-      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Assess own understanding gaps before Week 2</p>
-    </div>
-    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px">
-      <span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">04</span>
-      <p style="font-size:0.65em;margin:0;color:var(--c-white)">Articulate what each technology can and cannot do &mdash; the "honest brochure"</p>
-    </div>
+    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px"><span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">01</span><p style="font-size:0.65em;margin:0;color:var(--c-white)">Integrate the four technology domains into a coherent conceptual map</p></div>
+    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px"><span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">02</span><p style="font-size:0.65em;margin:0;color:var(--c-white)">Explain the dependencies and overlaps between technologies</p></div>
+    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px"><span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">03</span><p style="font-size:0.65em;margin:0;color:var(--c-white)">Assess own understanding gaps before Week 2</p></div>
+    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px"><span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">04</span><p style="font-size:0.65em;margin:0;color:var(--c-white)">Articulate what each technology can and cannot do &mdash; the "honest brochure"</p></div>
   </div>
 </section>
 
-<section data-transition="fade">
-  <h3 style="color:var(--c-teal);margin-bottom:8px">Group workshop: build the map</h3>
-  <p class="small" style="margin-bottom:24px">Placeholder: groups connect technologies, data requirements, governance needs, maturity</p>
-  <div style="width:600px;height:300px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center">
-    <p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ AI/ML ] &mdash; [ NLP/GenAI ] &mdash; [ Blockchain ]<br>&nbsp;&nbsp;&nbsp;&nbsp;&darr;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br>[ Data governance ] &larr;&rarr; [ Quantum ]<br><br>Template provided &middot; groups fill in connections</p>
-  </div>
-</section>
+<section data-transition="fade"><h3 style="color:var(--c-teal);margin-bottom:8px">Group workshop: build the map</h3><p class="small" style="margin-bottom:24px">Placeholder</p><div style="width:600px;height:300px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center"><p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ AI/ML &mdash; NLP/CV &mdash; GenAI/Agentic ]<br>[ Quantum ] &larr;&rarr; [ Data governance ]<br>Template provided &middot; groups fill in</p></div></section>
+
+<section data-transition="fade"><h3 style="color:var(--c-teal);margin-bottom:8px">Gallery walk</h3><p class="small" style="margin-bottom:24px">Placeholder</p><div style="width:520px;height:260px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center"><p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ Rotate between maps<br>Add sticky-note questions ]</p></div></section>
+
+<section data-transition="fade"><h3 style="color:var(--c-teal);margin-bottom:8px">Preview: Week 2</h3><p class="small" style="margin-bottom:24px">How these concepts play out in real industry</p><div style="width:520px;height:260px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center"><p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ Next week: every session is a case study<br>Success vs. failure, same technology ]</p></div></section>
 
 <section data-transition="fade">
-  <h3 style="color:var(--c-teal);margin-bottom:8px">Gallery walk</h3>
-  <p class="small" style="margin-bottom:24px">Placeholder: groups visit each other's maps, add challenges and questions</p>
-  <div style="width:520px;height:260px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center">
-    <p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ Rotate between maps<br>Add sticky-note questions<br>Instructor resolves disagreements ]</p>
-  </div>
-</section>
-
-<section data-transition="fade">
-  <h3 style="color:var(--c-teal);margin-bottom:8px">Preview: Week 2</h3>
-  <p class="small" style="margin-bottom:24px">How these concepts play out in real industry</p>
-  <div style="width:520px;height:260px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center">
-    <p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ Next week: every session is a case study<br>Success vs. failure, same technology<br>You now have the vocabulary &mdash; time to use it ]</p>
-  </div>
-</section>
-
-<section data-transition="fade">
-  <h3 style="color:var(--c-teal);margin-bottom:8px">Session 6 &mdash; formative check</h3>
+  <h3 style="color:var(--c-teal);margin-bottom:8px">Session 5 &mdash; formative check</h3>
   <div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:16px;padding:28px 32px;text-align:left;max-width:560px;margin:0 auto">
-    <p style="font-size:0.65em;color:var(--c-white);margin:0 0 12px"><strong>Technology Landscape Map</strong> (group) + self-assessment quiz on conceptual foundations</p>
+    <p style="font-size:0.65em;color:var(--c-white);margin:0 0 12px"><strong>Technology Landscape Map</strong> (group) + self-assessment quiz</p>
     <p style="font-size:0.55em;color:var(--c-muted);margin:0">Formative &mdash; not graded. Confirms readiness for Week 2.</p>
   </div>
 </section>
 
-<!-- WEEK 1 WRAP -->
 <section data-transition="fade">
   <h2 style="margin-bottom:12px">Week 1 complete</h2>
-  <p style="font-size:0.65em;color:var(--c-muted);margin:0 0 20px">You can now explain every major technology to a non-expert.</p>
+  <p style="font-size:0.65em;color:var(--c-muted);margin:0 0 8px">You can now explain every major technology to a non-expert.</p>
   <p style="font-size:0.65em;color:var(--c-amber);margin:0 0 20px">Next week: how does this play out in real companies?</p>
-  <div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:12px;padding:20px 28px;display:inline-block;text-align:left">
-    <p style="font-size:0.55em;color:var(--c-muted);margin:0 0 6px">Prep for Monday 29 Jun:</p>
-    <p style="font-size:0.6em;color:var(--c-white);margin:0">AI in credit risk readings (Canvas)</p>
-    <p style="font-size:0.6em;color:var(--c-white);margin:4px 0 0">Algorithmic trading readings (Canvas)</p>
-  </div>
 </section>
 
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reveal.min.js"></script>
 <script>
-Reveal.initialize({
-  hash: true, transition: 'fade', transitionSpeed: 'default',
-  controlsTutorial: false, progress: true, center: true,
-  width: 1280, height: 720, margin: 0.08
-});
+Reveal.initialize({hash:true,transition:'fade',transitionSpeed:'default',controlsTutorial:false,progress:true,center:true,width:1280,height:720,margin:0.08});
 </script>
 <a href="index.html" style="position:fixed;top:16px;left:16px;z-index:100;font-family:DM Mono,monospace;font-size:11px;color:#4a5568;text-decoration:none;background:#141a22;border:1px solid #2a3342;border-radius:8px;padding:5px 12px;transition:color 0.2s,border-color 0.2s;opacity:0.7" onmouseover="this.style.color='#e8eaed';this.style.borderColor='#5a6578';this.style.opacity='1'" onmouseout="this.style.color='#4a5568';this.style.borderColor='#2a3342';this.style.opacity='0.7'">&#8592; Home</a>
 </body>
