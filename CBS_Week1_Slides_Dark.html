@@ -9,32 +9,81 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,300&family=DM+Mono:wght@400&display=swap');
 :root{--c-bg:#0b0f14;--c-surface:#141a22;--c-surface2:#1c2430;--c-white:#e8eaed;--c-muted:#8b95a5;--c-dim:#4a5568;--c-border:#2a3342;--c-teal:#5DCAA5;--c-amber:#EF9F27;--c-coral:#F0997B;--c-blue:#85B7EB;--font:'DM Sans',system-ui,sans-serif;--mono:'DM Mono',monospace}
-.reveal{font-family:var(--font);color:var(--c-white)}.reveal .slide-background{background:var(--c-bg)!important}
+.reveal{font-family:var(--font);color:var(--c-white)}
+.reveal .slide-background{background:var(--c-bg)!important}
 .reveal h1,.reveal h2,.reveal h3{font-family:var(--font);color:var(--c-white);font-weight:700;text-transform:none;letter-spacing:-0.02em}
-.reveal h1{font-size:2.4em;line-height:1.1}.reveal h2{font-size:1.6em;line-height:1.2}.reveal h3{font-size:1.1em;line-height:1.3}
-.reveal p,.reveal li{font-size:0.7em;line-height:1.6}.reveal .small{font-size:0.55em;color:var(--c-muted)}
+.reveal h1{font-size:2.4em;line-height:1.1}
+.reveal h2{font-size:1.6em;line-height:1.2}
+.reveal h3{font-size:1.1em;line-height:1.3}
+.reveal p,.reveal li{font-size:0.7em;line-height:1.5}
+.reveal .small{font-size:0.55em;color:var(--c-muted)}
 .tag{display:inline-block;font-family:var(--mono);font-size:0.5em;padding:3px 10px;border-radius:20px;font-weight:400;vertical-align:middle;margin:0 2px}
-.tag-understand{background:rgba(133,183,235,0.2);color:#85B7EB}.tag-analyze{background:rgba(239,159,39,0.2);color:#EF9F27}.tag-evaluate{background:rgba(227,121,121,0.2);color:#F09595}.tag-create{background:rgba(175,169,236,0.2);color:#AFA9EC}
-.week-card{background:var(--c-surface);border:1px solid var(--c-border);border-radius:16px;padding:28px 32px;text-align:left}
-.week-card h3{margin:0 0 8px;font-size:0.9em}.week-card p{margin:0;font-size:0.6em;color:var(--c-muted)}
-.week-card.w1{border-left:4px solid var(--c-teal)}.week-card.w2{border-left:4px solid var(--c-amber)}.week-card.w3{border-left:4px solid var(--c-coral)}
+.tag-understand{background:rgba(133,183,235,0.2);color:#85B7EB}
+.tag-analyze{background:rgba(239,159,39,0.2);color:#EF9F27}
+.tag-evaluate{background:rgba(227,121,121,0.2);color:#F09595}
+.tag-create{background:rgba(175,169,236,0.2);color:#AFA9EC}
+.placeholder-watermark{position:absolute;top:14px;right:14px;font-family:var(--mono);font-size:9px;color:#EF9F27;background:#3a2810;border:1px solid #EF9F27;border-radius:4px;padding:3px 9px;letter-spacing:1.2px;font-weight:bold;z-index:10}
+.divider-tag{font-family:var(--mono);font-size:0.5em;color:var(--c-dim);text-transform:uppercase;letter-spacing:0.2em;margin:0 0 12px}
+ul.bullets{list-style:none;padding:0;text-align:left;max-width:760px;margin:24px auto 0}
+ul.bullets li{font-size:0.62em;color:var(--c-white);margin:0 0 14px;padding-left:24px;position:relative;line-height:1.5}
+ul.bullets li::before{content:'';position:absolute;left:0;top:0.5em;width:8px;height:8px;border-radius:50%;background:var(--c-teal)}
+.cbox{background:var(--c-surface);border:1.5px solid var(--c-teal);border-radius:18px;padding:36px 44px;max-width:680px;margin:30px auto 0;text-align:center;font-size:0.7em;line-height:1.6;color:var(--c-white)}
+.cbox.amber{border-color:var(--c-amber)}
+.cbox.coral{border-color:var(--c-coral)}
+.cbox.dim{border-color:var(--c-dim)}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:760px;margin:24px auto 0}
+.col{background:var(--c-surface);border:1px solid var(--c-border);border-radius:12px;padding:18px 22px;text-align:left;border-left:4px solid var(--c-teal);min-height:230px}
+.col.amber{border-left-color:var(--c-amber)}
+.col.blue{border-left-color:var(--c-blue)}
+.col.coral{border-left-color:var(--c-coral)}
+.col.dim{border-left-color:var(--c-dim)}
+.col h4{font-size:0.7em;margin:0 0 4px;color:var(--c-teal);font-weight:600}
+.col.amber h4{color:var(--c-amber)}
+.col.blue h4{color:var(--c-blue)}
+.col.coral h4{color:var(--c-coral)}
+.col.dim h4{color:var(--c-dim)}
+.col .sub{font-size:0.5em;color:var(--c-muted);font-style:italic;margin:0 0 12px}
+.col ul{list-style:none;padding:0;margin:0}
+.col ul li{font-size:0.5em;color:var(--c-white);margin:0 0 8px;padding-left:14px;position:relative;line-height:1.4}
+.col ul li::before{content:'\u2022';position:absolute;left:0;color:var(--c-muted)}
+.quad{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:760px;margin:24px auto 0}
+.quad-cell{background:var(--c-surface);border:1px solid var(--c-border);border-radius:12px;padding:16px 20px;text-align:left}
+.quad-cell.warn{border-color:rgba(227,121,121,0.4)}
+.quad-cell h5{font-size:0.6em;margin:0 0 6px;color:var(--c-teal);font-weight:600}
+.quad-cell.warn h5{color:#F09595}
+.quad-cell p{font-size:0.5em;color:var(--c-muted);margin:0;line-height:1.5}
+.activity-box{max-width:760px;margin:24px auto 0;text-align:left}
+.prompt-box{background:rgba(133,183,235,0.08);border:1px solid var(--c-blue);border-radius:14px;padding:18px 24px;margin:0 0 14px}
+.prompt-box .label{font-size:0.5em;color:var(--c-blue);font-weight:600;margin:0 0 6px}
+.prompt-box .text{font-size:0.6em;color:var(--c-white);font-style:italic;margin:0;line-height:1.4}
+.inst-box{background:var(--c-surface);border:1px solid var(--c-border);border-radius:14px;padding:18px 24px}
+.inst-box .label{font-size:0.5em;color:var(--c-muted);font-weight:600;margin:0 0 8px}
+.inst-box ul{list-style:none;padding:0;margin:0}
+.inst-box li{font-size:0.5em;color:var(--c-white);margin:0 0 6px;padding-left:14px;position:relative}
+.inst-box li::before{content:'\u2022';position:absolute;left:0;color:var(--c-muted)}
+.formative-box{background:var(--c-surface);border:1px solid var(--c-border);border-radius:14px;padding:24px 30px;max-width:600px;margin:30px auto 0;text-align:left}
+.formative-box .title{font-size:0.65em;color:var(--c-white);margin:0 0 10px}
+.formative-box .title strong{color:var(--c-white);font-weight:700}
+.formative-box .note{font-size:0.5em;color:var(--c-muted);margin:0}
+.session-pill{font-family:var(--mono);font-size:0.5em;background:var(--c-teal);color:var(--c-bg);padding:4px 14px;border-radius:8px;font-weight:500;display:inline-block;margin-right:8px}
+.divider-section{background:#0a0d12!important}
+.divider-section h2{font-size:2.2em;color:var(--c-white)}
+.divider-line{display:inline-block;width:60px;height:3px;background:var(--c-teal);margin:24px auto 0}
 .day-card{background:var(--c-surface);border:1px solid var(--c-border);border-radius:12px;padding:16px 20px;text-align:left}
 .day-card .day-label{font-family:var(--mono);font-size:0.45em;color:var(--c-muted);margin:0 0 6px;text-transform:uppercase;letter-spacing:0.08em}
 .day-card .day-title{font-size:0.6em;font-weight:500;margin:0 0 4px;color:var(--c-white)}
 .day-card .day-slot{font-family:var(--mono);font-size:0.45em;color:var(--c-dim);margin:0}
-.session-row{display:grid;grid-template-columns:60px 1fr;gap:12px;align-items:start;text-align:left;margin:0 0 14px}
-.session-num{font-family:var(--mono);font-size:0.55em;font-weight:500;color:var(--c-bg);border-radius:8px;padding:6px 0;text-align:center;margin-top:2px;background:var(--c-teal)}
-.session-num.w2{background:var(--c-amber)}.session-num.w3{background:var(--c-coral)}
-.session-info h3{font-size:0.7em;margin:0 0 4px;font-weight:500}.session-info p{font-size:0.5em;color:var(--c-muted);margin:0;line-height:1.4}
-.reveal .progress{color:var(--c-teal);height:3px}.reveal .controls button{color:var(--c-muted)}
+.week-card{background:var(--c-surface);border:1px solid var(--c-border);border-radius:16px;padding:28px 32px;text-align:left}
+.week-card h3{margin:0 0 8px;font-size:0.9em}
+.week-card p{margin:0;font-size:0.6em;color:var(--c-muted)}
+.week-card.w1{border-left:4px solid var(--c-teal)}
+.reveal .progress{color:var(--c-teal);height:3px}
+.reveal .controls button{color:var(--c-muted)}
 </style>
 </head>
 <body>
 <div class="reveal">
 <div class="slides">
-
-<!-- ═══ COURSE MAP ═══ -->
-
 <section data-transition="fade">
   <h1 style="margin-bottom:12px">AI, Fintech &<br>Deep Tech</h1>
   <p style="font-size:0.8em;color:var(--c-muted);margin:0 0 24px">in Finance and Business</p>
@@ -46,58 +95,25 @@
   <p style="font-size:0.55em;color:var(--c-dim);margin:20px 0 0">Prabhu Venkatesh &middot; Copenhagen Business School</p>
 </section>
 
-<!-- ★ COURSE SCOPE: WHAT WE COVER vs. WHAT WE WON'T ★ -->
 <section data-transition="fade">
   <h2 style="margin-bottom:8px">Course scope</h2>
   <p class="small" style="margin-bottom:20px">What we cover, what we don&rsquo;t, and why</p>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:780px;margin:0 auto;text-align:left">
-
-    <!-- LEFT: WHAT WE COVER -->
     <div>
       <p style="font-family:var(--mono);font-size:0.45em;color:var(--c-teal);margin:0 0 10px;text-transform:uppercase;letter-spacing:0.1em">&#10003; What we cover</p>
-      <div style="background:var(--c-surface);border:1px solid var(--c-border);border-left:3px solid var(--c-teal);border-radius:10px;padding:12px 16px;margin:0 0 8px">
-        <p style="font-size:0.55em;font-weight:500;color:var(--c-white);margin:0 0 3px">AI, ML & deep learning</p>
-        <p style="font-size:0.42em;color:var(--c-muted);margin:0;line-height:1.4">Concepts, workflow, data quality &mdash; the foundation</p>
-      </div>
-      <div style="background:var(--c-surface);border:1px solid var(--c-border);border-left:3px solid var(--c-teal);border-radius:10px;padding:12px 16px;margin:0 0 8px">
-        <p style="font-size:0.55em;font-weight:500;color:var(--c-white);margin:0 0 3px">NLP, CV, generative & agentic AI</p>
-        <p style="font-size:0.42em;color:var(--c-muted);margin:0;line-height:1.4">Application families, LLMs, autonomous systems</p>
-      </div>
-      <div style="background:var(--c-surface);border:1px solid var(--c-border);border-left:3px solid var(--c-teal);border-radius:10px;padding:12px 16px;margin:0 0 8px">
-        <p style="font-size:0.55em;font-weight:500;color:var(--c-white);margin:0 0 3px">Quantum computing</p>
-        <p style="font-size:0.42em;color:var(--c-muted);margin:0;line-height:1.4">Conceptual foundations, finance applications, realistic outlook</p>
-      </div>
-      <div style="background:var(--c-surface);border:1px solid var(--c-border);border-left:3px solid var(--c-teal);border-radius:10px;padding:12px 16px;margin:0 0 8px">
-        <p style="font-size:0.55em;font-weight:500;color:var(--c-white);margin:0 0 3px">Data governance & regulation</p>
-        <p style="font-size:0.42em;color:var(--c-muted);margin:0;line-height:1.4">DAMA-DMBOK, GDPR, EU AI Act, risk tiers</p>
-      </div>
-      <div style="background:var(--c-surface);border:1px solid var(--c-border);border-left:3px solid var(--c-teal);border-radius:10px;padding:12px 16px">
-        <p style="font-size:0.55em;font-weight:500;color:var(--c-white);margin:0 0 3px">Real-world cases & strategy</p>
-        <p style="font-size:0.42em;color:var(--c-muted);margin:0;line-height:1.4">Success/failure analysis, strategy design, implementation</p>
-      </div>
+      <div style="background:var(--c-surface);border:1px solid var(--c-border);border-left:3px solid var(--c-teal);border-radius:10px;padding:10px 14px;margin:0 0 6px"><p style="font-size:0.5em;font-weight:500;color:var(--c-white);margin:0">AI, ML & deep learning</p><p style="font-size:0.4em;color:var(--c-muted);margin:0">Concepts, workflow, data quality</p></div>
+      <div style="background:var(--c-surface);border:1px solid var(--c-border);border-left:3px solid var(--c-teal);border-radius:10px;padding:10px 14px;margin:0 0 6px"><p style="font-size:0.5em;font-weight:500;color:var(--c-white);margin:0">NLP, CV, generative & agentic AI</p><p style="font-size:0.4em;color:var(--c-muted);margin:0">Application families, LLMs, autonomous systems</p></div>
+      <div style="background:var(--c-surface);border:1px solid var(--c-border);border-left:3px solid var(--c-teal);border-radius:10px;padding:10px 14px;margin:0 0 6px"><p style="font-size:0.5em;font-weight:500;color:var(--c-white);margin:0">Data governance & regulation</p><p style="font-size:0.4em;color:var(--c-muted);margin:0">DAMA-DMBOK, GDPR, EU AI Act, risk tiers</p></div>
+      <div style="background:var(--c-surface);border:1px solid var(--c-border);border-left:3px solid var(--c-teal);border-radius:10px;padding:10px 14px;margin:0 0 6px"><p style="font-size:0.5em;font-weight:500;color:var(--c-white);margin:0">Quantum computing</p><p style="font-size:0.4em;color:var(--c-muted);margin:0">Conceptual foundations, finance apps, realistic outlook</p></div>
+      <div style="background:var(--c-surface);border:1px solid var(--c-border);border-left:3px solid var(--c-teal);border-radius:10px;padding:10px 14px"><p style="font-size:0.5em;font-weight:500;color:var(--c-white);margin:0">Real-world cases & strategy</p><p style="font-size:0.4em;color:var(--c-muted);margin:0">Success/failure analysis, strategy, implementation</p></div>
     </div>
-
-    <!-- RIGHT: WHAT WE DON'T -->
     <div>
       <p style="font-family:var(--mono);font-size:0.45em;color:var(--c-dim);margin:0 0 10px;text-transform:uppercase;letter-spacing:0.1em">&#10007; What we don&rsquo;t cover</p>
-      <div style="background:var(--c-surface);border:1px solid var(--c-border);border-left:3px solid var(--c-dim);border-radius:10px;padding:12px 16px;margin:0 0 8px">
-        <p style="font-size:0.55em;font-weight:500;color:var(--c-muted);margin:0 0 3px">Blockchain & cryptocurrencies</p>
-        <p style="font-size:0.42em;color:var(--c-dim);margin:0;line-height:1.4">Enterprise adoption has plateaued. We reference deep-tech failures (TradeLens) but don&rsquo;t teach the concepts.</p>
-      </div>
-      <div style="background:var(--c-surface);border:1px solid var(--c-border);border-left:3px solid var(--c-dim);border-radius:10px;padding:12px 16px;margin:0 0 8px">
-        <p style="font-size:0.55em;font-weight:500;color:var(--c-muted);margin:0 0 3px">Coding & implementation</p>
-        <p style="font-size:0.42em;color:var(--c-dim);margin:0;line-height:1.4">No Python, no notebooks. The goal is decision-quality understanding, not engineering skill.</p>
-      </div>
-      <div style="background:var(--c-surface);border:1px solid var(--c-border);border-left:3px solid var(--c-dim);border-radius:10px;padding:12px 16px;margin:0 0 8px">
-        <p style="font-size:0.55em;font-weight:500;color:var(--c-muted);margin:0 0 3px">Mathematical foundations</p>
-        <p style="font-size:0.42em;color:var(--c-dim);margin:0;line-height:1.4">No linear algebra, calculus, or probability proofs. Concepts come through analogies and diagrams.</p>
-      </div>
-      <div style="background:var(--c-surface);border:1px solid var(--c-border);border-left:3px solid var(--c-dim);border-radius:10px;padding:12px 16px">
-        <p style="font-size:0.55em;font-weight:500;color:var(--c-muted);margin:0 0 3px">Tool tutorials</p>
-        <p style="font-size:0.42em;color:var(--c-dim);margin:0;line-height:1.4">No TensorFlow, PyTorch, or prompt engineering training. Tools change quarterly; concepts last a career.</p>
-      </div>
+      <div style="background:var(--c-surface);border:1px solid var(--c-border);border-left:3px solid var(--c-dim);border-radius:10px;padding:10px 14px;margin:0 0 6px"><p style="font-size:0.5em;font-weight:500;color:var(--c-muted);margin:0">Blockchain & cryptocurrencies</p><p style="font-size:0.4em;color:var(--c-dim);margin:0">Adoption plateaued. We reference TradeLens failure but don&rsquo;t teach concepts.</p></div>
+      <div style="background:var(--c-surface);border:1px solid var(--c-border);border-left:3px solid var(--c-dim);border-radius:10px;padding:10px 14px;margin:0 0 6px"><p style="font-size:0.5em;font-weight:500;color:var(--c-muted);margin:0">Coding & implementation</p><p style="font-size:0.4em;color:var(--c-dim);margin:0">No Python, no notebooks. Decision-quality understanding only.</p></div>
+      <div style="background:var(--c-surface);border:1px solid var(--c-border);border-left:3px solid var(--c-dim);border-radius:10px;padding:10px 14px;margin:0 0 6px"><p style="font-size:0.5em;font-weight:500;color:var(--c-muted);margin:0">Mathematical foundations</p><p style="font-size:0.4em;color:var(--c-dim);margin:0">No linear algebra, calculus, or probability proofs.</p></div>
+      <div style="background:var(--c-surface);border:1px solid var(--c-border);border-left:3px solid var(--c-dim);border-radius:10px;padding:10px 14px"><p style="font-size:0.5em;font-weight:500;color:var(--c-muted);margin:0">Tool tutorials</p><p style="font-size:0.4em;color:var(--c-dim);margin:0">No TensorFlow/PyTorch/prompt engineering training.</p></div>
     </div>
-
   </div>
   <p style="font-size:0.5em;color:var(--c-dim);margin:18px 0 0;text-align:center;font-style:italic">Understanding and judgment, not memorisation or implementation</p>
 </section>
@@ -114,376 +130,489 @@
 </section>
 
 <section data-transition="fade">
-  <div class="week-card w1" style="margin-bottom:20px">
-    <h3 style="color:var(--c-teal)">Week 1: Concepts &mdash; "What is this?"</h3>
-    <p>Build conceptual literacy across every major technology. No applications yet &mdash; pure understanding. By Friday you can explain each technology to a non-expert.</p>
+  <div class="week-card w1" style="margin-bottom:16px"><h3 style="color:var(--c-teal)">Week 1: Concepts</h3><p>Build conceptual literacy across every major technology.</p></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px">
+    <div class="day-card"><p class="day-label">Mon 22 Jun</p><p class="day-title">AI/ML + NLP/CV/GenAI/Agentic</p><p class="day-slot">08:00&ndash;11:30 &middot; S1+S2</p></div>
+    <div class="day-card"><p class="day-label">Tue 23 Jun</p><p class="day-title">Data governance + Quantum</p><p class="day-slot">08:00&ndash;11:30 &middot; S3+S4</p></div>
+    <div class="day-card"><p class="day-label">Wed 24 Jun</p><p class="day-title">Synthesis workshop</p><p class="day-slot">08:00&ndash;11:30 &middot; S5</p></div>
   </div>
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px">
-    <div class="day-card"><p class="day-label">Mon 22 Jun</p><p class="day-title">AI/ML + GenAI/Agentic</p><p class="day-slot">08:00 &ndash; 11:30 &middot; S1 + S2</p></div>
-    <div class="day-card"><p class="day-label">Tue 23 Jun</p><p class="day-title">Quantum + Data governance</p><p class="day-slot">08:00 &ndash; 11:30 &middot; S3 + S4</p></div>
-    <div class="day-card"><p class="day-label">Wed 24 Jun</p><p class="day-title">Synthesis workshop</p><p class="day-slot">08:00 &ndash; 11:30 &middot; S5</p></div>
-  </div>
-  <p style="margin-top:16px"><span class="tag tag-understand">Understand</span></p>
 </section>
 
-<section data-transition="fade">
-  <h3 style="color:var(--c-teal);margin-bottom:16px">Week 1 sessions</h3>
-  <div class="session-row"><div class="session-num">S1</div><div class="session-info"><h3>AI, machine learning & deep learning</h3><p>How machines learn. ML workflow, algorithms (conceptual), confusion matrices, data quality.</p></div></div>
-  <div class="session-row"><div class="session-num">S2</div><div class="session-info"><h3>NLP, computer vision, generative AI & agentic AI</h3><p>Application families. LLMs as next-token prediction. Agentic AI: systems that plan and act.</p></div></div>
-  <div class="session-row"><div class="session-num">S3</div><div class="session-info"><h3>Quantum computing</h3><p>Qubits, superposition, entanglement via analogies. Finance applications. Post-quantum cryptography.</p></div></div>
-  <div class="session-row"><div class="session-num">S4</div><div class="session-info"><h3>Data management & governance</h3><p>DAMA-DMBOK. Data-to-AI pipeline. Centralised vs. federated governance. GDPR + EU AI Act.</p></div></div>
-  <div class="session-row"><div class="session-num">S5</div><div class="session-info"><h3>Technology landscape map</h3><p>Synthesis: connect all 4 domains. Gallery walk. Self-assessment. Preview of Week 2.</p></div></div>
-</section>
-
-<section data-transition="fade">
-  <div class="week-card w2" style="margin-bottom:20px">
-    <h3 style="color:var(--c-amber)">Week 2: Practice &mdash; "How does this play out?"</h3>
-    <p>Every session is case-driven. Paired success/failure case studies. Build a generalised framework by Friday.</p>
-  </div>
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px">
-    <div class="day-card"><p class="day-label">Mon 29 Jun</p><p class="day-title">Credit + Trading</p><p class="day-slot">08:00&ndash;11:30 &middot; S6+S7</p></div>
-    <div class="day-card"><p class="day-label">Tue 30 Jun</p><p class="day-title">Supply chain + GenAI</p><p class="day-slot">08:00&ndash;11:30 &middot; S8+S9</p></div>
-    <div class="day-card"><p class="day-label">Wed 1 Jul</p><p class="day-title">Frontier tech: hype vs. reality</p><p class="day-slot">08:00&ndash;10:35 &middot; S10</p></div>
-    <div class="day-card"><p class="day-label">Thu 2 Jul</p><p class="day-title">Cross-industry deep-dive</p><p class="day-slot">08:00&ndash;10:35 &middot; S11</p></div>
-  </div>
-  <p style="margin-top:16px"><span class="tag tag-analyze">Analyze</span> <span class="tag tag-evaluate">Evaluate</span></p>
-</section>
-
-<section data-transition="fade">
-  <div class="week-card w3" style="margin-bottom:20px">
-    <h3 style="color:var(--c-coral)">Week 3: Frontiers &mdash; "What should we do?"</h3>
-    <p>From analysis to action. Ethics, regulation, strategy, emerging tech, and your implementation plan.</p>
-  </div>
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px">
-    <div class="day-card"><p class="day-label">Mon 6 Jul</p><p class="day-title">Ethics & regulation</p><p class="day-slot">08:00&ndash;10:35 &middot; S12</p></div>
-    <div class="day-card"><p class="day-label">Tue 7 Jul</p><p class="day-title">AI-first strategy</p><p class="day-slot">08:00&ndash;10:35 &middot; S13</p></div>
-    <div class="day-card"><p class="day-label">Wed 8 Jul</p><p class="day-title">Emerging frontiers</p><p class="day-slot">08:00&ndash;10:35 &middot; S14</p></div>
-    <div class="day-card"><p class="day-label">Thu 9 Jul</p><p class="day-title">Workshop + exam prep</p><p class="day-slot">08:00&ndash;10:35 &middot; S15</p></div>
-  </div>
-  <p style="margin-top:16px"><span class="tag tag-evaluate">Evaluate</span> <span class="tag tag-create">Create</span></p>
-</section>
-
-<section data-transition="fade">
-  <h2 style="margin-bottom:20px">Two threads run<br>through everything</h2>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
-    <div class="week-card" style="border-left:4px solid var(--c-blue)">
-      <h3 style="color:var(--c-blue);font-size:0.8em">Data governance</h3>
-      <p style="font-size:0.55em;line-height:1.6;color:var(--c-muted)">S4 concepts &rarr; S6&ndash;8 applied &rarr; S12 regulation &rarr; S13 strategy &rarr; S15 your plan</p>
-      <p style="font-size:0.55em;margin-top:8px;color:var(--c-white)">AI projects fail from data problems, not algorithm problems.</p>
-    </div>
-    <div class="week-card" style="border-left:4px solid var(--c-amber)">
-      <h3 style="color:var(--c-amber);font-size:0.8em">Success/failure case studies</h3>
-      <p style="font-size:0.55em;line-height:1.6;color:var(--c-muted)">S6&ndash;S11 paired cases &rarr; S11 framework &rarr; S13&ndash;S15 applied to your strategy</p>
-      <p style="font-size:0.55em;margin-top:8px;color:var(--c-white)">Technology choice is rarely the differentiator. Execution is.</p>
-    </div>
-  </div>
-  <p style="margin-top:24px;font-size:0.6em;color:var(--c-muted)">No coding. No memorisation. Visual diagrams, case analysis, structured worksheets, and discussion.</p>
-</section>
-
-<section data-transition="zoom">
+<section data-transition="zoom" data-background-color="#0a0d12">
   <h1 style="margin-bottom:16px">Let's begin</h1>
   <p style="font-size:0.8em;color:var(--c-teal);margin:0">Session 1: How machines learn</p>
 </section>
 
-<!-- ═══ DAY 1: S1 + S2 ═══ -->
+<section data-transition="zoom" data-background-color="#0a0d12">
+    <p style="font-family:var(--mono);font-size:0.5em;color:var(--c-dim);margin:0 0 8px;text-transform:uppercase;letter-spacing:0.15em">Monday 22 June &middot; 08:00 &ndash; 11:30</p>
+    <h1 style="margin:0 0 12px;font-size:2.2em">Day 1</h1>
+    <p style="font-size:0.7em;color:var(--c-teal);margin:0">AI, ML & deep learning  +  NLP, CV, GenAI & Agentic AI</p>
+  </section>
 
 <section data-transition="fade">
-  <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px"><span style="font-family:var(--mono);font-size:0.5em;background:var(--c-teal);color:var(--c-bg);padding:4px 14px;border-radius:8px;font-weight:500">S1</span><span class="tag tag-understand">Understand</span></div>
-  <h1 style="margin:8px 0 12px;font-size:2em">AI, machine learning<br>& deep learning</h1>
-  <p style="font-size:0.7em;color:var(--c-muted);margin:0">How machines learn</p>
-</section>
+    <p><span class="session-pill">S1</span><span class="tag tag-understand">Understand</span></p>
+    <h1 style="margin:8px 0 12px;font-size:1.9em">AI, machine learning<br>& deep learning</h1>
+    <p style="font-size:0.7em;color:var(--c-muted);margin:0">How machines learn</p>
+  </section>
 
-<section data-transition="fade">
-  <h3 style="color:var(--c-teal);margin-bottom:20px">Session 1 &mdash; Learning objectives</h3>
-  <div style="text-align:left;max-width:640px;margin:0 auto">
-    <div style="display:flex;gap:12px;align-items:start;margin:0 0 16px"><span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">01</span><p style="font-size:0.65em;margin:0;color:var(--c-white)">Explain what AI, machine learning, and deep learning are and how they relate to each other</p></div>
-    <div style="display:flex;gap:12px;align-items:start;margin:0 0 16px"><span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">02</span><p style="font-size:0.65em;margin:0;color:var(--c-white)">Describe the ML workflow (data collection, training, validation, deployment)</p></div>
-    <div style="display:flex;gap:12px;align-items:start;margin:0 0 16px"><span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">03</span><p style="font-size:0.65em;margin:0;color:var(--c-white)">Interpret a confusion matrix and basic performance metrics from pre-prepared examples</p></div>
-    <div style="display:flex;gap:12px;align-items:start;margin:0 0 16px"><span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">04</span><p style="font-size:0.65em;margin:0;color:var(--c-white)">Explain why data quality, volume, and representativeness determine model quality</p></div>
-  </div>
-</section>
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div>
+    <h3 style="color:var(--c-teal);margin-bottom:20px">Session 1 &mdash; Learning objectives</h3>
+    <div style="text-align:left;max-width:680px;margin:0 auto"><p style="font-size:0.62em;color:var(--c-white);margin:0 0 11px"><span style="font-family:var(--mono);font-size:0.7em;color:var(--c-teal);margin-right:12px">01</span>Explain what AI, machine learning, and deep learning are and how they relate</p><p style="font-size:0.62em;color:var(--c-white);margin:0 0 11px"><span style="font-family:var(--mono);font-size:0.7em;color:var(--c-teal);margin-right:12px">02</span>Describe the ML workflow (data collection, training, validation, deployment)</p><p style="font-size:0.62em;color:var(--c-white);margin:0 0 11px"><span style="font-family:var(--mono);font-size:0.7em;color:var(--c-teal);margin-right:12px">03</span>Interpret a confusion matrix and basic performance metrics</p><p style="font-size:0.62em;color:var(--c-white);margin:0 0 11px"><span style="font-family:var(--mono);font-size:0.7em;color:var(--c-teal);margin-right:12px">04</span>Explain why data quality, volume, and representativeness determine model quality</p></div>
+  </section>
 
-<section data-transition="fade"><h3 style="color:var(--c-teal);margin-bottom:8px">AI / ML / DL &mdash; the stack</h3><p class="small" style="margin-bottom:24px">Placeholder</p><div style="width:480px;height:280px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center"><p style="font-size:0.6em;color:var(--c-dim);margin:0">[ AI &supset; ML &supset; DL visual ]</p></div></section>
-<section data-transition="fade"><h3 style="color:var(--c-teal);margin-bottom:8px">The ML pipeline</h3><p class="small" style="margin-bottom:24px">Placeholder</p><div style="width:600px;height:280px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center"><p style="font-size:0.6em;color:var(--c-dim);margin:0">[ Data &rarr; Clean &rarr; Train &rarr; Validate &rarr; Deploy ]</p></div></section>
-<section data-transition="fade"><h3 style="color:var(--c-teal);margin-bottom:8px">Reading model performance</h3><p class="small" style="margin-bottom:24px">Placeholder</p><div style="width:520px;height:280px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center"><p style="font-size:0.6em;color:var(--c-dim);margin:0">[ Confusion matrix &middot; precision &middot; recall &middot; overfitting ]</p></div></section>
-<section data-transition="fade"><h3 style="color:var(--c-teal);margin-bottom:8px">What could go wrong with the data?</h3><p class="small" style="margin-bottom:24px">Placeholder</p><div style="width:520px;height:260px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center"><p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ Discussion: bias, missing data, stale data, labelling errors, consent ]</p></div></section>
+<section data-transition="fade" class="divider-section"><div class="placeholder-watermark">PLACEHOLDER</div><p class="divider-tag">Part 1 of 7</p><h2>What &lsquo;AI&rsquo; actually means</h2><div class="divider-line"></div></section>
 
-<section data-transition="fade">
-  <h3 style="color:var(--c-teal);margin-bottom:8px">Session 1 &mdash; formative check</h3>
-  <div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:16px;padding:28px 32px;text-align:left;max-width:560px;margin:0 auto">
-    <p style="font-size:0.65em;color:var(--c-white);margin:0 0 12px"><strong>Worksheet:</strong> Interpret model outputs and identify data quality risks</p>
-    <p style="font-size:0.55em;color:var(--c-muted);margin:0">Formative &mdash; not graded.</p>
-  </div>
-</section>
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">The word 'AI' covers many things</h3><p class="small" style="margin-bottom:18px">From your phone keyboard to ChatGPT &mdash; they&rsquo;re all called AI</p><ul class="bullets"><li>Spam filters in your email</li><li>Netflix and Spotify recommendations</li><li>Voice assistants like Siri and Alexa</li><li>Self-driving car navigation systems</li><li>ChatGPT and image generators</li><li>All of these are 'AI' &mdash; but they work very differently</li></ul></section>
 
-<section data-transition="fade" data-background-color="#0f1920">
-  <p style="font-size:1.2em;color:var(--c-dim);margin:0 0 8px">~15 minute break</p>
-  <p style="font-size:0.6em;color:var(--c-dim);margin:0">Session 2 starts shortly</p>
-</section>
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">The key insight</h3><div class="cbox teal">AI is not one thing.<br>It&rsquo;s a family of techniques that share a common goal:<br>making computers do things that used to need human intelligence.</div></section>
 
-<!-- ═══ S2: NLP/CV/GenAI/Agentic ═══ -->
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">AI &supset; Machine Learning &supset; Deep Learning</h3><p class="small" style="margin-bottom:18px">A nested hierarchy</p><ul class="bullets"><li>Artificial Intelligence (AI) &mdash; the broadest goal</li><li>Machine Learning (ML) &mdash; a subset of AI: systems that learn from data</li><li>Deep Learning (DL) &mdash; a subset of ML using neural networks with many layers</li><li>Generative AI is a subset of deep learning</li><li>Each layer narrows the scope but adds capability</li></ul></section>
 
-<section data-transition="fade">
-  <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px"><span style="font-family:var(--mono);font-size:0.5em;background:var(--c-teal);color:var(--c-bg);padding:4px 14px;border-radius:8px;font-weight:500">S2</span><span class="tag tag-understand">Understand</span></div>
-  <h1 style="margin:8px 0 12px;font-size:1.8em">NLP, computer vision,<br>generative AI<br>& agentic AI</h1>
-  <p style="font-size:0.7em;color:var(--c-muted);margin:0">The application families</p>
-</section>
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">The four pillars of AI</h3><p class="small" style="margin-bottom:18px">Different problems need different approaches</p><div class="quad"><div class="quad-cell"><h5>Rule-based</h5><p>Hand-coded 'if-then' rules. Explainable but brittle. Used for tax software, legacy systems.</p></div><div class="quad-cell"><h5>Machine learning</h5><p>Learns patterns from data. Powers fraud detection, recommendation engines, credit scoring.</p></div><div class="quad-cell"><h5>Deep learning</h5><p>Multi-layer neural networks. Powers image recognition, speech, language understanding.</p></div><div class="quad-cell"><h5>Generative AI</h5><p>Specialised deep learning that produces new content. ChatGPT, Midjourney, Sora.</p></div></div></section>
 
-<section data-transition="fade">
-  <h3 style="color:var(--c-teal);margin-bottom:20px">Session 2 &mdash; Learning objectives</h3>
-  <div style="text-align:left;max-width:640px;margin:0 auto">
-    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px"><span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">01</span><p style="font-size:0.65em;margin:0;color:var(--c-white)">Explain how NLP processes text (tokenization, sentiment, entity recognition)</p></div>
-    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px"><span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">02</span><p style="font-size:0.65em;margin:0;color:var(--c-white)">Describe how computer vision interprets images and video</p></div>
-    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px"><span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">03</span><p style="font-size:0.65em;margin:0;color:var(--c-white)">Explain how generative AI works using analogies &mdash; prediction, not understanding</p></div>
-    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px"><span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">04</span><p style="font-size:0.65em;margin:0;color:var(--c-white)">Explain agentic AI &mdash; how systems plan, use tools, and act autonomously</p></div>
-    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px"><span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">05</span><p style="font-size:0.65em;margin:0;color:var(--c-white)">Identify the benefits, business use cases, and pitfalls of agentic systems</p></div>
-  </div>
-</section>
+<section data-transition="fade" class="divider-section"><div class="placeholder-watermark">PLACEHOLDER</div><p class="divider-tag">Part 2 of 7</p><h2>What &lsquo;learning&rsquo; actually means</h2><div class="divider-line"></div></section>
 
-<section data-transition="fade"><h3 style="color:var(--c-teal);margin-bottom:8px">Three application families</h3><p class="small" style="margin-bottom:24px">Placeholder</p><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;max-width:640px;margin:0 auto"><div style="border:1px dashed var(--c-dim);border-radius:12px;padding:20px;text-align:center"><p style="font-size:0.7em;color:var(--c-teal);margin:0 0 6px;font-weight:500">NLP</p><p style="font-size:0.5em;color:var(--c-dim);margin:0">Text in &rarr; meaning out</p></div><div style="border:1px dashed var(--c-dim);border-radius:12px;padding:20px;text-align:center"><p style="font-size:0.7em;color:var(--c-teal);margin:0 0 6px;font-weight:500">Computer vision</p><p style="font-size:0.5em;color:var(--c-dim);margin:0">Pixels in &rarr; labels out</p></div><div style="border:1px dashed var(--c-dim);border-radius:12px;padding:20px;text-align:center"><p style="font-size:0.7em;color:var(--c-teal);margin:0 0 6px;font-weight:500">Generative AI</p><p style="font-size:0.5em;color:var(--c-dim);margin:0">Prompt in &rarr; content out</p></div></div></section>
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">An analogy</h3><div class="cbox teal">Imagine teaching a child to recognise dogs.<br>You don&rsquo;t give them a definition.<br>You show them many dogs and say 'dog.'<br>Eventually they generalise.<br><br>That&rsquo;s machine learning.</div></section>
 
-<section data-transition="fade"><h3 style="color:var(--c-teal);margin-bottom:8px">How an LLM generates text</h3><p class="small" style="margin-bottom:24px">Placeholder</p><div style="width:560px;height:280px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center"><p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ "The cat sat on the ___"<br>P(mat)=0.31 &middot; P(roof)=0.12 ]</p></div></section>
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Three ways machines learn</h3><p class="small" style="margin-bottom:18px">Each fits different business problems</p><ul class="bullets"><li>Supervised learning &mdash; learn from labelled examples ('this is fraud, this is not')</li><li>Unsupervised learning &mdash; find patterns without labels (customer segmentation)</li><li>Reinforcement learning &mdash; learn by trial and error with rewards (game playing, robotics)</li><li>Most business AI today is supervised learning</li></ul></section>
 
-<section data-transition="fade"><h3 style="color:var(--c-teal);margin-bottom:8px">Why generative AI hallucinates</h3><p class="small" style="margin-bottom:24px">Placeholder</p><div style="width:520px;height:260px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center"><p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ Prediction &ne; understanding<br>Confident + wrong = hallucination ]</p></div></section>
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Supervised vs. unsupervised</h3><p class="small" style="margin-bottom:18px">The most common business distinction</p>
+    <div class="twocol">
+      <div class="col teal"><h4>Supervised</h4><p class="sub">You have labelled data</p><ul><li>Predict if a loan will default</li><li>Classify emails as spam or not</li><li>Forecast next quarter&rsquo;s sales</li><li>Needs historical examples with answers</li></ul></div>
+      <div class="col blue"><h4>Unsupervised</h4><p class="sub">You only have raw data</p><ul><li>Group customers into segments</li><li>Detect unusual transactions</li><li>Find topics in documents</li><li>Useful when answers are unknown</li></ul></div>
+    </div></section>
 
-<!-- ★ AGENTIC AI BLOCK ★ -->
+<section data-transition="fade" class="divider-section"><div class="placeholder-watermark">PLACEHOLDER</div><p class="divider-tag">Part 3 of 7</p><h2>The ML workflow</h2><div class="divider-line"></div></section>
 
-<section data-transition="fade">
-  <h3 style="color:var(--c-teal);margin-bottom:8px">From generative to agentic</h3>
-  <p class="small" style="margin-bottom:20px">A new class of AI: systems that don&rsquo;t just generate, they act</p>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:680px;margin:0 auto;text-align:left">
-    <div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:12px;padding:18px 22px">
-      <p style="font-size:0.65em;font-weight:500;color:var(--c-blue);margin:0 0 8px">Generative AI</p>
-      <p style="font-size:0.55em;color:var(--c-white);margin:0 0 8px">You ask &rarr; it answers</p>
-      <p style="font-size:0.5em;color:var(--c-muted);margin:0;line-height:1.5">Single turn. Predicts the next token. Stateless. Cannot take action in the world.</p>
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">From raw data to working model</h3><p class="small" style="margin-bottom:18px">Six stages &mdash; most projects fail in stages 1&ndash;2</p><ul class="bullets"><li>1. Define the problem and success metric</li><li>2. Collect and clean the data</li><li>3. Split into training, validation, and test sets</li><li>4. Train the model on the training data</li><li>5. Validate and tune (don&rsquo;t touch test data yet)</li><li>6. Deploy and monitor in production</li></ul></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">The 80/20 reality</h3><div class="cbox amber">80% of an ML project is data work.<br>20% is the actual modelling.<br><br>If you only remember one thing from this session, remember this.</div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Why train/validation/test split matters</h3><p class="small" style="margin-bottom:18px">Preventing the model from 'cheating'</p><ul class="bullets"><li>Training set &mdash; the model learns patterns from this</li><li>Validation set &mdash; used to tune the model during development</li><li>Test set &mdash; untouched until the very end, simulates real-world data</li><li>If you test on training data, you measure memorisation, not understanding</li></ul></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Overfitting</h3><div class="cbox coral">A student who memorises every practice question<br>but fails the real exam.<br><br>That&rsquo;s what an overfit model does:<br>perfect on training data, useless on new data.</div></section>
+
+<section data-transition="fade" class="divider-section"><div class="placeholder-watermark">PLACEHOLDER</div><p class="divider-tag">Part 4 of 7</p><h2>Reading model performance</h2><div class="divider-line"></div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">The confusion matrix</h3><p class="small" style="margin-bottom:18px">A 2x2 table that shows where the model is right and wrong</p><ul class="bullets"><li>True positives &mdash; model said yes, answer was yes</li><li>True negatives &mdash; model said no, answer was no</li><li>False positives &mdash; model said yes, answer was no (false alarm)</li><li>False negatives &mdash; model said no, answer was yes (miss)</li><li>Different applications care about different errors</li></ul></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Two metrics that matter</h3><p class="small" style="margin-bottom:18px">Choose based on what error costs more</p>
+    <div class="twocol">
+      <div class="col teal"><h4>Precision</h4><p class="sub">When the model says yes, how often is it right?</p><ul><li>Of all flagged transactions, how many were actually fraud?</li><li>Important when false alarms are expensive</li><li>Example: spam filter &mdash; don&rsquo;t block real emails</li></ul></div>
+      <div class="col coral"><h4>Recall</h4><p class="sub">Of all real positives, how many did we catch?</p><ul><li>Of all actual fraud, how much did we catch?</li><li>Important when missing cases is dangerous</li><li>Example: cancer screening &mdash; don&rsquo;t miss tumours</li></ul></div>
+    </div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">The trade-off</h3><div class="cbox amber">You usually can&rsquo;t maximise both precision and recall.<br><br>A bank fraud team might tolerate false alarms (low precision)<br>to catch every fraud case (high recall).<br><br>A spam filter does the opposite.</div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Other metrics you&rsquo;ll hear about</h3><p class="small" style="margin-bottom:18px">Don&rsquo;t memorise the formulas &mdash; just know what they tell you</p><ul class="bullets"><li>Accuracy &mdash; percentage of correct predictions (misleading for imbalanced data)</li><li>F1 score &mdash; a balance between precision and recall</li><li>AUC-ROC &mdash; how well the model separates classes across thresholds</li><li>Always ask: which error is more costly here?</li></ul></section>
+
+<section data-transition="fade" class="divider-section"><div class="placeholder-watermark">PLACEHOLDER</div><p class="divider-tag">Part 5 of 7</p><h2>Why data quality decides everything</h2><div class="divider-line"></div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Garbage in, garbage out</h3><div class="cbox teal">An ML model is only as good as the data it learned from.<br><br>Bad data &rarr; bad model.<br>No amount of clever algorithms fixes this.</div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Four ways data fails AI projects</h3><p class="small" style="margin-bottom:18px">All of these come back in Week 2 cases</p><div class="quad"><div class="quad-cell"><h5>Bias</h5><p>Training data over-represents one group. The model learns the bias.</p></div><div class="quad-cell"><h5>Volume</h5><p>Too few examples to learn from. Model memorises instead of generalising.</p></div><div class="quad-cell"><h5>Drift</h5><p>The world changes after training. The model becomes stale.</p></div><div class="quad-cell"><h5>Labelling errors</h5><p>Wrong answers in the training data. The model learns wrong patterns.</p></div></div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Real example: Amazon&rsquo;s hiring AI</h3><p class="small" style="margin-bottom:18px">We&rsquo;ll come back to this in Week 3</p><ul class="bullets"><li>Amazon trained an AI to screen CVs based on 10 years of past hires</li><li>Past hires were mostly male (the tech industry pattern)</li><li>The model learned to penalise female-coded words and women&rsquo;s colleges</li><li>Project scrapped &mdash; the data encoded historical bias</li><li>The algorithm wasn&rsquo;t broken. The data was.</li></ul></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Real example: COVID demand forecasting</h3><p class="small" style="margin-bottom:18px">A whole industry of models broke at the same time</p><ul class="bullets"><li>Retail and supply chain models trained on years of stable patterns</li><li>March 2020 &mdash; buying behaviour changed overnight</li><li>Models kept predicting based on historical patterns</li><li>Result: stockouts, overproduction, billions in losses</li><li>This is data drift in action</li></ul></section>
+
+<section data-transition="fade" class="divider-section"><div class="placeholder-watermark">PLACEHOLDER</div><p class="divider-tag">Part 6 of 7</p><h2>Common misconceptions</h2><div class="divider-line"></div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Things people often get wrong</h3><p class="small" style="margin-bottom:18px">Watch for these in vendor pitches</p><ul class="bullets"><li>"More data is always better" &mdash; not if it&rsquo;s biased or stale</li><li>"AI is objective" &mdash; it inherits the biases of its training data</li><li>"AI will keep improving on its own" &mdash; it won&rsquo;t, without retraining</li><li>"The algorithm is the secret sauce" &mdash; the data is</li><li>"More accurate = better" &mdash; depends which kind of error</li></ul></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">The honest summary</h3><div class="cbox amber">Machine learning is pattern matching at scale.<br><br>It&rsquo;s powerful when patterns exist and are stable.<br>It&rsquo;s dangerous when patterns change<br>or when the past doesn&rsquo;t represent the future.</div></section>
+
+<section data-transition="fade" class="divider-section"><div class="placeholder-watermark">PLACEHOLDER</div><p class="divider-tag">Part 7 of 7</p><h2>Discussion & check</h2><div class="divider-line"></div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Discussion</h3><p class="small" style="margin-bottom:18px">Discussion / activity</p>
+    <div class="activity-box">
+      <div class="prompt-box"><p class="label">Prompt:</p><p class="text">If you were the CEO of a Danish bank, which of these would worry you most when deploying an AI credit scoring model? Why?</p></div>
+      <div class="inst-box"><p class="label">Instructions:</p><ul><li>Form pairs</li><li>Discuss for 5 minutes</li><li>Share 2&ndash;3 answers with the room</li><li>I&rsquo;ll add anything you missed</li></ul></div>
+    </div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div>
+    <h3 style="color:var(--c-teal)">Session 1 &mdash; formative check</h3>
+    <div class="formative-box">
+      <p class="title"><strong>Worksheet:</strong> Interpret model outputs and identify data quality risks</p>
+      <p class="note">Formative &mdash; not graded.</p>
     </div>
-    <div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:12px;padding:18px 22px">
-      <p style="font-size:0.65em;font-weight:500;color:var(--c-teal);margin:0 0 8px">Agentic AI</p>
-      <p style="font-size:0.55em;color:var(--c-white);margin:0 0 8px">You ask &rarr; it plans &rarr; it acts &rarr; it adjusts</p>
-      <p style="font-size:0.5em;color:var(--c-muted);margin:0;line-height:1.5">Multi-step. Uses tools (search, APIs, files, browsers). Maintains state. Can take real actions on real systems.</p>
+  </section>
+
+<section data-transition="fade" data-background-color="#0a0d12">
+    <p style="font-size:1.4em;color:var(--c-dim);margin:0 0 12px">~15 minute break</p>
+    <p style="font-size:0.6em;color:var(--c-dim)">Session 2 starts shortly</p>
+  </section>
+
+<section data-transition="fade">
+    <p><span class="session-pill">S2</span><span class="tag tag-understand">Understand</span></p>
+    <h1 style="margin:8px 0 12px;font-size:1.9em">NLP, computer vision,<br>generative AI & agentic AI</h1>
+    <p style="font-size:0.7em;color:var(--c-muted);margin:0">The application families</p>
+  </section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div>
+    <h3 style="color:var(--c-teal);margin-bottom:20px">Session 2 &mdash; Learning objectives</h3>
+    <div style="text-align:left;max-width:680px;margin:0 auto"><p style="font-size:0.62em;color:var(--c-white);margin:0 0 11px"><span style="font-family:var(--mono);font-size:0.7em;color:var(--c-teal);margin-right:12px">01</span>Explain how NLP processes text (tokenization, sentiment, entity recognition)</p><p style="font-size:0.62em;color:var(--c-white);margin:0 0 11px"><span style="font-family:var(--mono);font-size:0.7em;color:var(--c-teal);margin-right:12px">02</span>Describe how computer vision interprets images and video</p><p style="font-size:0.62em;color:var(--c-white);margin:0 0 11px"><span style="font-family:var(--mono);font-size:0.7em;color:var(--c-teal);margin-right:12px">03</span>Explain how generative AI works using analogies</p><p style="font-size:0.62em;color:var(--c-white);margin:0 0 11px"><span style="font-family:var(--mono);font-size:0.7em;color:var(--c-teal);margin-right:12px">04</span>Explain agentic AI &mdash; systems that plan, use tools, and act autonomously</p><p style="font-size:0.62em;color:var(--c-white);margin:0 0 11px"><span style="font-family:var(--mono);font-size:0.7em;color:var(--c-teal);margin-right:12px">05</span>Identify benefits, business use cases, and pitfalls of agentic systems</p></div>
+  </section>
+
+<section data-transition="fade" class="divider-section"><div class="placeholder-watermark">PLACEHOLDER</div><p class="divider-tag">Part 1 of 5</p><h2>Three application families</h2><div class="divider-line"></div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">From general to specific</h3><div class="cbox teal">Last session we talked about how machines learn.<br>Now: what do they actually learn to do?<br><br>Three main application families have emerged.</div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">The three families</h3><p class="small" style="margin-bottom:18px">Different inputs, different outputs</p><div class="quad"><div class="quad-cell"><h5>NLP</h5><p>Natural Language Processing. Text in, meaning out. Powers search, sentiment, translation.</p></div><div class="quad-cell"><h5>Computer Vision</h5><p>Pixels in, labels out. Powers face ID, medical imaging, quality inspection.</p></div><div class="quad-cell"><h5>Generative AI</h5><p>Prompt in, content out. Powers ChatGPT, Midjourney, code assistants.</p></div><div class="quad-cell"><h5>(plus agentic, coming up)</h5><p>Agentic AI is built on top of these &mdash; we&rsquo;ll get to it shortly.</p></div></div></section>
+
+<section data-transition="fade" class="divider-section"><div class="placeholder-watermark">PLACEHOLDER</div><p class="divider-tag">Part 2 of 5</p><h2>Natural Language Processing</h2><div class="divider-line"></div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">What NLP actually does</h3><p class="small" style="margin-bottom:18px">Breaking down the steps</p><ul class="bullets"><li>Tokenization &mdash; breaking text into words or word-pieces</li><li>Part-of-speech tagging &mdash; identifying nouns, verbs, etc.</li><li>Sentiment analysis &mdash; is this positive, negative, or neutral?</li><li>Named entity recognition &mdash; finding people, places, organisations</li><li>Modern NLP does many of these at once using neural networks</li></ul></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Business uses of NLP</h3><p class="small" style="margin-bottom:18px">Where you&rsquo;ll see this in finance</p><ul class="bullets"><li>Reading thousands of regulatory filings automatically</li><li>Sentiment analysis on news for trading signals</li><li>Customer service ticket routing</li><li>Extracting entities from contracts</li><li>Compliance monitoring of trader chat logs</li></ul></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">NLP example</h3><div class="cbox teal">"Apple beat Q3 earnings expectations and announced a $90B buyback."<br><br>NLP can extract:<br>&bull; Company: Apple<br>&bull; Event: earnings beat<br>&bull; Amount: $90B<br>&bull; Sentiment: positive</div></section>
+
+<section data-transition="fade" class="divider-section"><div class="placeholder-watermark">PLACEHOLDER</div><p class="divider-tag">Part 3 of 5</p><h2>Computer vision</h2><div class="divider-line"></div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">What computer vision does</h3><p class="small" style="margin-bottom:18px">Teaching machines to see</p><ul class="bullets"><li>Image classification &mdash; 'is this a cat or a dog?'</li><li>Object detection &mdash; 'where are the cars in this photo?'</li><li>Face recognition &mdash; 'who is this person?'</li><li>Image segmentation &mdash; 'outline the tumour in this scan'</li><li>Optical character recognition &mdash; 'read the text in this image'</li></ul></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Business uses of CV</h3><p class="small" style="margin-bottom:18px">Beyond consumer apps</p><ul class="bullets"><li>Cheque processing in banking</li><li>Document scanning and form extraction</li><li>Quality inspection in manufacturing</li><li>Medical image analysis (X-rays, MRIs)</li><li>Insurance claims (damage assessment from photos)</li><li>Retail shelf monitoring</li></ul></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">How CV works (in one sentence)</h3><div class="cbox amber">A neural network learns which patterns of pixels<br>are associated with which labels,<br>from millions of labelled examples.</div></section>
+
+<section data-transition="fade" class="divider-section"><div class="placeholder-watermark">PLACEHOLDER</div><p class="divider-tag">Part 4 of 5</p><h2>Generative AI</h2><div class="divider-line"></div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">The shift in 2022</h3><div class="cbox teal">For decades, AI mostly classified or predicted.<br><br>Then came ChatGPT, and AI started generating.<br>New text. New images. New code. New audio.</div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">How an LLM generates text</h3><p class="small" style="margin-bottom:18px">The crucial mental model</p><ul class="bullets"><li>An LLM is trained to predict the next word in a sequence</li><li>It does this billions of times on internet-scale text</li><li>When you give it a prompt, it generates one word at a time</li><li>Each word is the most probable next word given everything before</li><li>That&rsquo;s it. There&rsquo;s no reasoning, no understanding, no plan.</li><li>There&rsquo;s only prediction &mdash; very, very good prediction.</li></ul></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Try it yourself</h3><div class="cbox amber">"The cat sat on the ___"<br><br>P(mat) = 0.31<br>P(roof) = 0.12<br>P(floor) = 0.09<br>&hellip;<br><br>An LLM picks one based on probability and continues.</div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Why this matters</h3><p class="small" style="margin-bottom:18px">Understanding the mechanism predicts the failure modes</p><ul class="bullets"><li>LLMs can be confidently wrong &mdash; they predict, they don&rsquo;t verify</li><li>They can&rsquo;t do math reliably &mdash; prediction &ne; calculation</li><li>They don&rsquo;t know what they don&rsquo;t know</li><li>They make up sources, statistics, and case law</li><li>This is called 'hallucination' and it&rsquo;s built into how they work</li></ul></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Business uses of generative AI</h3><p class="small" style="margin-bottom:18px">Where it actually helps and where it doesn&rsquo;t</p><div class="quad"><div class="quad-cell"><h5>Works well</h5><p>Drafting first versions of documents, summarising long texts, brainstorming ideas, translating language.</p></div><div class="quad-cell"><h5>Works with care</h5><p>Customer service (with guardrails), code assistance (with review), research (with verification).</p></div><div class="quad-cell warn"><h5>Risky</h5><p>Legal and medical advice, anything where being confidently wrong has consequences.</p></div><div class="quad-cell warn"><h5>Doesn&rsquo;t work</h5><p>Tasks needing real-time data, exact calculations, or guaranteed factual accuracy.</p></div></div></section>
+
+<section data-transition="fade" class="divider-section"><div class="placeholder-watermark">PLACEHOLDER</div><p class="divider-tag">Part 5 of 5</p><h2>Agentic AI</h2><div class="divider-line"></div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">From generative to agentic</h3><div class="cbox teal">Generative AI: you ask, it answers. One turn.<br>Agentic AI: you give a goal, it plans, acts, observes, adjusts.<br><br>The same underlying LLM &mdash; wrapped in a planning loop with tool access.</div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">The fundamental difference</h3><p class="small" style="margin-bottom:18px">Why agentic is a category shift, not an upgrade</p>
+    <div class="twocol">
+      <div class="col blue"><h4>Generative AI</h4><p class="sub">You ask &rarr; it answers</p><ul><li>Single turn</li><li>Predicts the next token</li><li>Stateless &mdash; no memory between calls</li><li>Cannot take action in the world</li><li>You evaluate the output</li></ul></div>
+      <div class="col teal"><h4>Agentic AI</h4><p class="sub">You ask &rarr; it plans &rarr; acts &rarr; adjusts</p><ul><li>Multi-step</li><li>Uses tools (search, APIs, files)</li><li>Maintains state across steps</li><li>Takes real actions on real systems</li><li>You evaluate the outcome</li></ul></div>
+    </div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">How an agentic system actually works</h3><p class="small" style="margin-bottom:18px">The plan-act-observe-adjust loop</p><ul class="bullets"><li>1. User gives a goal: 'book me a flight to Paris next Tuesday'</li><li>2. LLM plans the steps it needs to take</li><li>3. LLM calls a tool (search flights, check calendar)</li><li>4. LLM observes the result</li><li>5. LLM adjusts its plan based on what it learned</li><li>6. Repeat until the goal is achieved &mdash; or the agent gives up</li></ul></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Agentic AI &mdash; benefits</h3><p class="small" style="margin-bottom:18px">What it unlocks</p><div class="quad"><div class="quad-cell"><h5>End-to-end automation</h5><p>Multi-step tasks complete without human intervention at every stage.</p></div><div class="quad-cell"><h5>Adaptive to context</h5><p>Can handle ambiguous goals and unexpected obstacles by replanning.</p></div><div class="quad-cell"><h5>Tool integration</h5><p>Uses existing software (APIs, databases, browsers) without custom integration code.</p></div><div class="quad-cell"><h5>Faster knowledge work</h5><p>Research, analysis, drafting, and routine decision-making at machine speed.</p></div></div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Agentic AI &mdash; business use cases</h3><p class="small" style="margin-bottom:18px">Real and emerging applications</p><div class="quad"><div class="quad-cell"><h5>Customer service resolution</h5><p>Agent reads ticket, checks order DB, issues refund, sends email &mdash; one workflow.</p></div><div class="quad-cell"><h5>Financial research & reporting</h5><p>Pulls earnings data, summarises filings, generates draft analyst report.</p></div><div class="quad-cell"><h5>Coding & development</h5><p>Reads codebase, identifies bug, writes fix, runs tests, opens pull request.</p></div><div class="quad-cell"><h5>Compliance & due diligence</h5><p>Reviews contracts, flags risks, cross-checks against regulations, drafts memos.</p></div></div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Agentic AI &mdash; pitfalls</h3><p class="small" style="margin-bottom:18px">Where this gets dangerous fast</p><div class="quad"><div class="quad-cell warn"><h5>Compounding errors</h5><p>A 95%-accurate step run 10 times is 60% accurate end-to-end. Long workflows fail silently.</p></div><div class="quad-cell warn"><h5>Real-world side effects</h5><p>Agents that act on real systems can issue refunds, send emails, or delete files in error.</p></div><div class="quad-cell warn"><h5>Prompt injection</h5><p>Malicious instructions in fetched content can hijack the agent&rsquo;s tools.</p></div><div class="quad-cell warn"><h5>Accountability gap</h5><p>When an autonomous agent makes a bad decision, who is responsible? Legal frameworks are unclear.</p></div></div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">The rule of thumb</h3><div class="cbox amber">Use a human-in-the-loop wherever the action is<br>irreversible, costly, or regulated.<br><br>Fully autonomous agents are best for low-stakes,<br>reversible, internal-only workflows.</div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Classification + autonomy exercise</h3><p class="small" style="margin-bottom:18px">Discussion / activity</p>
+    <div class="activity-box">
+      <div class="prompt-box"><p class="label">Prompt:</p><p class="text">Match these use cases to families, then decide which need human-in-the-loop</p></div>
+      <div class="inst-box"><p class="label">Instructions:</p><ul><li>You&rsquo;ll get a worksheet with 8 use cases</li><li>Step 1: Tag each as NLP / CV / GenAI / Agentic</li><li>Step 2: For agentic ones, decide 'full autonomy' or 'human review required'</li><li>Discuss with your neighbour, then we&rsquo;ll review together</li></ul></div>
+    </div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div>
+    <h3 style="color:var(--c-teal)">Session 2 &mdash; formative check</h3>
+    <div class="formative-box">
+      <p class="title"><strong>Classification + autonomy exercise:</strong> Match use cases to families, then decide which need human-in-the-loop</p>
+      <p class="note">Formative &mdash; not graded.</p>
     </div>
-  </div>
-  <p style="font-size:0.5em;color:var(--c-dim);margin:20px 0 0;text-align:center">The same underlying LLM &mdash; wrapped in a planning loop with tool access</p>
-</section>
+  </section>
 
 <section data-transition="fade">
-  <h3 style="color:var(--c-teal);margin-bottom:8px">How an agentic system works</h3>
-  <p class="small" style="margin-bottom:20px">Placeholder: visual showing the plan &rarr; act &rarr; observe &rarr; adjust loop</p>
-  <div style="width:600px;height:280px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center">
-    <p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ User goal &rarr; LLM plans steps &rarr;<br>calls tools (search/API/file) &rarr;<br>observes results &rarr; adjusts plan &rarr;<br>repeats until goal achieved ]</p>
-  </div>
-</section>
-
-<section data-transition="fade">
-  <h3 style="color:var(--c-teal);margin-bottom:8px">Agentic AI &mdash; benefits</h3>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:680px;margin:0 auto;text-align:left">
-    <div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:12px;padding:16px 20px">
-      <p style="font-size:0.6em;font-weight:500;color:var(--c-teal);margin:0 0 6px">End-to-end automation</p>
-      <p style="font-size:0.5em;color:var(--c-muted);margin:0;line-height:1.5">Multi-step tasks complete without human intervention at every stage</p>
+    <h2 style="margin-bottom:12px">Day 1 complete</h2>
+    <p style="font-size:0.65em;color:var(--c-muted);margin:0 0 20px">Tomorrow: Data governance + Quantum computing</p>
+    
+    <div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:12px;padding:20px 28px;display:inline-block;text-align:left">
+      <p style="font-size:0.55em;color:var(--c-muted);margin:0 0 6px">Prep for Tuesday:</p>
+      <p style="font-size:0.6em;color:var(--c-white);margin:0;line-height:1.6">Review S1 and S2 notes<br>DAMA-DMBOK overview (Canvas)<br>Quantum computing primer (Canvas)</p>
     </div>
-    <div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:12px;padding:16px 20px">
-      <p style="font-size:0.6em;font-weight:500;color:var(--c-teal);margin:0 0 6px">Adaptive to context</p>
-      <p style="font-size:0.5em;color:var(--c-muted);margin:0;line-height:1.5">Can handle ambiguous goals and unexpected obstacles by replanning</p>
+  </section>
+
+<section data-transition="zoom" data-background-color="#0a0d12">
+    <p style="font-family:var(--mono);font-size:0.5em;color:var(--c-dim);margin:0 0 8px;text-transform:uppercase;letter-spacing:0.15em">Tuesday 23 June &middot; 08:00 &ndash; 11:30</p>
+    <h1 style="margin:0 0 12px;font-size:2.2em">Day 2</h1>
+    <p style="font-size:0.7em;color:var(--c-teal);margin:0">Data governance fundamentals  +  Quantum computing</p>
+  </section>
+
+<section data-transition="fade">
+    <p><span class="session-pill">S3</span><span class="tag tag-understand">Understand</span></p>
+    <h1 style="margin:8px 0 12px;font-size:1.9em">Data governance<br>fundamentals</h1>
+    <p style="font-size:0.7em;color:var(--c-muted);margin:0">The discipline that decides whether AI works</p>
+  </section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div>
+    <h3 style="color:var(--c-teal);margin-bottom:20px">Session 3 &mdash; Learning objectives</h3>
+    <div style="text-align:left;max-width:680px;margin:0 auto"><p style="font-size:0.62em;color:var(--c-white);margin:0 0 11px"><span style="font-family:var(--mono);font-size:0.7em;color:var(--c-teal);margin-right:12px">01</span>Explain why data governance &mdash; not algorithms &mdash; determines whether AI projects succeed</p><p style="font-size:0.62em;color:var(--c-white);margin:0 0 11px"><span style="font-family:var(--mono);font-size:0.7em;color:var(--c-teal);margin-right:12px">02</span>Describe the data-to-AI pipeline and identify where governance lives</p><p style="font-size:0.62em;color:var(--c-white);margin:0 0 11px"><span style="font-family:var(--mono);font-size:0.7em;color:var(--c-teal);margin-right:12px">03</span>Explain core concepts: lineage, master data, metadata, stewardship, quality gates</p><p style="font-size:0.62em;color:var(--c-white);margin:0 0 11px"><span style="font-family:var(--mono);font-size:0.7em;color:var(--c-teal);margin-right:12px">04</span>Compare centralised (CDO) vs. federated (data mesh) governance models</p><p style="font-size:0.62em;color:var(--c-white);margin:0 0 11px"><span style="font-family:var(--mono);font-size:0.7em;color:var(--c-teal);margin-right:12px">05</span>Articulate what becomes impossible without each governance capability</p></div>
+  </section>
+
+<section data-transition="fade" class="divider-section"><div class="placeholder-watermark">PLACEHOLDER</div><p class="divider-tag">Part 1 of 6</p><h2>Why governance is the foundation</h2><div class="divider-line"></div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">The pivot</h3><div class="cbox teal">Yesterday you learned how machines learn and what they can do.<br>Today: the discipline that makes any of it work in production.<br><br>Without it, everything you saw yesterday is theatre.</div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">The pattern across every AI failure</h3><p class="small" style="margin-bottom:18px">Without naming names &mdash; yet</p><ul class="bullets"><li>The algorithm is rarely the problem</li><li>The data is almost always the problem</li><li>Bad data &rarr; bad model &rarr; bad outcome &mdash; no matter how clever the algorithm</li><li>Most 'AI failures' in the news are really data governance failures</li><li>Next week you&rsquo;ll see the cases. This week, learn the patterns.</li></ul></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">The promise of this session</h3><div class="cbox amber">By the end of today, you&rsquo;ll be able to look at any AI proposal<br>and ask the questions that decide whether it can ship.<br><br>Not 'is the model good?'<br>But 'do they have the discipline to deploy a model at all?'</div></section>
+
+<section data-transition="fade" class="divider-section"><div class="placeholder-watermark">PLACEHOLDER</div><p class="divider-tag">Part 2 of 6</p><h2>What becomes impossible without governance</h2><div class="divider-line"></div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">A new framing</h3><div class="cbox teal">Forget definitions for a moment.<br>Let&rsquo;s talk about what becomes impossible<br>when each capability is missing.<br><br>Five things, five consequences.</div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Without data lineage</h3><div class="cbox coral">You cannot reproduce yesterday&rsquo;s result.<br>You cannot explain a model&rsquo;s decision when a regulator asks.<br>You cannot trace which downstream systems break<br>when an upstream source changes.</div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Without master data</h3><div class="cbox coral">You cannot tell whether two records refer to the same customer.<br>Your 'total revenue' numbers depend on which system you ask.<br>Every cross-system analysis becomes a reconciliation project.</div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Without quality gates</h3><div class="cbox coral">Every downstream model inherits every upstream error.<br>A broken sensor on day one corrupts six months of training data.<br>You discover the corruption only when the model fails in production.</div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Without ownership</h3><div class="cbox coral">When something breaks, no one is responsible.<br>When something needs to change, no one is accountable.<br>When a regulator asks who decides, no one can answer.</div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Without documentation</h3><div class="cbox coral">Your governance dies the day the person who built it leaves.<br>Your model dies the day the original engineer leaves.<br>Your audit fails the day a question goes beyond institutional memory.</div></section>
+
+<section data-transition="fade" class="divider-section"><div class="placeholder-watermark">PLACEHOLDER</div><p class="divider-tag">Part 3 of 6</p><h2>Core concepts</h2><div class="divider-line"></div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">The vocabulary</h3><p class="small" style="margin-bottom:18px">Five terms that name the disciplines you just saw</p><div class="quad"><div class="quad-cell"><h5>Data governance</h5><p>The policies, roles, and processes for managing data as a corporate asset.</p></div><div class="quad-cell"><h5>Data stewardship</h5><p>The day-to-day work of maintaining data quality and resolving issues.</p></div><div class="quad-cell"><h5>Master data management</h5><p>Creating a single source of truth for key entities (customers, products, accounts).</p></div><div class="quad-cell"><h5>Metadata & catalogues</h5><p>Data about your data &mdash; where it lives, who owns it, what it means.</p></div></div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Why metadata is the foundation</h3><p class="small" style="margin-bottom:18px">The unglamorous thing that makes everything else possible</p><ul class="bullets"><li>If you don&rsquo;t know what data you have, you cannot use it</li><li>If you don&rsquo;t know where it came from, you cannot trust it</li><li>If you don&rsquo;t know what it means, you cannot apply it correctly</li><li>Metadata answers all three questions</li><li>Data catalogues are the modern way to manage metadata at scale</li></ul></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">The DAMA-DMBOK framework</h3><div class="cbox teal">DAMA International publishes the Data Management Body of Knowledge.<br>It defines 11 knowledge areas for data management.<br>Used worldwide as the reference framework.<br><br>You don&rsquo;t need to memorise it &mdash; just know it exists<br>and that governance sits at its centre.</div></section>
+
+<section data-transition="fade" class="divider-section"><div class="placeholder-watermark">PLACEHOLDER</div><p class="divider-tag">Part 4 of 6</p><h2>The data-to-AI pipeline</h2><div class="divider-line"></div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">From raw data to deployed AI</h3><p class="small" style="margin-bottom:18px">Eight stages &mdash; each one a place where governance lives or fails</p><ul class="bullets"><li>1. Source systems &mdash; where data is generated</li><li>2. Ingestion &mdash; pulling data into a central store</li><li>3. Quality gates &mdash; checking for completeness and accuracy</li><li>4. Transformation &mdash; cleaning, joining, reshaping</li><li>5. Feature store &mdash; versioned features ready for ML</li><li>6. Training &mdash; building the model</li><li>7. Validation &mdash; testing before release</li><li>8. Deployment & monitoring &mdash; the production system</li></ul></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Where governance lives</h3><div class="cbox amber">At every stage, the same questions:<br>Who owns this data?<br>Who can access it?<br>Is it good enough quality?<br>Is the lineage documented?<br><br>No answers &rarr; no production AI.</div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Two ends, one chain</h3><p class="small" style="margin-bottom:18px">Why the whole pipeline matters</p><ul class="bullets"><li>Most organisations focus on the model &mdash; stage 6</li><li>Most failures happen in stages 1&ndash;3 &mdash; long before training</li><li>A weakness anywhere in the chain compromises everything downstream</li><li>Governance is what holds the whole chain together</li><li>This is why '80% of an AI project is data work' is not an exaggeration</li></ul></section>
+
+<section data-transition="fade" class="divider-section"><div class="placeholder-watermark">PLACEHOLDER</div><p class="divider-tag">Part 5 of 6</p><h2>Centralised vs. federated governance</h2><div class="divider-line"></div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Two operating models</h3><div class="cbox teal">Once you accept that governance is essential,<br>the next question is how to organise it.<br><br>Two dominant models. Both work. Both fail differently.</div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Two governance models</h3><p class="small" style="margin-bottom:18px">Each fits a different organisation</p>
+    <div class="twocol">
+      <div class="col teal"><h4>Centralised (CDO)</h4><p class="sub">Single chief data officer, central team</p><ul><li>One authority, one set of standards</li><li>Consistency across the organisation</li><li>Slower to adapt to local needs</li><li>Better fit for highly regulated industries</li><li>Bottleneck risk as the organisation grows</li></ul></div>
+      <div class="col coral"><h4>Federated (data mesh)</h4><p class="sub">Domain teams own their data products</p><ul><li>Each business unit owns its data</li><li>Faster, more agile, more locally relevant</li><li>Harder to enforce consistency</li><li>Better fit for technology-led organisations</li><li>Requires a strong central platform team</li></ul></div>
+    </div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Most large organisations are hybrid</h3><div class="cbox dim">Central principles, local execution.<br>A central CDO sets policies.<br>Domain teams implement them.<br>It&rsquo;s messy in practice &mdash; but it works.</div></section>
+
+<section data-transition="fade" class="divider-section"><div class="placeholder-watermark">PLACEHOLDER</div><p class="divider-tag">Part 6 of 6</p><h2>Regulation & discussion</h2><div class="divider-line"></div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">How regulation forces the issue</h3><p class="small" style="margin-bottom:18px">GDPR and the EU AI Act make governance non-optional</p><ul class="bullets"><li>GDPR Article 5 &mdash; data must be accurate, up to date, and minimised</li><li>GDPR Article 25 &mdash; privacy by design and by default</li><li>EU AI Act Article 10 &mdash; high-risk AI must have data quality, documentation, traceability</li><li>Right to explanation &mdash; you must be able to explain how a model made a decision</li><li>All of these require governance &mdash; you cannot bolt them on later</li></ul></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">The takeaway</h3><div class="cbox amber">Data governance is not paperwork.<br>It&rsquo;s the difference between an AI prototype<br>and a system you can actually trust in production.<br><br>Next week you&rsquo;ll watch organisations fail<br>because they tried to skip this step.</div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Conceptual diagnostic</h3><p class="small" style="margin-bottom:18px">Discussion / activity</p>
+    <div class="activity-box">
+      <div class="prompt-box"><p class="label">Prompt:</p><p class="text">Imagine an organisation that wants to deploy AI for customer churn prediction. What five governance capabilities must it already have in place before it can even begin? What becomes impossible if any one of them is missing?</p></div>
+      <div class="inst-box"><p class="label">Instructions:</p><ul><li>Form pairs</li><li>List five capabilities (5 minutes)</li><li>For each, write what becomes impossible without it</li><li>Share with the room &mdash; we&rsquo;ll consolidate</li></ul></div>
+    </div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div>
+    <h3 style="color:var(--c-teal)">Session 3 &mdash; formative check</h3>
+    <div class="formative-box">
+      <p class="title"><strong>Conceptual diagnostic:</strong> List five governance capabilities and what becomes impossible without each</p>
+      <p class="note">Formative &mdash; not graded.</p>
     </div>
-    <div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:12px;padding:16px 20px">
-      <p style="font-size:0.6em;font-weight:500;color:var(--c-teal);margin:0 0 6px">Tool integration</p>
-      <p style="font-size:0.5em;color:var(--c-muted);margin:0;line-height:1.5">Uses existing software (APIs, databases, browsers) without custom integration code</p>
+  </section>
+
+<section data-transition="fade" data-background-color="#0a0d12">
+    <p style="font-size:1.4em;color:var(--c-dim);margin:0 0 12px">~15 minute break</p>
+    <p style="font-size:0.6em;color:var(--c-dim)">Session 4 starts shortly</p>
+  </section>
+
+<section data-transition="fade">
+    <p><span class="session-pill">S4</span><span class="tag tag-understand">Understand</span><span class="tag tag-evaluate">Evaluate</span></p>
+    <h1 style="margin:8px 0 12px;font-size:1.9em">Quantum computing</h1>
+    <p style="font-size:0.7em;color:var(--c-muted);margin:0">Concepts, promise & realistic outlook</p>
+  </section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div>
+    <h3 style="color:var(--c-teal);margin-bottom:20px">Session 4 &mdash; Learning objectives</h3>
+    <div style="text-align:left;max-width:680px;margin:0 auto"><p style="font-size:0.62em;color:var(--c-white);margin:0 0 11px"><span style="font-family:var(--mono);font-size:0.7em;color:var(--c-teal);margin-right:12px">01</span>Explain qubits, superposition, and entanglement using visual analogies</p><p style="font-size:0.62em;color:var(--c-white);margin:0 0 11px"><span style="font-family:var(--mono);font-size:0.7em;color:var(--c-teal);margin-right:12px">02</span>Describe the difference between classical and quantum computation</p><p style="font-size:0.62em;color:var(--c-white);margin:0 0 11px"><span style="font-family:var(--mono);font-size:0.7em;color:var(--c-teal);margin-right:12px">03</span>Identify finance applications: portfolio optimization, Monte Carlo, cryptography</p><p style="font-size:0.62em;color:var(--c-white);margin:0 0 11px"><span style="font-family:var(--mono);font-size:0.7em;color:var(--c-teal);margin-right:12px">04</span>Evaluate the realistic timeline for quantum advantage in business</p><p style="font-size:0.62em;color:var(--c-white);margin:0 0 11px"><span style="font-family:var(--mono);font-size:0.7em;color:var(--c-teal);margin-right:12px">05</span>Explain post-quantum cryptography and why organisations need to prepare now</p></div>
+  </section>
+
+<section data-transition="fade" class="divider-section"><div class="placeholder-watermark">PLACEHOLDER</div><p class="divider-tag">Part 1 of 6</p><h2>Why quantum is different</h2><div class="divider-line"></div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Setting expectations</h3><div class="cbox teal">Quantum computing will not replace your laptop.<br>It will not run ChatGPT faster.<br>It won&rsquo;t make Excel spreadsheets quicker.<br><br>It does something fundamentally different.</div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Classical vs. quantum: the core difference</h3><p class="small" style="margin-bottom:18px">One bit at a time vs. many possibilities at once</p><ul class="bullets"><li>A classical bit is either 0 or 1. Always one or the other.</li><li>A quantum bit (qubit) can be in a combination of 0 and 1 &mdash; until you measure it</li><li>With many qubits, you can explore many possible states at the same time</li><li>When you measure, you get one answer &mdash; but the algorithm steered toward useful answers</li><li>This is only an advantage for very specific problem types</li></ul></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">The coin-flip analogy</h3><div class="cbox amber">Imagine spinning a coin on a table.<br>While it&rsquo;s spinning, it&rsquo;s neither heads nor tails &mdash; it&rsquo;s both, in a sense.<br><br>When the coin lands, you get one answer.<br><br>A qubit 'spins' in a similar way &mdash; until measured.</div></section>
+
+<section data-transition="fade" class="divider-section"><div class="placeholder-watermark">PLACEHOLDER</div><p class="divider-tag">Part 2 of 6</p><h2>Qubits, superposition, entanglement</h2><div class="divider-line"></div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Three quantum concepts you need</h3><p class="small" style="margin-bottom:18px">No equations &mdash; just the ideas</p><ul class="bullets"><li>Superposition &mdash; a qubit can be in multiple states at once</li><li>Entanglement &mdash; two qubits can be linked so measuring one affects the other</li><li>Interference &mdash; quantum algorithms cancel out wrong answers and amplify right ones</li><li>Together, these let quantum computers explore many possibilities in parallel</li></ul></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Why this matters</h3><div class="cbox teal">A classical computer with N bits can be in 1 of 2^N states.<br>A quantum computer with N qubits can be in a combination of all 2^N states.<br><br>For 300 qubits, that&rsquo;s more states than there are atoms in the universe.</div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">But there&rsquo;s a catch</h3><p class="small" style="margin-bottom:18px">The reason you don&rsquo;t have a quantum laptop</p><ul class="bullets"><li>Qubits are extremely fragile &mdash; the slightest disturbance ruins computation</li><li>Most quantum computers operate near absolute zero (&minus;273&deg;C)</li><li>Errors compound quickly &mdash; you need error correction</li><li>We&rsquo;re still in the 'noisy intermediate-scale' era (NISQ)</li><li>True large-scale fault-tolerant quantum computing is years away</li></ul></section>
+
+<section data-transition="fade" class="divider-section"><div class="placeholder-watermark">PLACEHOLDER</div><p class="divider-tag">Part 3 of 6</p><h2>When does quantum help?</h2><div class="divider-line"></div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">The honest answer</h3><div class="cbox amber">Quantum computing offers speedup<br>for a small number of specific problem types.<br><br>For everything else, classical computers are better<br>&mdash; and will remain so.</div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Where quantum could matter</h3><p class="small" style="margin-bottom:18px">The four main application areas</p><div class="quad"><div class="quad-cell"><h5>Optimization</h5><p>Portfolio optimization, route planning, scheduling. Where you must search many combinations.</p></div><div class="quad-cell"><h5>Simulation</h5><p>Chemistry, materials, drug discovery. Simulating quantum systems is what quantum is built for.</p></div><div class="quad-cell"><h5>Cryptography</h5><p>Breaking RSA encryption (eventually). Also enabling new forms of secure communication.</p></div><div class="quad-cell"><h5>Machine learning</h5><p>Some specific ML problems may benefit. Most won&rsquo;t.</p></div></div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Finance applications worth knowing</h3><p class="small" style="margin-bottom:18px">What banks and asset managers are exploring</p><ul class="bullets"><li>Portfolio optimization &mdash; finding the best mix of assets under constraints</li><li>Monte Carlo simulation &mdash; valuing complex derivatives faster</li><li>Risk modelling &mdash; simulating many scenarios in parallel</li><li>Fraud detection &mdash; finding patterns in transaction graphs</li><li>All still experimental &mdash; no production systems beating classical at scale yet</li></ul></section>
+
+<section data-transition="fade" class="divider-section"><div class="placeholder-watermark">PLACEHOLDER</div><p class="divider-tag">Part 4 of 6</p><h2>The realistic timeline</h2><div class="divider-line"></div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Where we are now</h3><p class="small" style="margin-bottom:18px">Snapshot</p><ul class="bullets"><li>IBM, Google, IonQ, and others have working quantum computers</li><li>Largest systems have ~1000 qubits but high error rates</li><li>Quantum advantage demonstrated for narrow benchmark problems</li><li>No commercial application has beaten classical at scale yet</li><li>Active research, real progress, but no production systems</li></ul></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Why timelines keep slipping</h3><p class="small" style="margin-bottom:18px">A pattern worth recognising</p><ul class="bullets"><li>2015 forecasts: quantum advantage by 2020. Didn&rsquo;t happen.</li><li>2020 forecasts: useful quantum computers by 2025. Slipping.</li><li>Engineering challenges harder than expected (decoherence, error correction)</li><li>Breakthroughs in classical computing close some quantum advantages</li><li>Realistic horizon: 5&ndash;15 years for narrow useful applications, longer for general use</li></ul></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">The CEO question</h3><div class="cbox amber">'Should we invest in quantum computing now?'<br><br>For most businesses: no, not directly.<br>Watch the field. Have someone tracking it.<br>Don&rsquo;t bet the strategy on it.</div></section>
+
+<section data-transition="fade" class="divider-section"><div class="placeholder-watermark">PLACEHOLDER</div><p class="divider-tag">Part 5 of 6</p><h2>Post-quantum cryptography</h2><div class="divider-line"></div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">The crypto threat</h3><p class="small" style="margin-bottom:18px">One area where you should pay attention now</p><ul class="bullets"><li>Most internet encryption (RSA, ECC) relies on factoring being hard</li><li>Shor&rsquo;s algorithm &mdash; a quantum algorithm &mdash; can factor large numbers efficiently</li><li>Once a sufficiently large quantum computer exists, current encryption breaks</li><li>We&rsquo;re not there yet &mdash; but the threat is real and approaching</li><li>This is why governments and banks are preparing now</li></ul></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">"Harvest now, decrypt later"</h3><div class="cbox coral">An adversary can intercept encrypted data today,<br>store it,<br>and decrypt it years from now<br>when quantum computers are powerful enough.<br><br>For secrets that need to stay secret for decades,<br>the threat is already real.</div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">What organisations should do</h3><p class="small" style="margin-bottom:18px">The post-quantum migration</p><ul class="bullets"><li>NIST has standardised post-quantum cryptography algorithms (2024)</li><li>Inventory: which systems use what kinds of encryption?</li><li>Prioritise: long-lived secrets first (medical records, state secrets)</li><li>Plan migration: this will take 5&ndash;10 years for large organisations</li><li>Don&rsquo;t wait until the quantum computer exists &mdash; it&rsquo;s already too late by then</li></ul></section>
+
+<section data-transition="fade" class="divider-section"><div class="placeholder-watermark">PLACEHOLDER</div><p class="divider-tag">Part 6 of 6</p><h2>Reflection</h2><div class="divider-line"></div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Reflection</h3><p class="small" style="margin-bottom:18px">Discussion / activity</p>
+    <div class="activity-box">
+      <div class="prompt-box"><p class="label">Prompt:</p><p class="text">If you ran IT strategy for a Danish bank, what would you do about quantum computing in the next 12 months?</p></div>
+      <div class="inst-box"><p class="label">Instructions:</p><ul><li>Think individually for 2 minutes</li><li>Pair up and compare answers</li><li>Share with the room</li><li>I&rsquo;ll add what large banks are actually doing</li></ul></div>
+    </div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div>
+    <h3 style="color:var(--c-teal)">Session 4 &mdash; formative check</h3>
+    <div class="formative-box">
+      <p class="title"><strong>Reflection:</strong> Quantum readiness assessment for a chosen industry</p>
+      <p class="note">Formative &mdash; not graded.</p>
     </div>
-    <div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:12px;padding:16px 20px">
-      <p style="font-size:0.6em;font-weight:500;color:var(--c-teal);margin:0 0 6px">Faster knowledge work</p>
-      <p style="font-size:0.5em;color:var(--c-muted);margin:0;line-height:1.5">Research, analysis, drafting, and routine decision-making at machine speed</p>
+  </section>
+
+<section data-transition="fade">
+    <h2 style="margin-bottom:12px">Day 2 complete</h2>
+    <p style="font-size:0.65em;color:var(--c-muted);margin:0 0 20px">Tomorrow: Technology landscape synthesis (workshop)</p>
+    
+    <div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:12px;padding:20px 28px;display:inline-block;text-align:left">
+      <p style="font-size:0.55em;color:var(--c-muted);margin:0 0 6px">Prep for Wednesday:</p>
+      <p style="font-size:0.6em;color:var(--c-white);margin:0;line-height:1.6">Review all Week 1 materials</p>
     </div>
-  </div>
-</section>
+  </section>
+
+<section data-transition="zoom" data-background-color="#0a0d12">
+    <p style="font-family:var(--mono);font-size:0.5em;color:var(--c-dim);margin:0 0 8px;text-transform:uppercase;letter-spacing:0.15em">Wednesday 24 June &middot; 08:00 &ndash; 11:30</p>
+    <h1 style="margin:0 0 12px;font-size:2.2em">Day 3</h1>
+    <p style="font-size:0.7em;color:var(--c-teal);margin:0">Technology landscape synthesis (workshop)</p>
+  </section>
 
 <section data-transition="fade">
-  <h3 style="color:var(--c-teal);margin-bottom:8px">Agentic AI &mdash; business use cases</h3>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:680px;margin:0 auto;text-align:left">
-    <div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:12px;padding:14px 18px">
-      <p style="font-size:0.6em;font-weight:500;color:var(--c-white);margin:0 0 4px">Customer service resolution</p>
-      <p style="font-size:0.5em;color:var(--c-muted);margin:0">Agent reads ticket, checks order DB, issues refund, sends email &mdash; one workflow</p>
+    <p><span class="session-pill">S5</span><span class="tag tag-understand">Understand</span><span class="tag tag-analyze">Analyze</span></p>
+    <h1 style="margin:8px 0 12px;font-size:1.9em">Technology<br>landscape map</h1>
+    <p style="font-size:0.7em;color:var(--c-muted);margin:0">Week 1 synthesis</p>
+  </section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div>
+    <h3 style="color:var(--c-teal);margin-bottom:20px">Session 5 &mdash; Learning objectives</h3>
+    <div style="text-align:left;max-width:680px;margin:0 auto"><p style="font-size:0.62em;color:var(--c-white);margin:0 0 11px"><span style="font-family:var(--mono);font-size:0.7em;color:var(--c-teal);margin-right:12px">01</span>Integrate the four technology domains into a coherent conceptual map</p><p style="font-size:0.62em;color:var(--c-white);margin:0 0 11px"><span style="font-family:var(--mono);font-size:0.7em;color:var(--c-teal);margin-right:12px">02</span>Explain the dependencies and overlaps between technologies</p><p style="font-size:0.62em;color:var(--c-white);margin:0 0 11px"><span style="font-family:var(--mono);font-size:0.7em;color:var(--c-teal);margin-right:12px">03</span>Assess own understanding gaps before Week 2</p><p style="font-size:0.62em;color:var(--c-white);margin:0 0 11px"><span style="font-family:var(--mono);font-size:0.7em;color:var(--c-teal);margin-right:12px">04</span>Articulate what each technology can and cannot do &mdash; the 'honest brochure'</p></div>
+  </section>
+
+<section data-transition="fade" class="divider-section"><div class="placeholder-watermark">PLACEHOLDER</div><p class="divider-tag">Part 1 of 6</p><h2>Recap of the four domains</h2><div class="divider-line"></div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">What we&rsquo;ve covered this week</h3><div class="cbox teal">Two days, four technology domains.<br>Today we connect them and stress-test your understanding.<br><br>By the end of today, you should be able to explain<br>any of these to a non-technical executive.</div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">The four domains</h3><p class="small" style="margin-bottom:18px">One sentence each</p><ul class="bullets"><li>AI / ML / DL &mdash; systems that learn patterns from data</li><li>NLP / CV / GenAI / Agentic &mdash; application families built on ML</li><li>Data governance &mdash; the foundation that makes any of this work in production</li><li>Quantum computing &mdash; a different model of computation, useful for narrow problems</li></ul></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">How they relate</h3><p class="small" style="margin-bottom:18px">Dependencies, not rivals</p><div class="quad"><div class="quad-cell"><h5>Foundation</h5><p>Data governance underpins everything. No governance, no AI.</p></div><div class="quad-cell"><h5>Core</h5><p>AI/ML is the dominant set of techniques powering modern systems.</p></div><div class="quad-cell"><h5>Applications</h5><p>NLP, CV, GenAI, Agentic are application families built on ML.</p></div><div class="quad-cell"><h5>Wildcard</h5><p>Quantum is separate &mdash; a different model of computation, niche today.</p></div></div></section>
+
+<section data-transition="fade" class="divider-section"><div class="placeholder-watermark">PLACEHOLDER</div><p class="divider-tag">Part 2 of 6</p><h2>The honest brochure</h2><div class="divider-line"></div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">The exercise</h3><div class="cbox amber">For each technology, write the 'honest brochure':<br>What it can do. What it can&rsquo;t.<br>The kind of language a vendor won&rsquo;t use.<br><br>We&rsquo;ll do this together.</div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">AI / ML / DL: honest brochure</h3>
+    <div class="twocol">
+      <div class="col teal"><h4>What it can do</h4><ul><li>Find patterns in large datasets</li><li>Predict outcomes when patterns are stable</li><li>Classify, score, recommend, forecast</li><li>Automate routine cognitive tasks</li></ul></div>
+      <div class="col dim"><h4>What it can&rsquo;t do</h4><ul><li>Reason about novel situations</li><li>Adapt without retraining</li><li>Explain itself fully</li><li>Work without good data</li></ul></div>
+    </div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Generative AI: honest brochure</h3>
+    <div class="twocol">
+      <div class="col teal"><h4>What it can do</h4><ul><li>Draft documents, code, images, audio</li><li>Summarise long content</li><li>Translate and rephrase</li><li>Provide a fluent first version</li></ul></div>
+      <div class="col dim"><h4>What it can&rsquo;t do</h4><ul><li>Guarantee factual accuracy</li><li>Do reliable math</li><li>Know what it doesn&rsquo;t know</li><li>Replace expert judgment</li></ul></div>
+    </div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Agentic AI: honest brochure</h3>
+    <div class="twocol">
+      <div class="col teal"><h4>What it can do</h4><ul><li>Execute multi-step workflows</li><li>Use tools and external systems</li><li>Adapt plans when blocked</li><li>Automate end-to-end processes</li></ul></div>
+      <div class="col dim"><h4>What it can&rsquo;t do</h4><ul><li>Be trusted with irreversible actions</li><li>Maintain accuracy across many steps</li><li>Resist prompt injection reliably</li><li>Take responsibility for its decisions</li></ul></div>
+    </div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Data governance: honest brochure</h3>
+    <div class="twocol">
+      <div class="col teal"><h4>What it can do</h4><ul><li>Make data findable, usable, trustworthy</li><li>Enable AI projects to ship</li><li>Reduce regulatory risk</li><li>Create organisational accountability</li></ul></div>
+      <div class="col dim"><h4>What it can&rsquo;t do</h4><ul><li>Be done quickly</li><li>Be bolted on after the fact</li><li>Be replaced by better tools</li><li>Make a bad strategy good</li></ul></div>
+    </div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Quantum computing: honest brochure</h3>
+    <div class="twocol">
+      <div class="col teal"><h4>What it can do</h4><ul><li>Solve narrow optimization problems</li><li>Simulate quantum systems efficiently</li><li>Eventually break current encryption</li><li>Run experimental research workloads</li></ul></div>
+      <div class="col dim"><h4>What it can&rsquo;t do</h4><ul><li>Replace classical computing</li><li>Speed up most business problems</li><li>Run reliably at scale yet</li><li>Justify production investment today</li></ul></div>
+    </div></section>
+
+<section data-transition="fade" class="divider-section"><div class="placeholder-watermark">PLACEHOLDER</div><p class="divider-tag">Part 3 of 6</p><h2>Group workshop</h2><div class="divider-line"></div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Workshop instructions</h3><div class="cbox amber">Form groups of 4.<br>Each group gets a Technology Landscape Map template.<br>Fill in the connections between the four domains.<br>Where does data governance touch each one?<br>Where does AI depend on quantum (it doesn&rsquo;t &mdash; but say why).<br><br>You have 30 minutes.</div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Workshop instructions &mdash; the details</h3><p class="small" style="margin-bottom:18px">What to include in your map</p><ul class="bullets"><li>Each domain as a node</li><li>Dependencies as arrows (A needs B)</li><li>Data requirements for each (what kind, how much)</li><li>Maturity level (production-ready / experimental / research)</li><li>One real business example for each domain</li><li>One business question each domain answers</li></ul></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">&mdash; Workshop time &mdash;</h3><div class="cbox dim">30 minutes<br><br>I&rsquo;ll be circulating to answer questions.</div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Workshop wrap-up</h3><div class="cbox teal">When you&rsquo;re done:<br>Tape your map to the wall.<br>We&rsquo;ll do a gallery walk in 5 minutes.</div></section>
+
+<section data-transition="fade" class="divider-section"><div class="placeholder-watermark">PLACEHOLDER</div><p class="divider-tag">Part 4 of 6</p><h2>Gallery walk</h2><div class="divider-line"></div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Gallery walk instructions</h3><p class="small" style="margin-bottom:18px">How to learn from each other</p><ul class="bullets"><li>Each group leaves their map at their station</li><li>Everyone walks around and reads the other maps</li><li>Use sticky notes to leave questions or challenges</li><li>After 15 minutes, return to your map and read the notes</li><li>We&rsquo;ll discuss what stood out as a class</li></ul></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">&mdash; Gallery walk &mdash;</h3><div class="cbox dim">15 minutes</div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Class discussion</h3><p class="small" style="margin-bottom:18px">Discussion / activity</p>
+    <div class="activity-box">
+      <div class="prompt-box"><p class="label">Prompt:</p><p class="text">What did you see in other groups&rsquo; maps that surprised you? What did you disagree with?</p></div>
+      <div class="inst-box"><p class="label">Instructions:</p><ul><li>Open floor</li><li>I&rsquo;ll add common misconceptions I noticed during the walk</li><li>We&rsquo;ll resolve disagreements together</li></ul></div>
+    </div></section>
+
+<section data-transition="fade" class="divider-section"><div class="placeholder-watermark">PLACEHOLDER</div><p class="divider-tag">Part 5 of 6</p><h2>Common misconceptions to address</h2><div class="divider-line"></div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Misconceptions I see every year</h3><p class="small" style="margin-bottom:18px">Things that come up reliably</p><div class="quad"><div class="quad-cell warn"><h5>"Bigger model = better"</h5><p>Often false. The right model for the job, with good data, beats a giant generic model.</p></div><div class="quad-cell warn"><h5>"AI is objective"</h5><p>AI inherits the biases in its training data. 'Objective' is the opposite of how it works.</p></div><div class="quad-cell warn"><h5>"Quantum will replace AI"</h5><p>They solve different problems. Quantum won&rsquo;t make ML faster or more accurate.</p></div><div class="quad-cell warn"><h5>"Governance is bureaucracy"</h5><p>Governance is what makes AI possible at scale. Without it, you have prototypes, not products.</p></div></div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">More misconceptions</h3><div class="quad"><div class="quad-cell warn"><h5>"AI explains itself"</h5><p>Most modern AI (deep learning, LLMs) is a black box. Explainability is hard &mdash; and often inadequate.</p></div><div class="quad-cell warn"><h5>"Data privacy and AI are incompatible"</h5><p>They&rsquo;re in tension, but not incompatible. Federated learning, differential privacy exist.</p></div><div class="quad-cell warn"><h5>"Agentic AI = AGI"</h5><p>Agentic AI is multi-step LLMs with tools. It&rsquo;s not artificial general intelligence.</p></div><div class="quad-cell warn"><h5>"AI will plateau soon"</h5><p>Predicted many times. Hasn&rsquo;t happened yet. Don&rsquo;t bet on it either way.</p></div></div></section>
+
+<section data-transition="fade" class="divider-section"><div class="placeholder-watermark">PLACEHOLDER</div><p class="divider-tag">Part 6 of 6</p><h2>Preview & self-assessment</h2><div class="divider-line"></div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Preview: Week 2</h3><p class="small" style="margin-bottom:18px">Concepts give way to cases</p><ul class="bullets"><li>Every session is a paired success/failure case</li><li>Credit scoring &mdash; Upstart vs. Apple Card</li><li>Trading &mdash; Renaissance vs. Knight Capital</li><li>Supply chain &mdash; Maersk vs. COVID forecasting</li><li>GenAI &mdash; Klarna vs. Air Canada</li><li>Frontier tech &mdash; agentic AI + quantum</li><li>Cross-industry synthesis &mdash; building your framework</li></ul></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">What I expect of you next week</h3><div class="cbox teal">You now have the vocabulary.<br>Next week is about applying it.<br>Come ready to argue, disagree, and analyse.<br>There are no 'right answers' in the cases &mdash; only better and worse reasoning.</div></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div><h3 style="color:var(--c-teal);margin-bottom:8px">Self-assessment quiz</h3><p class="small" style="margin-bottom:18px">Five questions to check your readiness</p><ul class="bullets"><li>1. What&rsquo;s the difference between supervised and unsupervised learning?</li><li>2. Why do LLMs hallucinate?</li><li>3. Name two risks of agentic AI in business contexts</li><li>4. Why does AI need data governance?</li><li>5. When does quantum computing offer a real advantage?</li></ul></section>
+
+<section data-transition="fade"><div class="placeholder-watermark">PLACEHOLDER</div>
+    <h3 style="color:var(--c-teal)">Session 5 &mdash; formative check</h3>
+    <div class="formative-box">
+      <p class="title"><strong>Technology Landscape Map</strong> (group) + self-assessment quiz</p>
+      <p class="note">Formative &mdash; not graded.</p>
     </div>
-    <div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:12px;padding:14px 18px">
-      <p style="font-size:0.6em;font-weight:500;color:var(--c-white);margin:0 0 4px">Financial research & reporting</p>
-      <p style="font-size:0.5em;color:var(--c-muted);margin:0">Pulls earnings data, summarises filings, generates draft analyst report</p>
-    </div>
-    <div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:12px;padding:14px 18px">
-      <p style="font-size:0.6em;font-weight:500;color:var(--c-white);margin:0 0 4px">Coding & development</p>
-      <p style="font-size:0.5em;color:var(--c-muted);margin:0">Reads codebase, identifies bug, writes fix, runs tests, opens pull request</p>
-    </div>
-    <div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:12px;padding:14px 18px">
-      <p style="font-size:0.6em;font-weight:500;color:var(--c-white);margin:0 0 4px">Compliance & due diligence</p>
-      <p style="font-size:0.5em;color:var(--c-muted);margin:0">Reviews contracts, flags risks, cross-checks against regulations, drafts memos</p>
-    </div>
-  </div>
-</section>
-
-<section data-transition="fade">
-  <h3 style="color:var(--c-teal);margin-bottom:8px">Agentic AI &mdash; pitfalls</h3>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:680px;margin:0 auto;text-align:left">
-    <div style="background:var(--c-surface);border:1px solid rgba(227,75,74,0.3);border-radius:12px;padding:14px 18px">
-      <p style="font-size:0.6em;font-weight:500;color:#F09595;margin:0 0 4px">Compounding errors</p>
-      <p style="font-size:0.5em;color:var(--c-muted);margin:0">A 95%-accurate step run 10 times is 60% accurate end-to-end. Long workflows fail silently.</p>
-    </div>
-    <div style="background:var(--c-surface);border:1px solid rgba(227,75,74,0.3);border-radius:12px;padding:14px 18px">
-      <p style="font-size:0.6em;font-weight:500;color:#F09595;margin:0 0 4px">Real-world side effects</p>
-      <p style="font-size:0.5em;color:var(--c-muted);margin:0">Agents that act on real systems can issue refunds, send emails, or delete files in error</p>
-    </div>
-    <div style="background:var(--c-surface);border:1px solid rgba(227,75,74,0.3);border-radius:12px;padding:14px 18px">
-      <p style="font-size:0.6em;font-weight:500;color:#F09595;margin:0 0 4px">Prompt injection & tool abuse</p>
-      <p style="font-size:0.5em;color:var(--c-muted);margin:0">Malicious instructions in fetched content can hijack the agent&rsquo;s tools</p>
-    </div>
-    <div style="background:var(--c-surface);border:1px solid rgba(227,75,74,0.3);border-radius:12px;padding:14px 18px">
-      <p style="font-size:0.6em;font-weight:500;color:#F09595;margin:0 0 4px">Accountability gap</p>
-      <p style="font-size:0.5em;color:var(--c-muted);margin:0">When an autonomous agent makes a bad decision, who is responsible? Legal frameworks are unclear.</p>
-    </div>
-  </div>
-  <p style="font-size:0.5em;color:var(--c-dim);margin:16px 0 0;text-align:center">Rule of thumb: human-in-the-loop wherever the action is irreversible, costly, or regulated</p>
-</section>
-
-<section data-transition="fade">
-  <h3 style="color:var(--c-teal);margin-bottom:8px">Session 2 &mdash; formative check</h3>
-  <div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:16px;padding:28px 32px;text-align:left;max-width:560px;margin:0 auto">
-    <p style="font-size:0.65em;color:var(--c-white);margin:0 0 12px"><strong>Classification + autonomy exercise:</strong> Match use cases to application families, then decide which need human-in-the-loop</p>
-    <p style="font-size:0.55em;color:var(--c-muted);margin:0">Formative &mdash; not graded.</p>
-  </div>
-</section>
-
-<section data-transition="fade">
-  <h2 style="margin-bottom:12px">Day 1 complete</h2>
-  <p style="font-size:0.65em;color:var(--c-muted);margin:0 0 20px">Tomorrow: Quantum computing + Data governance</p>
-  <div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:12px;padding:20px 28px;display:inline-block;text-align:left">
-    <p style="font-size:0.55em;color:var(--c-muted);margin:0 0 6px">Prep for Tuesday:</p>
-    <p style="font-size:0.6em;color:var(--c-white);margin:0">Quantum computing primer (Canvas)</p>
-    <p style="font-size:0.6em;color:var(--c-white);margin:4px 0 0">DAMA-DMBOK overview (Canvas)</p>
-  </div>
-</section>
-
-<!-- ═══ DAY 2: S3 + S4 ═══ -->
-
-<section data-transition="zoom" data-background-color="#0f1920">
-  <p style="font-family:var(--mono);font-size:0.5em;color:var(--c-dim);margin:0 0 8px;text-transform:uppercase;letter-spacing:0.1em">Tuesday 23 June &middot; 08:00 &ndash; 11:30</p>
-  <h1 style="margin:0 0 12px;font-size:2em">Day 2</h1>
-  <p style="font-size:0.7em;color:var(--c-teal);margin:0">Quantum computing + Data governance</p>
-</section>
-
-<section data-transition="fade">
-  <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px"><span style="font-family:var(--mono);font-size:0.5em;background:var(--c-teal);color:var(--c-bg);padding:4px 14px;border-radius:8px;font-weight:500">S3</span><span class="tag tag-understand">Understand</span><span class="tag tag-evaluate">Evaluate</span></div>
-  <h1 style="margin:8px 0 12px;font-size:2em">Quantum computing</h1>
-  <p style="font-size:0.7em;color:var(--c-muted);margin:0">Concepts, promise & realistic outlook</p>
-</section>
-
-<section data-transition="fade">
-  <h3 style="color:var(--c-teal);margin-bottom:20px">Session 3 &mdash; Learning objectives</h3>
-  <div style="text-align:left;max-width:640px;margin:0 auto">
-    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px"><span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">01</span><p style="font-size:0.65em;margin:0;color:var(--c-white)">Explain qubits, superposition, and entanglement using visual analogies</p></div>
-    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px"><span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">02</span><p style="font-size:0.65em;margin:0;color:var(--c-white)">Describe the difference between classical and quantum computation</p></div>
-    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px"><span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">03</span><p style="font-size:0.65em;margin:0;color:var(--c-white)">Identify finance applications: portfolio optimization, Monte Carlo, cryptography</p></div>
-    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px"><span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">04</span><p style="font-size:0.65em;margin:0;color:var(--c-white)">Evaluate the realistic timeline for quantum advantage in business</p></div>
-    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px"><span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">05</span><p style="font-size:0.65em;margin:0;color:var(--c-white)">Explain post-quantum cryptography and why organisations need to prepare now</p></div>
-  </div>
-</section>
-
-<section data-transition="fade"><h3 style="color:var(--c-teal);margin-bottom:8px">Quantum computing for non-physicists</h3><p class="small" style="margin-bottom:24px">Placeholder</p><div style="width:560px;height:280px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center"><p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ Classical bit: 0 or 1<br>Qubit: both until measured ]</p></div></section>
-<section data-transition="fade"><h3 style="color:var(--c-teal);margin-bottom:8px">Classical vs. quantum: portfolio optimization</h3><p class="small" style="margin-bottom:24px">Placeholder</p><div style="width:560px;height:280px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center"><p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ Classical: try combinations one by one<br>Quantum: explore many paths simultaneously ]</p></div></section>
-<section data-transition="fade"><h3 style="color:var(--c-teal);margin-bottom:8px">Quantum timeline exercise</h3><p class="small" style="margin-bottom:24px">Placeholder</p><div style="width:560px;height:260px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center"><p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ Now &middot; 2y &middot; 5y &middot; 10y &middot; 20y<br>Place: error correction, quantum advantage, crypto threat ]</p></div></section>
-<section data-transition="fade"><h3 style="color:var(--c-teal);margin-bottom:8px">Post-quantum cryptography</h3><p class="small" style="margin-bottom:24px">Placeholder</p><div style="width:520px;height:260px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center"><p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ "Harvest now, decrypt later" threat<br>NIST post-quantum standards ]</p></div></section>
-
-<section data-transition="fade">
-  <h3 style="color:var(--c-teal);margin-bottom:8px">Session 3 &mdash; formative check</h3>
-  <div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:16px;padding:28px 32px;text-align:left;max-width:560px;margin:0 auto">
-    <p style="font-size:0.65em;color:var(--c-white);margin:0 0 12px"><strong>Reflection:</strong> Quantum readiness assessment for a chosen industry</p>
-    <p style="font-size:0.55em;color:var(--c-muted);margin:0">Formative &mdash; not graded.</p>
-  </div>
-</section>
-
-<section data-transition="fade" data-background-color="#0f1920">
-  <p style="font-size:1.2em;color:var(--c-dim);margin:0 0 8px">~15 minute break</p>
-  <p style="font-size:0.6em;color:var(--c-dim);margin:0">Session 4 starts shortly</p>
-</section>
-
-<section data-transition="fade">
-  <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px"><span style="font-family:var(--mono);font-size:0.5em;background:var(--c-teal);color:var(--c-bg);padding:4px 14px;border-radius:8px;font-weight:500">S4</span><span class="tag tag-understand">Understand</span></div>
-  <h1 style="margin:8px 0 12px;font-size:2em">Data management,<br>governance & the<br>data-to-AI pipeline</h1>
-</section>
-
-<section data-transition="fade">
-  <h3 style="color:var(--c-teal);margin-bottom:20px">Session 4 &mdash; Learning objectives</h3>
-  <div style="text-align:left;max-width:640px;margin:0 auto">
-    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px"><span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">01</span><p style="font-size:0.65em;margin:0;color:var(--c-white)">Explain core concepts: governance, stewardship, master data management, metadata, catalogues</p></div>
-    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px"><span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">02</span><p style="font-size:0.65em;margin:0;color:var(--c-white)">Describe the DAMA-DMBOK framework</p></div>
-    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px"><span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">03</span><p style="font-size:0.65em;margin:0;color:var(--c-white)">Explain the full data-to-AI pipeline: raw data through governance gates to deployment</p></div>
-    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px"><span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">04</span><p style="font-size:0.65em;margin:0;color:var(--c-white)">Compare centralised (CDO model) vs. federated (data mesh) governance</p></div>
-    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px"><span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">05</span><p style="font-size:0.65em;margin:0;color:var(--c-white)">Describe how GDPR and EU AI Act impose data quality and traceability requirements</p></div>
-  </div>
-</section>
-
-<section data-transition="fade"><h3 style="color:var(--c-teal);margin-bottom:8px">The data governance stack</h3><p class="small" style="margin-bottom:24px">Placeholder</p><div style="width:560px;height:280px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center"><p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ Policies &rarr; Roles &rarr; Processes &rarr; Technology ]</p></div></section>
-<section data-transition="fade"><h3 style="color:var(--c-teal);margin-bottom:8px">Data-to-AI pipeline walkthrough</h3><p class="small" style="margin-bottom:24px">Placeholder</p><div style="width:600px;height:280px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center"><p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ Source &rarr; Ingest &rarr; Quality gate &rarr; Transform<br>&rarr; Feature store &rarr; Train &rarr; Validate &rarr; Deploy ]</p></div></section>
-<section data-transition="fade"><h3 style="color:var(--c-teal);margin-bottom:8px">Centralised vs. federated governance</h3><p class="small" style="margin-bottom:24px">Placeholder</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:560px;margin:0 auto"><div style="border:1px dashed var(--c-dim);border-radius:12px;padding:20px;text-align:center"><p style="font-size:0.65em;color:var(--c-teal);margin:0 0 6px;font-weight:500">Centralised (CDO)</p><p style="font-size:0.5em;color:var(--c-dim);margin:0">Single authority<br>Consistency<br>Slower to scale</p></div><div style="border:1px dashed var(--c-dim);border-radius:12px;padding:20px;text-align:center"><p style="font-size:0.65em;color:var(--c-teal);margin:0 0 6px;font-weight:500">Federated (data mesh)</p><p style="font-size:0.5em;color:var(--c-dim);margin:0">Domain ownership<br>Agility<br>Harder to coordinate</p></div></div></section>
-<section data-transition="fade"><h3 style="color:var(--c-teal);margin-bottom:8px">Why should a CEO care?</h3><p class="small" style="margin-bottom:24px">Placeholder</p><div style="width:520px;height:260px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center"><p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ Two organisations: mature vs. absent governance<br>Predict which succeeds at AI<br>Governance = advantage, not compliance ]</p></div></section>
-
-<section data-transition="fade">
-  <h3 style="color:var(--c-teal);margin-bottom:8px">Session 4 &mdash; formative check</h3>
-  <div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:16px;padding:28px 32px;text-align:left;max-width:560px;margin:0 auto">
-    <p style="font-size:0.65em;color:var(--c-white);margin:0 0 12px"><strong>Governance gap analysis:</strong> Identify missing controls in a described organisation</p>
-    <p style="font-size:0.55em;color:var(--c-muted);margin:0">Formative &mdash; not graded.</p>
-  </div>
-</section>
-
-<section data-transition="fade">
-  <h2 style="margin-bottom:12px">Day 2 complete</h2>
-  <p style="font-size:0.65em;color:var(--c-muted);margin:0 0 20px">Tomorrow: Technology landscape synthesis</p>
-  <div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:12px;padding:20px 28px;display:inline-block;text-align:left">
-    <p style="font-size:0.55em;color:var(--c-muted);margin:0 0 6px">Prep for Wednesday:</p>
-    <p style="font-size:0.6em;color:var(--c-white);margin:0">Review all Week 1 materials</p>
-  </div>
-</section>
-
-<!-- ═══ DAY 3: S5 ═══ -->
-
-<section data-transition="zoom" data-background-color="#0f1920">
-  <p style="font-family:var(--mono);font-size:0.5em;color:var(--c-dim);margin:0 0 8px;text-transform:uppercase;letter-spacing:0.1em">Wednesday 24 June &middot; 08:00 &ndash; 11:30</p>
-  <h1 style="margin:0 0 12px;font-size:2em">Day 3</h1>
-  <p style="font-size:0.7em;color:var(--c-teal);margin:0">Technology landscape synthesis</p>
-</section>
-
-<section data-transition="fade">
-  <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px"><span style="font-family:var(--mono);font-size:0.5em;background:var(--c-teal);color:var(--c-bg);padding:4px 14px;border-radius:8px;font-weight:500">S5</span><span class="tag tag-understand">Understand</span><span class="tag tag-analyze">Analyze</span></div>
-  <h1 style="margin:8px 0 12px;font-size:2em">Technology<br>landscape map</h1>
-  <p style="font-size:0.7em;color:var(--c-muted);margin:0">Week 1 synthesis</p>
-</section>
-
-<section data-transition="fade">
-  <h3 style="color:var(--c-teal);margin-bottom:20px">Session 5 &mdash; Learning objectives</h3>
-  <div style="text-align:left;max-width:640px;margin:0 auto">
-    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px"><span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">01</span><p style="font-size:0.65em;margin:0;color:var(--c-white)">Integrate the four technology domains into a coherent conceptual map</p></div>
-    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px"><span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">02</span><p style="font-size:0.65em;margin:0;color:var(--c-white)">Explain the dependencies and overlaps between technologies</p></div>
-    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px"><span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">03</span><p style="font-size:0.65em;margin:0;color:var(--c-white)">Assess own understanding gaps before Week 2</p></div>
-    <div style="display:flex;gap:12px;align-items:start;margin:0 0 14px"><span style="font-family:var(--mono);font-size:0.5em;color:var(--c-teal);min-width:20px;margin-top:2px">04</span><p style="font-size:0.65em;margin:0;color:var(--c-white)">Articulate what each technology can and cannot do &mdash; the "honest brochure"</p></div>
-  </div>
-</section>
-
-<section data-transition="fade"><h3 style="color:var(--c-teal);margin-bottom:8px">Group workshop: build the map</h3><p class="small" style="margin-bottom:24px">Placeholder</p><div style="width:600px;height:300px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center"><p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ AI/ML &mdash; NLP/CV &mdash; GenAI/Agentic ]<br>[ Quantum ] &larr;&rarr; [ Data governance ]<br>Template provided &middot; groups fill in</p></div></section>
-
-<section data-transition="fade"><h3 style="color:var(--c-teal);margin-bottom:8px">Gallery walk</h3><p class="small" style="margin-bottom:24px">Placeholder</p><div style="width:520px;height:260px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center"><p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ Rotate between maps<br>Add sticky-note questions ]</p></div></section>
-
-<section data-transition="fade"><h3 style="color:var(--c-teal);margin-bottom:8px">Preview: Week 2</h3><p class="small" style="margin-bottom:24px">How these concepts play out in real industry</p><div style="width:520px;height:260px;margin:0 auto;border:1px dashed var(--c-dim);border-radius:16px;display:flex;align-items:center;justify-content:center"><p style="font-size:0.6em;color:var(--c-dim);margin:0;text-align:center">[ Next week: every session is a case study<br>Success vs. failure, same technology ]</p></div></section>
-
-<section data-transition="fade">
-  <h3 style="color:var(--c-teal);margin-bottom:8px">Session 5 &mdash; formative check</h3>
-  <div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:16px;padding:28px 32px;text-align:left;max-width:560px;margin:0 auto">
-    <p style="font-size:0.65em;color:var(--c-white);margin:0 0 12px"><strong>Technology Landscape Map</strong> (group) + self-assessment quiz</p>
-    <p style="font-size:0.55em;color:var(--c-muted);margin:0">Formative &mdash; not graded. Confirms readiness for Week 2.</p>
-  </div>
-</section>
+  </section>
 
 <section data-transition="fade">
   <h2 style="margin-bottom:12px">Week 1 complete</h2>
   <p style="font-size:0.65em;color:var(--c-muted);margin:0 0 8px">You can now explain every major technology to a non-expert.</p>
   <p style="font-size:0.65em;color:var(--c-amber);margin:0 0 20px">Next week: how does this play out in real companies?</p>
+  <div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:12px;padding:20px 28px;display:inline-block;text-align:left">
+    <p style="font-size:0.55em;color:var(--c-muted);margin:0 0 6px">Prep for Monday 29 Jun:</p>
+    <p style="font-size:0.6em;color:var(--c-white);margin:0;line-height:1.6">AI in credit risk readings (Canvas)<br>Algorithmic trading readings (Canvas)</p>
+  </div>
 </section>
-
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reveal.min.js"></script>
